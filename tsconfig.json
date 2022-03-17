@@ -21,8 +21,17 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      /* Common modules */
+      "@app/*": [ "src/app/*" ],
+      "@services/*": [ "src/app/services/*" ],
+      "@models/*": [ "src/app/shared/models/*" ],
+      "@forms/*": [ "src/app/shared/forms/*" ],
+      "@state/*": [ "src/app/state/*" ],
+    },
   },
+
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
