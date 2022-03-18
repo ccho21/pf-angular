@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
     // this.posts$ = store.select('posts');
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
     // this.postService.getPosts();
   }
 }
