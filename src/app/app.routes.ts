@@ -14,11 +14,22 @@ import { Routes } from '@angular/router';
 // import { AuthGuard } from './core/guard/auth.guard';
 // import { AboutComponent } from './components/about/about.component';
 
-import { MainComponent } from '@app/pages/main/main.component';
+// import { MainComponent } from '@app/pages/main/main.component';
 
 export const rootRouterConfig: Routes = [
   {
-    path: '', component: MainComponent, pathMatch: 'full'
+    path: '',
+    redirectTo: '/posts',
+    pathMatch: 'full',
+  },
+  {
+    path: 'posts',
+    loadChildren: () =>
+      import('./posts/posts.module').then((m) => m.PostsModule),
+  },
+  {
+    path: '**',
+    redirectTo: '/',
   },
   // {
   //   path: 'about',

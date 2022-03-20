@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { PostService } from '@app/posts/services/post.service';
 
-import { Post } from '@app/shared/models/post.model';
+import { Post } from '@app/posts/model/post';
 
 @Component({
   selector: 'app-main',
