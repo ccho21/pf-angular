@@ -5,7 +5,6 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment.prod';
 
-import { postsReducer } from './state/posts.reducer';
 import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,7 +13,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { MainComponent } from './pages/main/main.component';
-import { PostsComponent } from './layouts/posts/posts.component';
+import { PostsComponent } from './posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { PostsComponent } from './layouts/posts/posts.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ posts: postsReducer }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
   ],

@@ -18,7 +18,7 @@ import { of, Subscription, from, forkJoin, Observable } from 'rxjs';
 // import { Router, ActivatedRoute } from '@angular/router';
 // import { PostStateService } from '../post-state.service';
 
-import { PostService } from '@services/post.service';
+import { PostService } from '@app/posts/services/post.service';
 import { Post } from '@app/shared/models/post.model';
 // import { LikeService } from '@app/core/services/like/like.service';
 // import { concatMap, toArray } from 'rxjs/operators';
