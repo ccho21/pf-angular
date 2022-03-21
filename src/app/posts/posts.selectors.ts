@@ -11,13 +11,8 @@ export const selectPostsState =
 
 export const selectAllPosts = createSelector(
     selectPostsState,
-    fromPosts.selectAll
+    fromPosts.selectAllPosts
 );
-
-// export const selectBeginnerPosts = createSelector(
-//     selectAllPosts,
-//     posts => posts.filter(post => post.category == 'BEGINNER')
-// );
 
 
 export const arePostsLoaded = createSelector(

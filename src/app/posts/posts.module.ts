@@ -9,17 +9,19 @@ import {
 import { comparePosts, Post } from './model/post';
 
 // import { compareLessons, Lesson } from './model/lesson';
-// import { PostsResolver } from './posts.resolver';
+import { PostsResolver } from './posts.resolver';
 import { EffectsModule } from '@ngrx/effects';
-// import { PostsEffects } from './posts.effects';
+import { PostsEffects } from './posts.effects';
 import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './reducers/post.reducers';
 import { HomeComponent } from './home/home.component';
-
 export const postsRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    resolve: {
+      posts: PostsResolver,
+    },
   },
 ];
 
@@ -27,13 +29,13 @@ export const postsRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(postsRoutes),
-    // EffectsModule.forFeature([PostsEffects]),
+    EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
   ],
   declarations: [HomeComponent],
   exports: [],
   entryComponents: [],
-  providers: [],
+  providers: [PostsResolver],
 })
 export class PostsModule {
   constructor() {}

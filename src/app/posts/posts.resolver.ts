@@ -21,11 +21,14 @@ export class PostsResolver implements Resolve<any> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
+    console.log('##### route #####', route);
+    console.log('##### state #####', state);
     return this.store.pipe(
       select(arePostsLoaded),
       tap((postsLoaded) => {
-        console.log('POST LOADED IN RESOLVER', postsLoaded);
+        console.log('TAP Posts are loaded', postsLoaded);
         if (!this.loading && !postsLoaded) {
+          console.log('**[POST Resolver]: LOADED IN RESOLVER', postsLoaded);
           this.loading = true;
           this.store.dispatch(loadAllPosts());
         }

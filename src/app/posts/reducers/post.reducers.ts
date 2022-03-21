@@ -19,11 +19,12 @@ export const postsReducer = createReducer(
   initialPostsState,
 
   on(PostActions.allPostsLoaded, (state, action) =>
-    adapter.addMany(action.posts, { ...state, allPostsLoaded: true })
+    adapter.setAll(action.posts, state)
   )
-
-  // on(PostActions.postUpdated, (state, action) =>
-  //     adapter.updateOne(action.update, state) )
 );
 
-export const { selectAll } = adapter.getSelectors();
+// get properties that are storred in selectors
+const { selectAll } = adapter.getSelectors();
+
+// change its name to make this more readable
+export const selectAllPosts = selectAll;

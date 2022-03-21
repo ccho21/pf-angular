@@ -11,6 +11,7 @@ import { convertSnaps } from './db-utils';
 export class PostService {
   constructor(private afs: AngularFirestore) {}
   loadPosts(): Observable<Post[]> {
+    console.log("[POST service]:  get collection");
     return this.afs
       .collection('posts')
       .get()
