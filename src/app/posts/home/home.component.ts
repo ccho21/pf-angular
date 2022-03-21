@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     console.log('############ POST LIST #############');
     this.reload();
+    this.postsService.addHomeScore();
   }
   reload() {
     console.log('RELOAD APP');
