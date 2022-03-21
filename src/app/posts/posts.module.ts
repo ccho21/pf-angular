@@ -13,13 +13,13 @@ import { comparePosts, Post } from './model/post';
 import { EffectsModule } from '@ngrx/effects';
 // import { PostsEffects } from './posts.effects';
 import { StoreModule } from '@ngrx/store';
-import { postsReducer } from './reducers/post.reducer';
-import { PostsComponent } from './posts.component';
+import { postsReducer } from './reducers/post.reducers';
+import { HomeComponent } from './home/home.component';
 
 export const postsRoutes: Routes = [
   {
     path: '',
-    component: PostsComponent,
+    component: HomeComponent,
   },
 ];
 
@@ -30,7 +30,7 @@ export const postsRoutes: Routes = [
     // EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
   ],
-  declarations: [PostsComponent],
+  declarations: [HomeComponent],
   exports: [],
   entryComponents: [],
   providers: [],

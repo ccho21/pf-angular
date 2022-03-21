@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { PostService } from '@app/posts/services/post.service';
+import { PostService } from '@app/services/post.service';
 
 import { Post } from '@app/posts/model/post';
 

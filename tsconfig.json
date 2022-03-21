@@ -25,10 +25,8 @@
     "paths": {
       /* Common modules */
       "@app/*": [ "src/app/*" ],
-      "@services/*": [ "src/app/posts/services/*" ],
-      "@models/*": [ "src/app/shared/models/*" ],
-      "@forms/*": [ "src/app/shared/forms/*" ],
-      "@state/*": [ "src/app/state/*" ],
+      "@services/*": [ "src/app/services/*" ],
+      "@posts/*": [ "src/app/posts/*" ],
     },
   },
 
@@ -37,5 +35,5 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
 }
