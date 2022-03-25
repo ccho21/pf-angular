@@ -20,6 +20,9 @@ import { PostsEffects } from './posts.effects';
 import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './reducers/post.reducers';
 import { HomeComponent } from './home/home.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { MaterialModule } from '@app/material.module';
+
 export const postsRoutes: Routes = [
   {
     path: '',
@@ -36,14 +39,9 @@ export const postsRoutes: Routes = [
     RouterModule.forChild(postsRoutes),
     EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
-    MatMenuModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatProgressSpinnerModule,
-    MatListModule,
-    MatToolbarModule,
+    MaterialModule
   ],
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, PostListComponent],
   exports: [],
   entryComponents: [],
   providers: [PostsResolver],

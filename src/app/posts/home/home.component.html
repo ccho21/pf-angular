@@ -1,4 +1,4 @@
-<p>home works!</p>
-<div *ngFor="let post of posts$ | async">
-  {{ post.firstname }}
+<div class="container">
+  <h1>This is the post list page</h1>
+  <app-post-list [posts]="posts$ | async"></app-post-list>
 </div>

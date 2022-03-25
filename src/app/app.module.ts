@@ -12,13 +12,7 @@ import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from './reducers';
 
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { MaterialModule } from './material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
@@ -26,20 +20,21 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { NavigationComponent } from './layouts/navigation/navigation.component';
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    FooterComponent,
+    HeaderComponent,
+    NavigationComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthModule.forRoot(),
     HttpClientModule,
-    MatMenuModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatProgressSpinnerModule,
-    MatListModule,
-    MatToolbarModule,
+    MaterialModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
