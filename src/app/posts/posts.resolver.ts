@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../reducers';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, tap } from 'rxjs/operators';
-import { loadAllPosts } from './post.actions';
+// import { loadAllPosts } from './post.actions';
 import { arePostsLoaded } from './posts.selectors';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class PostsResolver implements Resolve<any> {
         );
         if (!this.loading && !postsLoaded) {
           this.loading = true;
-          this.store.dispatch(loadAllPosts());
+          // this.store.dispatch(loadAllPosts());
         }
       }),
       filter((postsLoaded) => postsLoaded),

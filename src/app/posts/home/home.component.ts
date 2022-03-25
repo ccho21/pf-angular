@@ -17,10 +17,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     console.log('############ POST LIST #############');
     this.reload();
-    this.postsService.addHomeScore();
+    // this.postsService.addHomeScore();
   }
   reload() {
     console.log('RELOAD APP');
-    this.posts$ = this.store.pipe(select(selectAllPosts));
+    // this.posts$ = this.store.pipe(select(selectAllPosts));
   }
 }

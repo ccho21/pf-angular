@@ -19,9 +19,9 @@ export const postsRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    resolve: {
-      posts: PostsResolver,
-    },
+    // resolve: {
+    //   posts: PostsResolver,
+    // },
   },
 ];
 
@@ -29,7 +29,7 @@ export const postsRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(postsRoutes),
-    EffectsModule.forFeature([PostsEffects]),
+    // EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
   ],
   declarations: [HomeComponent],

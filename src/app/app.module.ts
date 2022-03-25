@@ -5,8 +5,8 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import {HttpClientModule} from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { environment } from 'src/environments/environment';
 
@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from './reducers';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { HeaderComponent } from './layouts/header/header.component';
@@ -23,7 +24,8 @@ import { HeaderComponent } from './layouts/header/header.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
+    AuthModule.forRoot(),
+    HttpClientModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -33,12 +35,12 @@ import { HeaderComponent } from './layouts/header/header.component';
         strictStateSerializability: true,
       },
     }),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 // import { AuthGuard } from "../../shared/guard/auth.guard";
 
 // import { MainComponent } from './containers/main/main.component';
@@ -26,6 +27,7 @@ export const rootRouterConfig: Routes = [
     path: 'posts',
     loadChildren: () =>
       import('./posts/posts.module').then((m) => m.PostsModule),
+    canActivate: [AuthGuard],
   },
   {
     path: '**',

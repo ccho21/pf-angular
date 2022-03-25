@@ -17,15 +17,15 @@ export const initialPostsState = adapter.getInitialState({
 export const postsReducer = createReducer(
   initialPostsState,
 
-  on(PostActions.allPostsLoaded, (state, action) => {
-    console.log('[### POST REDUCER] : ');
-    return adapter.setAll(action.posts, { ...state, allPostsLoaded: true });
-  }),
+  // on(PostActions.allPostsLoaded, (state, action) => {
+  //   console.log('[### POST REDUCER] : ');
+  //   return adapter.setAll(action.posts, { ...state, allPostsLoaded: true });
+  // }),
   
-  on(PostActions.homeScore, (state) => ({
-    ...state,
-    home: state.home + 1,
-  }))
+  // on(PostActions.homeScore, (state) => ({
+  //   ...state,
+  //   home: state.home + 1,
+  // }))
 );
 
 // get properties that are storred in selectors
