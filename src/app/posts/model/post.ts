@@ -3,7 +3,7 @@ import { Comment } from '@app/shared/models/comment';
 import { Like } from '../../shared/models/like';
 export interface Post {
   _id: string;
-  author: User;
+  author?: User;
   content: string;
   firstname: string;
   lastname: string;
@@ -11,6 +11,6 @@ export interface Post {
   avatar: string;
   likes?: Array<string>;
   comments?: Array<string>;
-  createdAt: string;
+  createdAt?: string;
   updatedAt?: string;
 }

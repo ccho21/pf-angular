@@ -11,8 +11,11 @@ import { selectAllPosts } from '../posts.selectors';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  posts$: Observable<Post[]>;
-  constructor(private store: Store<AppState>, private postsService: PostService) {}
+  posts$!: Observable<Post[]>;
+  constructor(
+    private store: Store<AppState>,
+    private postsService: PostService
+  ) {}
 
   ngOnInit() {
     console.log('############ POST LIST #############');
