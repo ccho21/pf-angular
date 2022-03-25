@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { from, Observable } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { concatMap, switchMap, tap } from 'rxjs/operators';
 
 import { AuthActions } from './action-types';
+import { AuthService } from './auth.service';
+import { User } from './model/user';
+import { login } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -15,9 +18,10 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.login),
-        tap((action) =>
-          localStorage.setItem('user', JSON.stringify(action.user))
-        )
+        tap((action) => {
+          // console.log('ACTION', action);
+          this.router.navigateByUrl('/posts');
+        })
       ),
     { dispatch: false }
   );
@@ -27,6 +31,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.logout),
         tap((action) => {
+          // console.log('LOG OUT EFFECT', action);
           localStorage.removeItem('user');
           this.router.navigateByUrl('/login');
         })
@@ -34,5 +39,8 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  constructor(private actions$: Actions, private router: Router) {}
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+  ) {}
 }

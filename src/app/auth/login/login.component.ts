@@ -22,8 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private store: Store<AppState>
+    private router: Router
   ) {
     this.form = fb.group({
       email: ['test@test.com', [Validators.required]],
@@ -31,20 +30,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   login() {
     const val = this.form.value;
 
-    this.authService
-      .login(val.email, val.password)
-      .pipe(
-        tap((user) => {
-          console.log('### login', user);
-          this.store.dispatch(login({ user }));
-          this.router.navigateByUrl('/courses');
-        })
-      )
-      .subscribe(noop, () => alert('Login Failed'));
+    this.authService.login(val.email, val.password).subscribe({
+      next: () => {
+        // this.router.navigateByUrl('/posts');
+      },
+      error: (error) => {
+        console.log(error);
+        // error.errors.forEach((cur: any) => {
+        //   alert(cur.msg);
+        // });
+      },
+    });
   }
 }

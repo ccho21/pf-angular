@@ -6,9 +6,14 @@ import {
   EntityDefinitionService,
   EntityMetadataMap,
 } from '@ngrx/data';
-import { comparePosts, Post } from './model/post';
 
-// import { compareLessons, Lesson } from './model/lesson';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { PostsResolver } from './posts.resolver';
 import { EffectsModule } from '@ngrx/effects';
 import { PostsEffects } from './posts.effects';
@@ -19,9 +24,9 @@ export const postsRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    // resolve: {
-    //   posts: PostsResolver,
-    // },
+    resolve: {
+      posts: PostsResolver,
+    },
   },
 ];
 
@@ -29,8 +34,14 @@ export const postsRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(postsRoutes),
-    // EffectsModule.forFeature([PostsEffects]),
+    EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
+    MatMenuModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatToolbarModule,
   ],
   declarations: [HomeComponent],
   exports: [],

@@ -21,6 +21,6 @@ export class HomeComponent implements OnInit {
   }
   reload() {
     console.log('RELOAD APP');
-    // this.posts$ = this.store.pipe(select(selectAllPosts));
+    this.posts$ = this.store.pipe(select(selectAllPosts));
   }
 }

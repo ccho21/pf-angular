@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   NavigationCancel,
@@ -7,9 +8,10 @@ import {
   Router,
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { login } from './auth/auth.actions';
+import { concatMap, Observable, tap } from 'rxjs';
+import { login, logout } from './auth/auth.actions';
 import { isLoggedIn, isLoggedOut } from './auth/auth.selectors';
+import { User } from './auth/model/user';
 import { AppState } from './reducers';
 
 @Component({
@@ -26,24 +28,35 @@ export class AppComponent implements OnInit {
 
   isLoggedOut$: Observable<boolean> | undefined;
 
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(
+    private router: Router,
+    private store: Store<AppState>,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
+    // Get token when it is stored in local storage.
+    const user = localStorage.getItem('user');
 
-    console.log("FIRST")
-    const userProfile = localStorage.getItem('user');
-
-    if (userProfile) {
-      this.store.dispatch(login({ user: JSON.parse(userProfile) }));
+    // if the token is valid, Request a authentication to get the user profile.
+    // Store user profile in the state
+    if (user) {
+      this.http
+        .get<User>('/api/auth')
+        .pipe(
+          tap((res: User) => {
+            this.store.dispatch(login({ user: res }));
+          })
+        )
+        .subscribe((val) => {
+        });
     }
-
     this.router.events.subscribe((event) => {
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;
           break;
         }
-
         case event instanceof NavigationEnd:
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
@@ -55,9 +68,12 @@ export class AppComponent implements OnInit {
         }
       }
     });
-
+    // check if the user is logged in or not
     this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
-
     this.isLoggedOut$ = this.store.pipe(select(isLoggedOut));
+  }
+
+  logout() {
+    this.store.dispatch(logout());
   }
 }

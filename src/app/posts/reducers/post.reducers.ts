@@ -1,31 +1,36 @@
-import { comparePosts, Post } from '../model/post';
+import { Post } from '../model/post';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { PostActions } from '../action-types';
 
 export interface PostsState extends EntityState<Post> {
+  selectId: string;
   allPostsLoaded: boolean;
 }
 
-export const adapter = createEntityAdapter<Post>();
+// add select Id to use NGRX ENTITY
+export const selectUserId = (a: Post): string => {
+  return a._id;
+};
 
-export const initialPostsState = adapter.getInitialState({
-  allPostsLoaded: false,
-  home: 0,
+// Create an entity to manage ids and entity in state
+export const adapter = createEntityAdapter<Post>({
+  selectId: selectUserId,
 });
 
+// Initialize the member of the POST state
+export const initialPostsState = adapter.getInitialState({
+  allPostsLoaded: false,
+});
+
+// Create post reducer
 export const postsReducer = createReducer(
   initialPostsState,
 
-  // on(PostActions.allPostsLoaded, (state, action) => {
-  //   console.log('[### POST REDUCER] : ');
-  //   return adapter.setAll(action.posts, { ...state, allPostsLoaded: true });
-  // }),
-  
-  // on(PostActions.homeScore, (state) => ({
-  //   ...state,
-  //   home: state.home + 1,
-  // }))
+  // store data in state when all the posts are loaded.
+  on(PostActions.allPostsLoaded, (state, action) => {
+    return adapter.setAll(action.posts, { ...state, allPostsLoaded: true });
+  })
 );
 
 // get properties that are storred in selectors
