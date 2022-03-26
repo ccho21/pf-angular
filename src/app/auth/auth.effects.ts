@@ -19,7 +19,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.login),
         tap((action) => {
-          // console.log('ACTION', action);
+          console.log('ACTION', action);
           this.router.navigateByUrl('/posts');
         })
       ),

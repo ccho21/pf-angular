@@ -1,6 +1,63 @@
-<div>
+<nav class="navbar navbar-expand-lg navbar navbar-light">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']">ProjectStagram</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto mr-md-3">
+        <li class="nav-item">
+          <a
+            href="#"
+            class="nav-link"
+            *ngIf="isLoggedOut$ | async"
+            [routerLink]="['/login']"
+          >
+            <mat-icon>login</mat-icon> <span class="px-2">Sign in</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            href="#"
+            class="nav-link"
+            *ngIf="isLoggedIn$ | async"
+            (click)="logout()"
+          >
+            <span class="px-2">Hi, Charles</span>
+            <mat-icon>account_circle</mat-icon>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            href="#"
+            class="nav-link"
+            *ngIf="isLoggedIn$ | async"
+            (click)="logout()"
+          >
+            <span class="px-2">Sign out</span>
+            <mat-icon>exit_to_app</mat-icon>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" *ngIf="isLoggedOut$ | async" [routerLink]="['/sign-up']">
+            <mat-icon>how_to_reg</mat-icon> <span class="px-2">Sign up</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- <div>
 <mat-toolbar color="primary">
-    <span>POST</span>
+    <span>ProjectStagram</span>
     <span class="example-spacer"></span>
     <a mat-list-item routerLink="/posts">
       <mat-icon>library_books</mat-icon>
@@ -15,4 +72,4 @@
       <span>Logout</span>
     </a>
   </mat-toolbar>
-</div>
+</div> -->

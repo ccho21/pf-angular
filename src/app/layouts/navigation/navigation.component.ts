@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { login, logout } from '@app/auth/auth.actions';
 import { isLoggedIn, isLoggedOut } from '@app/auth/auth.selectors';
 import { User } from '@app/auth/model/user';
@@ -65,9 +71,8 @@ export class NavigationComponent implements OnInit {
   }
 
   logout() {
+    console.log('logout');
     this.store.dispatch(logout());
   }
-
-  onShown(e: any) {}
-  onHidden(e: any) {}
+  cancel(e: any) {}
 }

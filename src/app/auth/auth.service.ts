@@ -11,12 +11,12 @@ import { login } from './auth.actions';
 export class AuthService {
   constructor(private http: HttpClient, private store: Store<AppState>) {}
   login(email: string, password: string): Observable<User> {
-    // console.log('auth action: LOGIN');
     return this.http.post<User>('/api/auth', { email, password }).pipe(
       tap((res: any) => {
+        console.log(res);
         const { user, token } = res;
         if (user && token) {
-          
+            console.log(user, token);
           // store user profile to state.
           this.store.dispatch(login({ user: user }));
 

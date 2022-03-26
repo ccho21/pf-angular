@@ -12,9 +12,9 @@ export class PostService {
   constructor(private store: Store, private http: HttpClient) {}
   loadPosts(): Observable<Post[]> {
     return this.http.get('/api/posts').pipe(
-      map((res: any) => {
+      map((res) => {
         console.log(res);
-        return res;
+        return res as Post[];
       })
     );
   }

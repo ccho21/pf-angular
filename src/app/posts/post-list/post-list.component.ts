@@ -7,8 +7,15 @@ import { Post } from '../model/post';
   styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit {
-  @Input() posts!: Array<Post>;
+  @Input() posts!: Array<Post> | null;
+  default: string =
+    'https://firebasestorage.googleapis.com/v0/b/bulletin-board-d1815.appspot.com/o/uploads%2F1582746081704_ayo-ogunseinde-2.jpg?alt=media&token=cbc87b46-e85a-4de3-93c3-416dd289b2f1';
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  getBackgroundImageUrl(post: Post) {
+    return `url(${post.images.length ? post.images[0] : this.default})`;
+  }
 }

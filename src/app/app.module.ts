@@ -21,7 +21,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +32,7 @@ import { NavigationComponent } from './layouts/navigation/navigation.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     AuthModule.forRoot(),
     HttpClientModule,
     MaterialModule,

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 // import { AuthGuard } from "../../shared/guard/auth.guard";
 
 // import { MainComponent } from './containers/main/main.component';
@@ -30,6 +31,10 @@ export const rootRouterConfig: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'sign-up',
+    component: SignUpComponent,
+  },
+  {
     path: '**',
     redirectTo: '/',
   },
@@ -50,10 +55,7 @@ export const rootRouterConfig: Routes = [
   //   path: 'login',
   //   component: SignInComponent
   // },
-  // {
-  //   path: 'sign-up',
-  //   component: SignUpComponent
-  // },
+
   // {
   //   path: 'verify-email-address',
   //   component: VerifyEmailComponent,

@@ -35,16 +35,16 @@ export class LoginComponent implements OnInit {
 
   login() {
     const val = this.form.value;
-
+    console.log("working?");
     this.authService.login(val.email, val.password).subscribe({
       next: () => {
-        // this.router.navigateByUrl('/posts');
+        this.router.navigateByUrl('/posts');
       },
       error: (error) => {
         console.log(error);
-        // error.errors.forEach((cur: any) => {
-        //   alert(cur.msg);
-        // });
+        error.errors.forEach((cur: any) => {
+          alert(cur.msg);
+        });
       },
     });
   }
