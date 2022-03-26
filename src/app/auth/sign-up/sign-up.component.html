@@ -1,5 +1,5 @@
 <mat-card class="login-page">
-  <mat-card-title>Sign Up</mat-card-title>
+  <mat-card-title class="my-4">Sign Up</mat-card-title>
   <mat-card-content>
     <form [formGroup]="form" class="login-form">
       <mat-form-field>
@@ -9,9 +9,8 @@
           placeholder="Email"
           formControlName="email"
         />
-        <mat-error *ngIf="email.invalid && email.touched">
-          {{ getErrorMessage() }}
-        </mat-error>
+        <!-- <mat-error *ngIf="email.invalid && email.touched">
+        </mat-error> -->
       </mat-form-field>
 
       <mat-form-field>
@@ -26,8 +25,8 @@
         <input
           matInput
           type="password"
-          placeholder="Password2"
-          formControlName="password2"
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
         />
       </mat-form-field>
 

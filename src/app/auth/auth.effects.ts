@@ -19,7 +19,8 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.login),
         tap((action) => {
-          console.log('ACTION', action);
+          console.log('[Auth Effect]', action);
+          console.log('this router', this.router);
           this.router.navigateByUrl('/posts');
         })
       ),
@@ -39,8 +40,5 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  constructor(
-    private actions$: Actions,
-    private router: Router,
-  ) {}
+  constructor(private actions$: Actions, private router: Router) {}
 }

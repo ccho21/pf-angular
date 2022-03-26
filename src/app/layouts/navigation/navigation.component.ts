@@ -46,7 +46,9 @@ export class NavigationComponent implements OnInit {
             this.store.dispatch(login({ user: res }));
           })
         )
-        .subscribe((val) => {});
+        .subscribe((val) => {
+          console.log(val)
+        });
     }
     this.router.events.subscribe((event) => {
       switch (true) {

@@ -1,9 +1,10 @@
-import { User } from '@app/shared/models/user';
-import { Comment } from '@app/shared/models/comment';
-import { Like } from '../../shared/models/like';
+// import { User } from '@app/shared/models/user';
+// import { Comment } from '@app/shared/models/comment';
+// import { Like } from '../../shared/models/like';
 export interface Post {
   _id: string;
-  author?: User;
+  // author?: User;
+  author?: string;
   content: string;
   firstname: string;
   lastname: string;

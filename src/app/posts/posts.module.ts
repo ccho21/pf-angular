@@ -22,6 +22,7 @@ import { postsReducer } from './reducers/post.reducers';
 import { HomeComponent } from './home/home.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { MaterialModule } from '@app/material.module';
+import { PostComponent } from './post/post.component';
 
 export const postsRoutes: Routes = [
   {
@@ -30,6 +31,10 @@ export const postsRoutes: Routes = [
     resolve: {
       posts: PostsResolver,
     },
+  },
+  {
+    path: ':id',
+    component: PostComponent,
   },
 ];
 
@@ -41,7 +46,7 @@ export const postsRoutes: Routes = [
     StoreModule.forFeature('posts', postsReducer),
     MaterialModule
   ],
-  declarations: [HomeComponent, PostListComponent],
+  declarations: [HomeComponent, PostListComponent, PostComponent],
   exports: [],
   entryComponents: [],
   providers: [PostsResolver],

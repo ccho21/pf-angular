@@ -16,15 +16,46 @@ export class AuthService {
         console.log(res);
         const { user, token } = res;
         if (user && token) {
-            console.log(user, token);
+          console.log(user, token);
           // store user profile to state.
           this.store.dispatch(login({ user: user }));
 
-          // Store jwt on local storage. 
+          // Store jwt on local storage.
           localStorage.setItem('user', token);
         }
       })
     );
+  }
+
+  signup(
+    email: string,
+    password: string,
+    firstname: string,
+    lastname: string
+  ): Observable<User> {
+    const user = {
+      email,
+      password,
+      firstname,
+      lastname,
+    };
+    return this.http
+      .post<User>('http://localhost:5000/api/users/sign-up', user, {
+        headers: { skip: 'true' },
+      })
+      .pipe(
+        tap((res: any) => {
+          console.log(res);
+          const { user, token } = res;
+          if (user && token) {
+            // store user profile to state.
+            this.store.dispatch(login({ user: user }));
+
+            // Store jwt on local storage.
+            localStorage.setItem('user', token);
+          }
+        })
+      );
   }
   getAthentication(token: String): Observable<User> {
     return this.http.get<User>('http://localhost:5000/api/auth');

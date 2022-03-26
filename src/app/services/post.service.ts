@@ -18,4 +18,12 @@ export class PostService {
       })
     );
   }
+
+  findPostById(postId: string | null): Observable<Post> {
+    return this.http.get(`http://localhost:5000/api/posts/${postId}`).pipe(
+      map((res) => {
+        return res as Post;
+      })
+    );
+  }
 }

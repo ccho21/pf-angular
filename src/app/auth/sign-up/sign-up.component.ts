@@ -1,8 +1,17 @@
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,49 +28,40 @@ export class SignUpComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      email: ['test@test.com', [Validators.required]],
-      password: ['123456', [Validators.required]],
-      password2: ['', [Validators.required]],
-      firstname: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
-    });
-  }
-  get email() {
-    return this.form.get('email')!;
-  }
-  get password() {
-    return this.form.get('password')!;
-  }
-  get password2() {
-    return this.form.get('password2')!;
-  }
-  get firstname() {
-    return this.form.get('firstname')!;
-  }
-  get lastname() {
-    return this.form.get('lastname')!;
+    this.form = this.fb.group(
+      {
+        email: ['test@test.com', [Validators.required]],
+        password: ['123456', [Validators.required]],
+        confirmPassword: ['123456', [Validators.required]],
+        firstname: ['test firstname', [Validators.required]],
+        lastname: ['test lastname', [Validators.required]],
+      },
+      { validators: this.checkPasswords }
+    );
   }
 
-  getErrorMessage() {
-    console.log("asdfasdf??");
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
+  checkPasswords: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const pw = control.get('password')?.value;
+    const confirmPw = control.get('confirmPassword')?.value;
+    // console.log('### pw', pw);
+    // console.log('### confirm PW', confirmPw);
+    return pw === confirmPw ? null : { notSame: true };
+  };
+
   signup(): void {
-    const val = this.form.value;
-    console.log('working?', val);
-    this.authService.login(val.email, val.password).subscribe({
+    console.log('signup function', this.form);
+    if (!this.form.valid) {
+      return;
+    }
+    const { email, password, firstname, lastname } = this.form.value;
+    this.authService.signup(email, password, firstname, lastname).subscribe({
       next: () => {
         this.router.navigateByUrl('/posts');
       },
       error: (error) => {
         console.log(error);
-        error.errors.forEach((cur: any) => {
-          alert(cur.msg);
-        });
       },
     });
   }
