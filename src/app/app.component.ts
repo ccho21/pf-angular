@@ -34,5 +34,44 @@ export class AppComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Get token when it is stored in local storage.
+    const user = localStorage.getItem('user');
+
+    if (user) {
+      this.store.dispatch(login({ user: JSON.parse(user) }));
+    }
+    // if the token is valid, Request a authentication to get the user profile.
+    // Store user profile in the state
+    // if (user) {
+    //   this.http
+    //     .get<User>('/api/auth')
+    //     .pipe(
+    //       tap((res: User) => {
+    //         this.store.dispatch(login({ user: res }));
+    //       })
+    //     )
+    //     .subscribe((val: User) => {
+    //       console.log('### LOGIN in NAV COMPONENT', val);
+    //     });
+    // }
+    this.router.events.subscribe((event) => {
+      // console.log('WHAT IS EVENT? IN ROUTE', event);
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.loading = true;
+          break;
+        }
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.loading = false;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+  }
 }

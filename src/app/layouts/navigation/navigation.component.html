@@ -24,12 +24,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a
-            href="#"
-            class="nav-link"
-            *ngIf="isLoggedIn$ | async"
-            (click)="logout()"
-          >
+          <a href="#" class="nav-link" [routerLink]="['/posts']">
             <span class="px-2">Hi, Charles</span>
             <mat-icon>account_circle</mat-icon>
           </a>
@@ -46,7 +41,12 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link" *ngIf="isLoggedOut$ | async" [routerLink]="['/sign-up']">
+          <a
+            href="#"
+            class="nav-link"
+            *ngIf="isLoggedOut$ | async"
+            [routerLink]="['/sign-up']"
+          >
             <mat-icon>how_to_reg</mat-icon> <span class="px-2">Sign up</span>
           </a>
         </li>

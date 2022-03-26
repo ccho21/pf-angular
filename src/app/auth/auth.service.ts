@@ -21,7 +21,8 @@ export class AuthService {
           this.store.dispatch(login({ user: user }));
 
           // Store jwt on local storage.
-          localStorage.setItem('user', token);
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
         }
       })
     );
@@ -52,7 +53,8 @@ export class AuthService {
             this.store.dispatch(login({ user: user }));
 
             // Store jwt on local storage.
-            localStorage.setItem('user', token);
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
           }
         })
       );

@@ -21,7 +21,7 @@ export class AuthEffects {
         tap((action) => {
           console.log('[Auth Effect]', action);
           console.log('this router', this.router);
-          this.router.navigateByUrl('/posts');
+          // this.router.navigateByUrl('/posts');
         })
       ),
     { dispatch: false }
@@ -32,7 +32,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.logout),
         tap((action) => {
-          // console.log('LOG OUT EFFECT', action);
+          console.log('LOG OUT EFFECT', action);
           localStorage.removeItem('user');
           this.router.navigateByUrl('/login');
         })

@@ -32,7 +32,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     // checks if the token is valid
     // if valid, it sets the token to the header.
-    const token = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
 
     if (token) {
       const cloned = req.clone({
