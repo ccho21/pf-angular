@@ -30,6 +30,7 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group(
       {
+        username: ['', [Validators.required]],
         email: ['test@test.com', [Validators.required]],
         password: ['123456', [Validators.required]],
         confirmPassword: ['123456', [Validators.required]],
@@ -55,14 +56,16 @@ export class SignUpComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const { email, password, firstname, lastname } = this.form.value;
-    this.authService.signup(email, password, firstname, lastname).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/posts');
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    const { email, password, username, firstname, lastname } = this.form.value;
+    this.authService
+      .signup(username, email, password, firstname, lastname)
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/posts');
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 }

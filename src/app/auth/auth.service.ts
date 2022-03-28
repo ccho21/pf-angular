@@ -29,12 +29,14 @@ export class AuthService {
   }
 
   signup(
+    username: string,
     email: string,
     password: string,
     firstname: string,
     lastname: string
   ): Observable<User> {
     const user = {
+      username,
       email,
       password,
       firstname,

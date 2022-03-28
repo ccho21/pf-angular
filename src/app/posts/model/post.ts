@@ -6,8 +6,7 @@ export interface Post {
   // author?: User;
   author?: string;
   content: string;
-  firstname: string;
-  lastname: string;
+  username: string;
   images: Array<string>;
   avatar: string;
   likes?: Array<string>;

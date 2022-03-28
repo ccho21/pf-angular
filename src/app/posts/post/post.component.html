@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="d-post-wrapper" *ngIf="post$ | async">
+  <div class="d-post-wrapper" *ngIf="post$ | async as post">
     <!-- <div class="d-post-wrapper-arrrow-left">
       <a>
         <mat-icon> arrow_back_ios </mat-icon>
@@ -26,8 +26,7 @@
                   />
                 </div>
                 <div class="font-weight-bold flex-grow-1">
-                  <!-- {{ updatedPost.author.displayName }} -->
-                  Charles Cho
+                  {{ post?.username }}
                 </div>
                 <div class="pr-2">
                   <a class="d-flex align-items-center">
