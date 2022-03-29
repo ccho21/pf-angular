@@ -23,6 +23,8 @@ import { HomeComponent } from './home/home.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { MaterialModule } from '@app/material.module';
 import { PostComponent } from './post/post.component';
+import { CommentsComponent } from './comments/comments.component';
+import { PipesModule } from './pipes/pipes.module';
 
 export const postsRoutes: Routes = [
   {
@@ -44,9 +46,15 @@ export const postsRoutes: Routes = [
     RouterModule.forChild(postsRoutes),
     EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
-    MaterialModule
+    MaterialModule,
+    PipesModule,
   ],
-  declarations: [HomeComponent, PostListComponent, PostComponent],
+  declarations: [
+    HomeComponent,
+    PostListComponent,
+    PostComponent,
+    CommentsComponent,
+  ],
   exports: [],
   entryComponents: [],
   providers: [PostsResolver],

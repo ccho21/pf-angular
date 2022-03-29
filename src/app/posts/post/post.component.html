@@ -36,8 +36,7 @@
               </div>
 
               <div class="d-post-comments">
-                upload comments
-                <!-- <app-comments [post]="updatedPost"></app-comments> -->
+                <app-comments [comments]="post.comments"></app-comments>
               </div>
               <!-- Post Detail -->
               <div class="d-post-detail">
@@ -47,7 +46,7 @@
                       <div>
                         <mat-icon> favorite_border </mat-icon>
                       </div>
-                      <div class="ml-2 flex-grow-1">
+                      <div class="ms-2 flex-grow-1">
                         <mat-icon>bookmark_border</mat-icon>
                       </div>
                     </div>
