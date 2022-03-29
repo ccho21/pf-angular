@@ -16,7 +16,7 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // set Header
-    this.setHeaders(req);
+    this.setHeaders(req); 
 
     // Skip intercceptor when not needed.
     const skipIntercept = req.headers.has('skip');
