@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '@app/reducers';
-import { PostService } from '@services/post.service';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Post } from '../model/post';
@@ -12,9 +11,8 @@ import { selectAllPosts } from '../posts.selectors';
 })
 export class HomeComponent implements OnInit {
   posts$?: Observable<Post[]>;
-  constructor(
-    private store: Store<AppState>,
-  ) {}
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     console.log('############ POST LIST #############');

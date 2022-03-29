@@ -22,12 +22,14 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UploadFilesComponent } from './upload-files/upload-files.component';
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HeaderComponent,
     NavigationComponent,
+    UploadFilesComponent,
   ],
   imports: [
     BrowserModule,
