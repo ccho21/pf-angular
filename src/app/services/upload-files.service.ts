@@ -13,18 +13,16 @@ HttpHeaders;
 export class UploadFilesService {
   private baseUrl = 'http://localhost:5000/api/upload';
   constructor(private http: HttpClient) {}
-  upload(file: File): Observable<HttpEvent<any>> {
+  upload(file: File) {
     const formData: FormData = new FormData();
-    console.log(file);
     formData.append('avatar', file);
-
-    console.log('### form data', formData);
-    const req = new HttpRequest('POST', `${this.baseUrl}/images`, formData, {
+    console.log('### form data', formData.get('avatar'));
+    // const req = new HttpRequest('POST', `${this.baseUrl}/images`, formData, {});
+    return this.http.post(`${this.baseUrl}/images`, formData.append, {
       headers: new HttpHeaders({ ContentType: 'multipart/form-data' }),
       reportProgress: true,
       responseType: 'json',
     });
-    return this.http.request(req);
   }
   // getFiles(): Observable<any> {
   //   return this.http.get(`${this.baseUrl}/upload`);
