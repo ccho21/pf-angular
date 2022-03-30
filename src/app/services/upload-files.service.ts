@@ -11,17 +11,22 @@ HttpHeaders;
   providedIn: 'root',
 })
 export class UploadFilesService {
-  private baseUrl = 'http://localhost:5000/api/upload';
   constructor(private http: HttpClient) {}
-  upload(file: File) {
+  private baseUrl = 'http://localhost:5000';
+  // upload(files: string[]): Observable<HttpEvent<any>> {
+  upload(files: string[]) {
     const formData: FormData = new FormData();
-    formData.append('avatar', file);
-    console.log('### form data', formData.get('avatar'));
-    // const req = new HttpRequest('POST', `${this.baseUrl}/images`, formData, {});
-    return this.http.post(`${this.baseUrl}/images`, formData.append, {
-      headers: new HttpHeaders({ ContentType: 'multipart/form-data' }),
+    
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files[i]);
+    }
+    // formData.append('images', files);
+    formData.forEach((cur) => {
+      console.log('###',cur);
+    });
+    return this.http.post(`${this.baseUrl}/api/upload/images`, formData, {
       reportProgress: true,
-      responseType: 'json',
+      observe: 'events',
     });
   }
   // getFiles(): Observable<any> {

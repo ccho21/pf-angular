@@ -1,34 +1,46 @@
-<form
-  action="http://localhost:5000/api/upload/images"
-  method="POST"
-  enctype="multipart/form-data"
->
-  <input type="file" name="asdf" />
-  <button type="submit" value="Submit File">submit</button>
-</form>
+<div class="container">
+  <input
+    type="file"
+    class="file-input"
+    [accept]="requiredFileType"
+    (change)="onFileSelected($event)"
+    multiple
+    #fileUpload
+  />
 
-<img src="http://localhost:5000/api/upload/images/cdaf9688d86624feb88358e6fe7b556c" alt="" />
-<!-- <div class="row">
-  <div class="col-8">
-    <label class="btn btn-default p-0">
-      <input
-        type="file"
-        (change)="selectFiles($event)"
-        name="avatar"
-        accept="image/*"
-      />
-    </label>
-  </div>
-  <div class="col-4">
+  <div class="file-upload">
+    {{
+      selectedFiles?.length
+        ? selectedFiles?.length + " files"
+        : "No file uploaded yet."
+    }}
+
     <button
-      class="btn btn-success btn-sm"
-      [disabled]="!selectedFiles"
-      (click)="uploadFiles()"
+      mat-mini-fab
+      color="primary"
+      class="upload-btn"
+      (click)="fileUpload.click()"
     >
-      Upload
+      <mat-icon>attach_file</mat-icon>
     </button>
   </div>
-</div> -->
+  <div>
+    <mat-progress-bar
+      class="progress-bar"
+      mode="determinate"
+      [value]="uploadProgress"
+      *ngIf="uploadProgress"
+    >
+    </mat-progress-bar>
+    <mat-icon
+      class="cancel-upload"
+      (click)="cancelUpload()"
+      *ngIf="uploadProgress"
+      >delete_forever
+    </mat-icon>
+  </div>
+</div>
+
 <!-- <div *ngFor="let progressInfo of progressInfos" class="mb-2">
   <span>{{ progressInfo.fileName }}</span>
   <div class="progress">
@@ -43,8 +55,8 @@
       {{ progressInfo.value }}%
     </div>
   </div>
-</div> -->
-<!-- <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
+</div>
+<div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
   <ul *ngFor="let msg of message; let i = index">
     <li>{{ msg }}</li>
   </ul>
@@ -56,7 +68,7 @@
     *ngFor="let file of fileInfos | async"
   >
     <li class="list-group-item">
-      <a href="{{ file.url }}">{{ file.name }}</a>
+      <a [href]="file.url">{{ file.name }}</a>
     </li>
   </ul>
 </div> -->
