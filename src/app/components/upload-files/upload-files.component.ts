@@ -11,27 +11,23 @@ import { finalize, Observable, Subscription } from 'rxjs';
 })
 export class UploadFilesComponent implements OnInit {
   @Input() requiredFileType!: string;
-  files!: File[];
-  selectedFiles?: FileList;
-  progressInfos: any[] = [];
-  message: string[] = [];
-  fileInfos?: Observable<any>;
+
+  myfilename!: string;
+  selectedFiles!: FileList;
 
   uploadProgress!: number | undefined;
   uploadSub!: Subscription | undefined;
 
-  myFiles: string[] = [];
+  myFiles!: string[];
 
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private uploadService: UploadFilesService
-  ) {}
+  constructor(private uploadService: UploadFilesService) {}
 
   ngOnInit(): void {}
 
   onFileSelected(event: any) {
+    console.log('EVENT## : ', event);
     this.selectedFiles = event.target.files;
+
     for (var i = 0; i < event.target.files.length; i++) {
       this.myFiles.push(event.target.files[i]);
     }
@@ -47,10 +43,9 @@ export class UploadFilesComponent implements OnInit {
 
       this.uploadSub = upload$.subscribe((event: any) => {
         if (event.type == HttpEventType.UploadProgress) {
-          // console.log(event);
-
           this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-          console.log(this.uploadProgress);
+          // console.log(this.uploadProgress);
+          console.log(event);
         }
       });
     }

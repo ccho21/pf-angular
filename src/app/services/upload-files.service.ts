@@ -12,24 +12,19 @@ HttpHeaders;
 })
 export class UploadFilesService {
   constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:5000';
-  // upload(files: string[]): Observable<HttpEvent<any>> {
-  upload(files: string[]) {
+  upload(files: string[]): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-    
+
     for (let i = 0; i < files.length; i++) {
       formData.append('images', files[i]);
     }
-    // formData.append('images', files);
-    formData.forEach((cur) => {
-      console.log('###',cur);
-    });
-    return this.http.post(`${this.baseUrl}/api/upload/images`, formData, {
+    return this.http.post(`/api/upload/images`, formData, {
       reportProgress: true,
       observe: 'events',
     });
   }
-  // getFiles(): Observable<any> {
-  //   return this.http.get(`${this.baseUrl}/upload`);
-  // }
+
+  getFiles(key: string): Observable<any> {
+    return this.http.get(`api/upload/images/${key}`);
+  }
 }

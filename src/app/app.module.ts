@@ -12,8 +12,6 @@ import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from './reducers';
 
-import { MaterialModule } from './material.module';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
@@ -22,14 +20,14 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UploadFilesComponent } from './upload-files/upload-files.component';
+import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HeaderComponent,
     NavigationComponent,
-    UploadFilesComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +35,7 @@ import { UploadFilesComponent } from './upload-files/upload-files.component';
     ReactiveFormsModule,
     AuthModule.forRoot(),
     HttpClientModule,
-    MaterialModule,
+    SharedModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
