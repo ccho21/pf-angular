@@ -1,5 +1,5 @@
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { UploadFilesService } from '@app/services/upload-files.service';
 import { finalize, Observable, Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { finalize, Observable, Subscription } from 'rxjs';
 })
 export class UploadFilesComponent implements OnInit {
   @Input() requiredFileType!: string;
+  @Output() imageEmit = new EventEmitter<Array<string>>();
 
   myfilename!: string;
   selectedFiles!: FileList;
@@ -18,37 +19,48 @@ export class UploadFilesComponent implements OnInit {
   uploadProgress!: number | undefined;
   uploadSub!: Subscription | undefined;
 
-  myFiles!: string[];
+  myFiles!: FileList;
 
   constructor(private uploadService: UploadFilesService) {}
 
   ngOnInit(): void {}
 
   onFileSelected(event: any) {
-    console.log('EVENT## : ', event);
     this.selectedFiles = event.target.files;
+    console.log('EVENT## : ', this.selectedFiles);
 
-    for (var i = 0; i < event.target.files.length; i++) {
-      this.myFiles.push(event.target.files[i]);
+    for (let i = 0; i < event.target.files.length; i++) {
+      // this.myFiles.push(event.target.files[i]);
+      console.log(event.target.files[i]);
     }
 
-    this.upload(this.myFiles);
+    this.upload(this.selectedFiles);
   }
 
-  upload(files?: string[]): void {
+  upload(files?: FileList): void {
     if (files) {
-      const upload$ = this.uploadService
-        .upload(files)
-        .pipe(finalize(() => this.reset()));
+      const upload$ = this.uploadService.upload(files).pipe(
+        finalize(() => {
+          console.log('Update Finalize');
+          this.reset();
+        })
+      );
 
       this.uploadSub = upload$.subscribe((event: any) => {
+        console.log('###event :', event);
+        if (event.body) {
+          this.getImagUrls(event.body.imagePath);
+        }
         if (event.type == HttpEventType.UploadProgress) {
           this.uploadProgress = Math.round(100 * (event.loaded / event.total));
           // console.log(this.uploadProgress);
-          console.log(event);
         }
       });
     }
+  }
+
+  getImagUrls(urls: Array<string>) {
+    this.imageEmit.emit(urls);
   }
 
   cancelUpload() {

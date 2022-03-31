@@ -33,7 +33,8 @@ export class AuthService {
     email: string,
     password: string,
     firstname: string,
-    lastname: string
+    lastname: string,
+    thumbnail: string
   ): Observable<User> {
     const user = {
       username,
@@ -41,6 +42,7 @@ export class AuthService {
       password,
       firstname,
       lastname,
+      thumbnail,
     };
     return this.http
       .post<User>('http://localhost:5000/api/users/sign-up', user, {

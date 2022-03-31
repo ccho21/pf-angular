@@ -12,7 +12,7 @@ HttpHeaders;
 })
 export class UploadFilesService {
   constructor(private http: HttpClient) {}
-  upload(files: string[]): Observable<HttpEvent<any>> {
+  upload(files: FileList): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     for (let i = 0; i < files.length; i++) {

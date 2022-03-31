@@ -36,6 +36,7 @@ export class SignUpComponent implements OnInit {
         confirmPassword: ['123456', [Validators.required]],
         firstname: ['test firstname', [Validators.required]],
         lastname: ['test lastname', [Validators.required]],
+        thumbnail: ['', [Validators.required]],
       },
       { validators: this.checkPasswords }
     );
@@ -56,9 +57,10 @@ export class SignUpComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    const { email, password, username, firstname, lastname } = this.form.value;
+    const { email, password, username, firstname, lastname, thumbnail } =
+      this.form.value;
     this.authService
-      .signup(username, email, password, firstname, lastname)
+      .signup(username, email, password, firstname, lastname, thumbnail)
       .subscribe({
         next: () => {
           this.router.navigateByUrl('/posts');
@@ -67,5 +69,11 @@ export class SignUpComponent implements OnInit {
           console.log(error);
         },
       });
+  }
+
+  addImages(urls: Array<string>) {
+    console.log('### urls :', urls);
+    this.form.get('thumbnail')?.setValue(urls[0]);
+    console.log('first', this.form.get('thumbnail'));
   }
 }

@@ -3,7 +3,10 @@
   <mat-card-content>
     <form [formGroup]="form" class="login-form">
       <div>
-        <app-upload-files class="d-block w-100"></app-upload-files>
+        <app-upload-files
+          (imageEmit)="addImages($event)"
+          class="d-block w-100"
+        ></app-upload-files>
       </div>
       <mat-form-field>
         <input

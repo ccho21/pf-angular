@@ -8,7 +8,12 @@ import {
   Router,
 } from '@angular/router';
 import { login, logout } from '@app/auth/auth.actions';
-import { isLoggedIn, isLoggedOut } from '@app/auth/auth.selectors';
+import {
+  getUser,
+  isLoggedIn,
+  isLoggedOut,
+  selectAuthState,
+} from '@app/auth/auth.selectors';
 import { User } from '@app/auth/model/user';
 import { AppState } from '@app/reducers';
 import { select, Store } from '@ngrx/store';
@@ -26,6 +31,8 @@ export class NavigationComponent implements OnInit {
 
   isLoggedOut$: Observable<boolean> | undefined;
 
+  user$!: Observable<User>;
+
   constructor(
     private router: Router,
     private store: Store<AppState>,
@@ -33,10 +40,10 @@ export class NavigationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-   
     // check if the user is logged in or not
     this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
     this.isLoggedOut$ = this.store.pipe(select(isLoggedOut));
+    this.user$ = this.store.pipe(select(getUser)) as Observable<User>;
   }
 
   logout() {
