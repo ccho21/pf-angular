@@ -4,11 +4,11 @@ import { Comment } from './comment';
 export interface Post {
   _id: string;
   // author?: User;
-  author?: string;
+  author: string;
+  thumbnail: string;
   content: string;
   username: string;
   images: Array<string>;
-  avatar: string;
   likes?: Array<string>;
   comments?: Array<Comment>;
   createdAt?: string;

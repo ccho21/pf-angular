@@ -10,7 +10,7 @@
         <div class="d-post-box-left">
           <div class="">
             <div class="d-post-img">
-              <img [src]="default" />
+              <img [src]="post.images[0]" />
             </div>
             <ng-template> </ng-template>
           </div>
@@ -22,7 +22,8 @@
                 <div class="align-self-center">
                   <img
                     class="media-object c-img-thumnail img-circle img-no-padding img-responsive img-fluid"
-                    [src]="default"
+                    [src]="post.thumbnail || default"
+                    width="40"
                   />
                 </div>
                 <div class="font-weight-bold flex-grow-1">
@@ -57,7 +58,7 @@
                     <div class="d-flex">
                       <img
                         class="media-object c-img-thumnail img-circle img-no-padding img-responsive d-post-detail-likes-likes-user"
-                        [src]="default"
+                        [src]="post.thumbnail || default"
                       />
                       <div>
                         Liked by

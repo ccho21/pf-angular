@@ -7,12 +7,7 @@ import {
   EntityMetadataMap,
 } from '@ngrx/data';
 
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { PostsResolver } from './posts.resolver';
 import { EffectsModule } from '@ngrx/effects';
@@ -21,10 +16,12 @@ import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './reducers/post.reducers';
 import { HomeComponent } from './home/home.component';
 import { PostListComponent } from './post-list/post-list.component';
-import { MaterialModule } from '@app/material.module';
 import { PostComponent } from './post/post.component';
 import { CommentsComponent } from './comments/comments.component';
 import { PipesModule } from './pipes/pipes.module';
+import { PostNewComponent } from './post-new/post-new.component';
+import { ComponentsModule } from '@app/components/components.module';
+import { SharedModule } from '@app/shared/shared.module';
 
 export const postsRoutes: Routes = [
   {
@@ -35,6 +32,10 @@ export const postsRoutes: Routes = [
     },
   },
   {
+    path: 'create',
+    component: PostNewComponent,
+  },
+  {
     path: ':id',
     component: PostComponent,
   },
@@ -43,17 +44,20 @@ export const postsRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forChild(postsRoutes),
     EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
-    MaterialModule,
     PipesModule,
+    ComponentsModule,
+    SharedModule,
   ],
   declarations: [
     HomeComponent,
     PostListComponent,
     PostComponent,
     CommentsComponent,
+    PostNewComponent,
   ],
   exports: [],
   entryComponents: [],

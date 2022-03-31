@@ -11,3 +11,8 @@ export const allPostsLoaded = createAction(
     "[Load Posts Effect] All Posts Loaded",
     props<{posts: Post[]}>()
 );
+
+export const postUpdated = createAction(
+    "[Edit Post Dialog] Post Updated",
+    props<{update: Update<Post>}>()
+  );

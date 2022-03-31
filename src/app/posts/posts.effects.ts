@@ -16,5 +16,19 @@ export class PostsEffects {
     );
   });
 
+  savePost$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostActions.postUpdated),
+        concatMap((action) => {
+          console.log('### action', action);
+          return this.postService.savePost(
+            action.update.id as string,
+            action.update.changes
+          );
+        })
+      ),
+    { dispatch: false }
+  );
   constructor(private actions$: Actions, private postService: PostService) {}
 }

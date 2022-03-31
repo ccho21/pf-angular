@@ -1,4 +1,3 @@
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -9,9 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { User } from '../model/user';
 
 @Component({
   selector: 'app-sign-up',
