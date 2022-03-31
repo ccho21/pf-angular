@@ -2,12 +2,11 @@
 import { Comment } from './comment';
 // import { Like } from '../../shared/models/like';
 export interface Post {
-  _id: string;
-  // author?: User;
-  author: string;
-  thumbnail: string;
+  _id?: string;
+  author?: string;
+  thumbnail?: string;
   content: string;
-  username: string;
+  username?: string;
   images: Array<string>;
   likes?: Array<string>;
   comments?: Array<Comment>;

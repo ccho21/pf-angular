@@ -1,8 +1,4 @@
-.c-img-thumnail {
-  height: 2.5rem;
-  margin-top: 10px;
-  margin-right: 1rem;
-}
+
 .d-post {
   width: 100%;
   height: 100%;
@@ -86,19 +82,19 @@
     right: 0;
     bottom: 0;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .d-post-heading {
-      height: 11%;
       border-bottom: 0.8px solid lightgray;
       padding: 0.5rem;
     }
     .d-post-comments {
-      height: 64%;
+      flex-grow: 1;
       padding: 0.5rem;
     }
     .d-post-detail {
       border-top: 0.8px solid lightgray;
-      height: 17%;
       font-size: 0.8rem;
       padding: 0.5rem;
       &-functions {
@@ -110,16 +106,10 @@
         display: flex;
         align-items: center;
         margin-bottom: 0.3rem;
-        &-likes-user {
-          width: 1.5rem;
-          height: 1.5rem;
-          margin: 0 0.3rem 0 0;
-        }
       }
     }
     .d-post-comment-write {
       border-top: 0.8px solid lightgray;
-      height: 8%;
     }
   }
 }
@@ -140,5 +130,14 @@
   }
   .modal-body {
     height: 20rem;
+  }
+}
+
+::ng-deep .custom-no-padding-container {
+  width: 300px;
+  .mat-dialog-container {
+    // mat dialog container
+    /* add your styles */
+    padding: 0 !important;
   }
 }

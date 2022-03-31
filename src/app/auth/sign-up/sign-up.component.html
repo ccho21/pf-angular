@@ -4,6 +4,7 @@
     <form [formGroup]="form" class="login-form">
       <div>
         <app-upload-files
+          [mode]="'single'"
           (imageEmit)="addImages($event)"
           class="d-block w-100"
         ></app-upload-files>

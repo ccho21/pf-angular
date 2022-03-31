@@ -8,7 +8,8 @@
               <img
                 alt="Tim Picture"
                 class="media-object c-img-thumnail img-circle img-fluid"
-                [src]="default"
+                [src]="comment.thumbnail || default"
+                width="40"
               />
             </div>
           </div>
@@ -16,7 +17,9 @@
             <div class="cd-comment-content">
               <div>
                 <h4 class="media-heading me-2 mb-0">
-                  {{ comment.username }}
+                  <strong>
+                    {{ comment.username }}
+                  </strong>
                 </h4>
               </div>
               <p class="flex-grow-1 mb-0">

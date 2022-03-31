@@ -1,13 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* Importing Bootstrap SCSS file. */
 
-
-.img-circle{
-    margin-bottom: 10px;
-    padding: 4px;
-    border-radius: 50% !important;
-    max-width: 100%;
+.img-circle {
+  margin-bottom: 10px;
+  padding: 4px;
+  border-radius: 50% !important;
+  max-width: 100%;
+}
+.c-img-thumnail {
+  height: 2.5rem;
+  margin-top: 10px;
+  margin-right: 0.5rem;
 }

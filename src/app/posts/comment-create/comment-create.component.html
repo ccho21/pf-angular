@@ -1,0 +1,17 @@
+<div class="comment-create">
+  <div class="d-flex align-items-center p-2">
+    <mat-icon>sentiment_satisfied_alt</mat-icon>
+  </div>
+  <textarea
+    class="py-4 px-2"
+    matInput
+    rows="1"
+    color="basic"
+    placeholder="Content"
+    [formControl]="commentForm"
+  ></textarea>
+
+  <div class="p-2">
+    <button mat-button (click)="onSubmit()">Post</button>
+  </div>
+</div>

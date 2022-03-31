@@ -24,15 +24,10 @@ import { postUpdated } from '../post.actions';
 export class PostNewComponent implements OnInit {
   form!: FormGroup;
   post!: Post;
-  mode!: 'create' | 'update';
 
   loading$!: Observable<boolean>;
 
   constructor(private fb: FormBuilder, private store: Store<AppState>) {
-    // this.dialogTitle = data.dialogTitle;
-    // this.course = data.course;
-    // this.mode = data.mode;
-
     this.form = this.fb.group({
       content: ['', [Validators.required]],
       images: ['', [Validators.required]],

@@ -1,18 +1,12 @@
 <div class="container">
   <div class="d-post-wrapper" *ngIf="post$ | async as post">
-    <!-- <div class="d-post-wrapper-arrrow-left">
-      <a>
-        <mat-icon> arrow_back_ios </mat-icon>
-      </a>
-    </div> -->
-    <div class="p-0 d-post">
+    <div class="d-post">
       <div class="d-flex justify-content-center">
         <div class="d-post-box-left">
           <div class="">
             <div class="d-post-img">
               <img [src]="post.images[0]" />
             </div>
-            <ng-template> </ng-template>
           </div>
         </div>
         <div class="w-75">
@@ -27,10 +21,15 @@
                   />
                 </div>
                 <div class="font-weight-bold flex-grow-1">
-                  {{ post?.username }}
+                  <strong>
+                    {{ post?.username }}
+                  </strong>
                 </div>
                 <div class="pr-2">
-                  <a class="d-flex align-items-center">
+                  <a
+                    class="d-flex align-items-center"
+                    (click)="openActionModal(userActions)"
+                  >
                     <mat-icon> more_horiz </mat-icon>
                   </a>
                 </div>
@@ -55,17 +54,18 @@
                 </div>
                 <div class="row d-post-detail-likes">
                   <div class="col-md-12">
-                    <div class="d-flex">
+                    <div class="d-flex align-items-center">
                       <img
                         class="media-object c-img-thumnail img-circle img-no-padding img-responsive d-post-detail-likes-likes-user"
                         [src]="post.thumbnail || default"
+                        width="40"
                       />
                       <div>
                         Liked by
-                        <a><span class="font-weight-bold"> Charles </span></a>
+                        <a><strong class=""> Charles </strong></a>
                         and
                         <a>
-                          <span class="font-weight-bold"> others </span>
+                          <strong class=""> others </strong>
                         </a>
                       </div>
                     </div>
@@ -74,17 +74,36 @@
               </div>
               <!-- comment -->
               <div class="d-post-comment-write">
-                <!-- <app-wgt-comment></app-wgt-comment> -->
+                <app-comment-create [post]="post"></app-comment-create>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="d-post-wrapper-arrrow-right">
-      <a>
-        <mat-icon> arrow_forward_ios </mat-icon>
-      </a>
-    </div> -->
+
+    <ng-template #userActions let-modal>
+      <div class="user-action">
+        <div>
+          <div class="px-3 pt-3 text-center">
+            <a
+              class="d-block"
+              [mat-dialog-close]="true"
+              (click)="editPost(post)"
+              >Edit</a
+            >
+          </div>
+          <hr />
+          <div class="px-3 pb-3 text-center text-danger">
+            <a
+              class="d-block"
+              [mat-dialog-close]="true"
+              (click)="editPost(post)"
+              >Delete</a
+            >
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>

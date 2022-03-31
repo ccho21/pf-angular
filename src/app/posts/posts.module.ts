@@ -22,6 +22,8 @@ import { PipesModule } from './pipes/pipes.module';
 import { PostNewComponent } from './post-new/post-new.component';
 import { ComponentsModule } from '@app/components/components.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { PostEditDialogComponent } from './post-edit-dialog/post-edit-dialog.component';
+import { CommentCreateComponent } from './comment-create/comment-create.component';
 
 export const postsRoutes: Routes = [
   {
@@ -38,6 +40,9 @@ export const postsRoutes: Routes = [
   {
     path: ':id',
     component: PostComponent,
+    resolve: {
+      posts: PostsResolver,
+    },
   },
 ];
 
@@ -58,6 +63,8 @@ export const postsRoutes: Routes = [
     PostComponent,
     CommentsComponent,
     PostNewComponent,
+    PostEditDialogComponent,
+    CommentCreateComponent,
   ],
   exports: [],
   entryComponents: [],

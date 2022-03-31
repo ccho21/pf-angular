@@ -1,12 +1,13 @@
 export interface Comment {
-    _id: string;
-    username: string;
+    _id?: string;
+    username?: string;
+    thumbnail?: string;
     content: string;
-    createdAt: string;
+    createdAt?: string;
     updatedAt?: string;
-    author: string;
+    author?: string;
     depth?: number;
-    postId: string;
+    postId?: string;
     commentTo?: Comment;
     commentTag?: string;
     comments?: Array<Comment>;

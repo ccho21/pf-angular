@@ -10,7 +10,7 @@ export interface PostsState extends EntityState<Post> {
 
 // add select Id to use NGRX ENTITY
 export const selectUserId = (a: Post): string => {
-  return a._id;
+  return a._id as string;
 };
 
 // Create an entity to manage ids and entity in state
@@ -30,7 +30,18 @@ export const postsReducer = createReducer(
   // store data in state when all the posts are loaded.
   on(PostActions.allPostsLoaded, (state, action) => {
     return adapter.setAll(action.posts, { ...state, allPostsLoaded: true });
-  })
+  }),
+
+  on(PostActions.postUpdated, (state, action) => {
+    console.log("### state in REDUCER : ", state);
+    console.log("### ACTION in REDUCER ", action);
+    return adapter.updateOne(action.update, state);
+  }),
+  // on(PostActions.commentUpdated, (state, action) => {
+  //   console.log("### state in REDUCER : ", state);
+  //   console.log("### ACTION in REDUCER ", action);
+  //   return adapter.updateOne(action.update, state);
+  // })
 );
 
 // get properties that are storred in selectors

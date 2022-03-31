@@ -3,7 +3,11 @@
   <mat-card-content>
     <form [formGroup]="form" class="login-form">
       <div>
-        <app-upload-files (imageEmit)="addImages($event)" class="d-block w-100">
+        <app-upload-files
+          [mode]="'multiple'"
+          (imageEmit)="addImages($event)"
+          class="d-block w-100"
+        >
         </app-upload-files>
       </div>
 
@@ -19,6 +23,7 @@
         mat-raised-button
         color="primary"
         (click)="onSubmit()"
+        [disabled]="!form?.valid || (this.loading$ | async)"
       >
         Save
       </button>

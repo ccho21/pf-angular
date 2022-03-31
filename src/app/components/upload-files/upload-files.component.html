@@ -29,7 +29,7 @@
       class="file-input"
       [accept]="requiredFileType"
       (change)="onFileSelected($event)"
-      multiple
+      [multiple]="uploadMode === 'multiple'"
       #fileUpload
     />
   </div>

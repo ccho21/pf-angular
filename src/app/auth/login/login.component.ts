@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.form = fb.group({
-      email: ['test@test.com', [Validators.required]],
+      email: ['test5@test.com', [Validators.required]],
       password: ['123456', [Validators.required]],
     });
   }
