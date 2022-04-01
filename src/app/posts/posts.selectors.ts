@@ -19,6 +19,5 @@ export const arePostsLoaded = createSelector(
 export const selectPost = (id: string) =>
   createSelector(selectAllPosts, (posts) => {
     const post = posts.find((post) => post._id === id);
-    console.log('working??', post);
     return post as Post;
   });

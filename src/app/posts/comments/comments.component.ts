@@ -17,7 +17,6 @@ export class CommentsComponent implements OnInit {
   constructor(private postService: PostService) {}
 
   ngOnInit(): void {
-    console.log(this.comments);
   }
   isCommentLiked(comment: Comment, userId?: string) {
     return this.postService.isLikedByUser(comment, userId);

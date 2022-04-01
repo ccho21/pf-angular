@@ -7,9 +7,10 @@ import { AppState } from '@app/reducers';
 import { PostService } from '@app/services/post.service';
 import { defaultDialogConfig } from '@app/shared/default-dialog-config';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable, tap } from 'rxjs';
 import { Like } from '../model/like';
 import { Post } from '../model/post';
+import { View } from '../model/view';
 import { PostEditDialogComponent } from '../post-edit-dialog/post-edit-dialog.component';
 import { selectPost } from '../posts.selectors';
 
@@ -45,6 +46,20 @@ export class PostComponent implements OnInit {
     if (this.postId) {
       this.post$ = this.store.pipe(select(selectPost(this.postId)));
       this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
+
+      // Check if this post has been viewed by user.
+      combineLatest([this.post$, this.user$]).subscribe({
+        next: ([post, user]) => {
+          if (!post.views?.some((view) => view.user === user._id)) {
+            console.log('not viewed yet');
+
+            this.postService.addView(post._id as string);
+          } else {
+            console.log('already viewed');
+          }
+        },
+        error: (err) => console.log(err),
+      });
     }
   }
 
@@ -63,7 +78,6 @@ export class PostComponent implements OnInit {
       .afterClosed()
       .subscribe(() => {
         console.log('dialog is done');
-        // this.reload()
       });
   }
 

@@ -13,6 +13,7 @@ import {
 } from '@app/posts/post.actions';
 import { Update } from '@ngrx/entity';
 import { Like } from '@app/posts/model/like';
+import { View } from '@app/posts/model/view';
 
 @Injectable({
   providedIn: 'root',
@@ -142,5 +143,18 @@ export class PostService {
       changes: post,
     };
     this.store.dispatch(commentUpdated({ update }));
+  }
+
+  addView(postId: string): Observable<View[]> {
+    console.log('add view working?', postId);
+    return this.http
+      .put<View[]>(`http://localhost:5000/api/posts/views/${postId}`, {})
+      .pipe(
+        map((res: View[]) => {
+          console.log('RES!!! in VIEW', res);
+          // this.updateLikeToStore(postId, res as Like[]);
+          return res;
+        })
+      );
   }
 }

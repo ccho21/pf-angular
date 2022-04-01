@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     const val = this.form.value;
-    console.log("working?");
     this.authService.login(val.email, val.password).subscribe({
       next: () => {
         this.router.navigateByUrl('/posts');
