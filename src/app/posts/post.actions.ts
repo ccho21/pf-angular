@@ -18,3 +18,8 @@ export const commentUpdated = createAction(
   '[Update Post Comment] Comment Updated',
   props<{ update: Update<Post> }>()
 );
+
+export const likeUpdated = createAction(
+  '[Update Post Like] Like Updated',
+  props<{ update: Update<Post> }>()
+);

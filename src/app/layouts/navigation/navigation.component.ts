@@ -9,7 +9,7 @@ import {
 } from '@angular/router';
 import { login, logout } from '@app/auth/auth.actions';
 import {
-  getUser,
+  getCurrentUser,
   isLoggedIn,
   isLoggedOut,
   selectAuthState,
@@ -43,7 +43,7 @@ export class NavigationComponent implements OnInit {
     // check if the user is logged in or not
     this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
     this.isLoggedOut$ = this.store.pipe(select(isLoggedOut));
-    this.user$ = this.store.pipe(select(getUser)) as Observable<User>;
+    this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
   }
 
   logout() {

@@ -2,7 +2,6 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PostsState } from './reducers/post.reducers';
 import * as fromPosts from './reducers/post.reducers';
 
-import { getUser } from '@app/auth/auth.selectors';
 import { Post } from './model/post';
 
 export const selectPostsState = createFeatureSelector<PostsState>('posts');

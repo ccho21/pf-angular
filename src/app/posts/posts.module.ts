@@ -24,6 +24,7 @@ import { ComponentsModule } from '@app/components/components.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { PostEditDialogComponent } from './post-edit-dialog/post-edit-dialog.component';
 import { CommentCreateComponent } from './comment-create/comment-create.component';
+import { LikesComponent } from './likes/likes.component';
 
 export const postsRoutes: Routes = [
   {
@@ -65,6 +66,7 @@ export const postsRoutes: Routes = [
     PostNewComponent,
     PostEditDialogComponent,
     CommentCreateComponent,
+    LikesComponent,
   ],
   exports: [],
   entryComponents: [],

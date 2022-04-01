@@ -1,11 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { getCurrentUser } from '@app/auth/auth.selectors';
+import { User } from '@app/auth/model/user';
 import { AppState } from '@app/reducers';
 import { PostService } from '@app/services/post.service';
 import { defaultDialogConfig } from '@app/shared/default-dialog-config';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Like } from '../model/like';
 import { Post } from '../model/post';
 import { PostEditDialogComponent } from '../post-edit-dialog/post-edit-dialog.component';
 import { selectPost } from '../posts.selectors';
@@ -19,8 +22,11 @@ export class PostComponent implements OnInit {
   @Output()
   default: string =
     'https://firebasestorage.googleapis.com/v0/b/bulletin-board-d1815.appspot.com/o/uploads%2F1582746081704_ayo-ogunseinde-2.jpg?alt=media&token=cbc87b46-e85a-4de3-93c3-416dd289b2f1';
-  post$!: Observable<Post>;
+  post$?: Observable<Post>;
   postId?: string | undefined;
+
+  user$?: Observable<User>;
+  isLiked?: boolean;
 
   constructor(
     private postService: PostService,
@@ -32,15 +38,17 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.reload();
   }
+  // INIT FUNCTION
   reload() {
     this.postId = this.route.snapshot.paramMap.get('id') as string;
 
-    this.post$ = this.store.pipe(select(selectPost(this.postId)));
-    // if (!this.post$) {
-    //   this.post$ = this.postService.findPostById(this.postId);
-    // }
+    if (this.postId) {
+      this.post$ = this.store.pipe(select(selectPost(this.postId)));
+      this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
+    }
   }
 
+  // POST FUNCTIONS
   editPost(post: Post) {
     const dialogConfig = defaultDialogConfig();
 
@@ -59,6 +67,12 @@ export class PostComponent implements OnInit {
       });
   }
 
+  // LIKE FUNCTIONS
+  isPostLiked(post: Post, userId?: string) {
+    return this.postService.isLikedByUser(post, userId);
+  }
+
+  // UI FUNCTIONS
   openActionModal(component: any) {
     const dialogConfig = defaultDialogConfig();
 

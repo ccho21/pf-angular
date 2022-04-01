@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="user$ | async as user">
   <div class="d-post-wrapper" *ngIf="post$ | async as post">
     <div class="d-post">
       <div class="d-flex justify-content-center">
@@ -36,7 +36,7 @@
               </div>
 
               <div class="d-post-comments">
-                <app-comments [comments]="post.comments"></app-comments>
+                <app-comments [comments]="post.comments" [postId]="postId" [userId]="user._id"></app-comments>
               </div>
               <!-- Post Detail -->
               <div class="d-post-detail">
@@ -44,7 +44,12 @@
                   <div class="col-md-12">
                     <div class="d-flex">
                       <div>
-                        <mat-icon> favorite_border </mat-icon>
+                        <app-likes
+                          [isLiked]="isPostLiked(post, user._id)"
+                          [postId]="postId"
+                          [userId]="user._id"
+                        >
+                        </app-likes>
                       </div>
                       <div class="ms-2 flex-grow-1">
                         <mat-icon>bookmark_border</mat-icon>

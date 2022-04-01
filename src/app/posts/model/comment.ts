@@ -1,3 +1,5 @@
+import { Like } from './like';
+
 export interface Comment {
     _id?: string;
     username?: string;
@@ -5,6 +7,7 @@ export interface Comment {
     content: string;
     createdAt?: string;
     updatedAt?: string;
+    likes?: Array<Like>;
     author?: string;
     depth?: number;
     postId?: string;
