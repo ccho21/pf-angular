@@ -6,7 +6,7 @@ import { concatMap, map, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { postUpdated } from '@app/posts/post.actions';
+import { commentUpdated, postUpdated } from '@app/posts/post.actions';
 import { Update } from '@ngrx/entity';
 
 @Injectable({
@@ -48,11 +48,13 @@ export class PostService {
       );
   }
 
-  updateComment(postId: string, changes: Partial<Post>): Observable<Post> {
-    console.log("changes### : ", changes);
-    // console.log('POST Id ', postId, '### CHANGES ', comment);
+  updateComment(postId: string, comment: Comment): Observable<Post> {
+    console.log('changes### : ', postId, comment);
     return this.http
-      .put<Comment[]>('http://localhost:5000/api/posts/comment/' + postId, changes)
+      .put<Comment[]>(
+        'http://localhost:5000/api/posts/comment/' + postId,
+        comment
+      )
       .pipe(
         tap((res: any) => {
           console.log('### COMMENT OUTCOME', res);
@@ -63,7 +65,7 @@ export class PostService {
             id: postId,
             changes: post,
           };
-          // this.store.dispatch(postUpdated({update}));
+          this.store.dispatch(commentUpdated({ update }));
         })
       );
   }

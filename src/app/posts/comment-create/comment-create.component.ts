@@ -6,6 +6,7 @@ import { Comment } from '../model/comment';
 import { commentUpdated } from '../post.actions';
 import { AppState } from '@app/reducers';
 import { Store } from '@ngrx/store';
+import { PostService } from '@app/services/post.service';
 
 @Component({
   selector: 'app-comment-create',
@@ -17,7 +18,10 @@ export class CommentCreateComponent implements OnInit {
   @Input() comment!: Comment;
   @Input() post!: Post;
   @Output() commentEmit: EventEmitter<any> = new EventEmitter();
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private postService: PostService
+  ) {}
 
   ngOnInit(): void {
     this.commentForm = new FormControl('');
@@ -30,14 +34,23 @@ export class CommentCreateComponent implements OnInit {
     console.log('hello comment submit');
 
     const comment: Comment = { content: this.commentForm.value };
-    const post: Partial<Post> = {
-      comments: [comment],
-    };
-    const update: Update<Post> = {
-      id: this.post._id as string,
-      changes: comment,
-    };
-    console.log('### update', update);
-    this.store.dispatch(commentUpdated({ update }));
+    // const post: Partial<Post> = {
+    //   comments: [comment],
+    // };
+    // const update: Update<Post> = {
+    //   id: this.post._id as string,
+    //   changes: comment,
+    // };
+    // console.log('### update', update);
+    // this.store.dispatch(commentUpdated({ update }));
+    const postId = this.post._id as string;
+    this.postService.updateComment(postId, comment).subscribe({
+      next: () => {
+        console.log('Comment upldated');
+      },
+      error: (err) => {
+        console.log('Err', err);
+      },
+    });
   }
 }

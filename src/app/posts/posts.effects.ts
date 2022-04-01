@@ -30,19 +30,19 @@ export class PostsEffects {
     { dispatch: false }
   );
 
-  updateComment$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(PostActions.commentUpdated),
-        concatMap((action) => {
-          console.log('### action', action);
-          return this.postService.updateComment(
-            action.update.id as string,
-            action.update.changes
-          );
-        })
-      ),
-    { dispatch: false }
-  );
+  // updateComment$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(PostActions.commentUpdated),
+  //       concatMap((action) => {
+  //         console.log('### action', action);
+  //         return this.postService.updateComment(
+  //           action.update.id as string,
+  //           action.update.changes
+  //         );
+  //       })
+  //     ),
+  //   { dispatch: false }
+  // );
   constructor(private actions$: Actions, private postService: PostService) {}
 }
