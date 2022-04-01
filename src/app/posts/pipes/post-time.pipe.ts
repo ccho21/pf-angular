@@ -11,7 +11,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'postTime' })
 export class PostTimePipe implements PipeTransform {
   transform(value: string | undefined): string {
-    // console.log(value);
+    console.log(value);
     const date = new Date(value as string);
     const diff = new Date().getTime() - date.getTime();
     const hour = Math.floor(diff / (1000 * 60 * 60));

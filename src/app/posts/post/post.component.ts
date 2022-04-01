@@ -88,4 +88,19 @@ export class PostComponent implements OnInit {
       .afterClosed()
       .subscribe(() => {});
   }
+
+  openLikes(component: any) {
+    const dialogConfig = defaultDialogConfig();
+
+    dialogConfig.data = {
+      dialogTitle: 'Likes',
+    };
+    this.dialog
+      .open(component, {
+        panelClass: 'custom-no-padding-container',
+        data: dialogConfig,
+      })
+      .afterClosed()
+      .subscribe(() => {});
+  }
 }

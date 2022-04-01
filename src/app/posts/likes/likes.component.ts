@@ -17,6 +17,7 @@ export class LikesComponent implements OnInit {
   @Input() isLiked?: boolean;
   @Output() commentEmit: EventEmitter<any> = new EventEmitter();
 
+  @Input() likeStyle?: any;
   likeSub$?: Subscription;
   constructor(
     private store: Store<AppState>,
@@ -24,7 +25,6 @@ export class LikesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.userId);
   }
 
   clickLike() {

@@ -38,15 +38,15 @@
               <div class="me-3">
                 <span
                   class="text-muted"
-                  *ngIf="comment.createdAt; else createAt"
+                  *ngIf="comment.updatedAt; else createAt"
                 >
-                  {{ comment?.updatedAt | postTime }}
+                  {{ comment.updatedAt | postTime }}
                 </span>
-                <ng-template #createAt
-                  ><span class="text-muted">
+                <ng-template #createAt>
+                  <span class="text-muted">
                     {{ comment.createdAt | postTime }}
-                  </span></ng-template
-                >
+                  </span>
+                </ng-template>
               </div>
               <div>
                 <a class="cd-comment-reply">reply</a>
@@ -66,6 +66,7 @@
               [userId]="userId"
               [postId]="postId"
               [commentId]="comment._id"
+              [likeStyle]="{ size: '15px', color: '#c51104' }"
             >
             </app-likes>
           </div>

@@ -34,15 +34,6 @@ export class CommentCreateComponent implements OnInit {
     console.log('hello comment submit');
 
     const comment: Comment = { content: this.commentForm.value };
-    // const post: Partial<Post> = {
-    //   comments: [comment],
-    // };
-    // const update: Update<Post> = {
-    //   id: this.post._id as string,
-    //   changes: comment,
-    // };
-    // console.log('### update', update);
-    // this.store.dispatch(commentUpdated({ update }));
     const postId = this.post._id as string;
     this.postService.updateComment(postId, comment).subscribe({
       next: () => {

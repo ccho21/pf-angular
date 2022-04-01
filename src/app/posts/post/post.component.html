@@ -36,7 +36,11 @@
               </div>
 
               <div class="d-post-comments">
-                <app-comments [comments]="post.comments" [postId]="postId" [userId]="user._id"></app-comments>
+                <app-comments
+                  [comments]="post.comments"
+                  [postId]="postId"
+                  [userId]="user._id"
+                ></app-comments>
               </div>
               <!-- Post Detail -->
               <div class="d-post-detail">
@@ -48,6 +52,7 @@
                           [isLiked]="isPostLiked(post, user._id)"
                           [postId]="postId"
                           [userId]="user._id"
+                          [likeStyle]="{ color: '#c51104' }"
                         >
                         </app-likes>
                       </div>
@@ -60,18 +65,39 @@
                 <div class="row d-post-detail-likes">
                   <div class="col-md-12">
                     <div class="d-flex align-items-center">
-                      <img
-                        class="media-object c-img-thumnail img-circle img-no-padding img-responsive d-post-detail-likes-likes-user"
-                        [src]="post.thumbnail || default"
-                        width="40"
-                      />
                       <div>
-                        Liked by
-                        <a><strong class=""> Charles </strong></a>
-                        and
-                        <a>
-                          <strong class=""> others </strong>
-                        </a>
+                        <div *ngIf="post.likes?.length">
+                          <div class="d-flex">
+                            <div class="d-flex">
+                              <span> Liked by </span>
+                              <a
+                                class="d-block px-1"
+                                (click)="openLikes(likes)"
+                              >
+                                <strong class="">
+                                  {{
+                                    post.likes &&
+                                      post.likes[post.likes.length - 1].username
+                                  }}
+                                </strong>
+                              </a>
+                            </div>
+
+                            <div *ngIf="post.likes && post.likes.length > 1">
+                              <div class="d-flex">
+                                <span> and </span>
+                                <a class="d-block px-1">
+                                  <strong class="" (click)="openLikes(likes)">
+                                    others
+                                  </strong>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <ng-template #elseBlock>
+                          Pleaes like this post.
+                        </ng-template>
                       </div>
                     </div>
                   </div>
@@ -106,6 +132,33 @@
               (click)="editPost(post)"
               >Delete</a
             >
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #likes let-modal>
+      <div>
+        <h2 class="my-4 text-center">LIKES</h2>
+      </div>
+      <hr />
+      <div class="user-action p-4">
+        <div *ngFor="let like of post.likes">
+          <div class="d-flex align-items-center">
+            <div>
+              <img
+                alt="HHAHa"
+                width="40"
+                class="media-object c-img-thumnail img-circle img-fluid"
+                [src]="like.thumbnail"
+              />
+            </div>
+            <div>
+              {{ like.username }}
+            </div>
+            <div class="flex-grow-1 text-end">
+              <button mat-button>Follow</button>
+            </div>
           </div>
         </div>
       </div>

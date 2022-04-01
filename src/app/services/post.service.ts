@@ -24,7 +24,7 @@ export class PostService {
     private router: Router
   ) {}
   loadPosts(): Observable<Post[]> {
-    return this.http.get('/api/posts').pipe(
+    return this.http.get('http://localhost:5000/api/posts').pipe(
       map((res) => {
         console.log(res);
         return res as Post[];

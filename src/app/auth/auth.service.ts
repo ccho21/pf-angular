@@ -11,7 +11,7 @@ import { login } from './auth.actions';
 export class AuthService {
   constructor(private http: HttpClient, private store: Store<AppState>) {}
   login(email: string, password: string): Observable<User> {
-    return this.http.post<User>('/api/auth', { email, password }).pipe(
+    return this.http.post<User>('http://localhost:5000/api/auth', { email, password }).pipe(
       tap((res: any) => {
         console.log(res);
         const { user, token } = res;
