@@ -23,3 +23,8 @@ export const likeUpdated = createAction(
   '[Update Post Like] Like Updated',
   props<{ update: Update<Post> }>()
 );
+
+export const viewUpdated = createAction(
+  '[Update Post View] View Updated',
+  props<{ update: Update<Post> }>()
+);

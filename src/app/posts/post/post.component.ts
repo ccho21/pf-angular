@@ -7,7 +7,7 @@ import { AppState } from '@app/reducers';
 import { PostService } from '@app/services/post.service';
 import { defaultDialogConfig } from '@app/shared/default-dialog-config';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, Observable, tap } from 'rxjs';
+import { combineLatest, concatMap, forkJoin, Observable, tap } from 'rxjs';
 import { Like } from '../model/like';
 import { Post } from '../model/post';
 import { View } from '../model/view';
@@ -48,18 +48,29 @@ export class PostComponent implements OnInit {
       this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
 
       // Check if this post has been viewed by user.
-      combineLatest([this.post$, this.user$]).subscribe({
-        next: ([post, user]) => {
-          if (!post.views?.some((view) => view.user === user._id)) {
-            console.log('not viewed yet');
+      combineLatest([this.post$, this.user$])
+        .pipe(
+          concatMap(([post, user]: [Post, User]) => {
+            console.log('Post', post);
+            console.log('User', user);
+            return this.postService.addView(post._id as string);
+          })
+        )
+        .subscribe((val) => {
+          console.log('### ???', val);
+        });
+      // .subscribe({
+      //   next: ([post, user]) => {
+      //     if (!post.views?.some((view) => view.user === user._id)) {
+      //       console.log('not viewed yet');
 
-            this.postService.addView(post._id as string);
-          } else {
-            console.log('already viewed');
-          }
-        },
-        error: (err) => console.log(err),
-      });
+      //       this.postService.addView(post._id as string);
+      //     } else {
+      //       console.log('already viewed');
+      //     }
+      //   },
+      //   error: (err) => console.log(err),
+      // });
     }
   }
 

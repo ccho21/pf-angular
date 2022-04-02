@@ -58,7 +58,7 @@ export class PostService {
     console.log('changes### : ', postId, comment);
     return this.http
       .put<Comment[]>(
-        'http://localhost:5000/api/posts/comment/' + postId,
+        'http://localhost:5000/api/posts/comments/' + postId,
         comment
       )
       .pipe(
@@ -84,7 +84,7 @@ export class PostService {
     commentId = commentId ? commentId : '';
     return this.http
       .put<Like[] | Comment[]>(
-        `http://localhost:5000/api/posts/like/${postId}/${commentId}`,
+        `http://localhost:5000/api/posts/likes/${postId}/${commentId}`,
         {}
       )
       .pipe(
@@ -104,8 +104,8 @@ export class PostService {
   ): Observable<Like[] | Comment[]> {
     commentId = commentId ? commentId : '';
     return this.http
-      .put<Like[] | Comment[]>(
-        `http://localhost:5000/api/posts/unlike/${postId}/${commentId}`,
+      .delete<Like[] | Comment[]>(
+        `http://localhost:5000/api/posts/likes/${postId}/${commentId}`,
         {}
       )
       .pipe(
@@ -145,6 +145,7 @@ export class PostService {
     this.store.dispatch(commentUpdated({ update }));
   }
 
+  //  Views service
   addView(postId: string): Observable<View[]> {
     console.log('add view working?', postId);
     return this.http

@@ -43,6 +43,10 @@ export const postsReducer = createReducer(
 
   on(PostActions.likeUpdated, (state, action) => {
     return adapter.updateOne(action.update, state);
+  }),
+
+  on(PostActions.viewUpdated, (state, action) => {
+    return adapter.updateOne(action.update, state);
   })
 );
 
