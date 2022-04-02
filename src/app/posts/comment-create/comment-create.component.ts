@@ -7,6 +7,7 @@ import { commentUpdated } from '../post.actions';
 import { AppState } from '@app/reducers';
 import { Store } from '@ngrx/store';
 import { PostService } from '@app/services/post.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment-create',
@@ -18,6 +19,11 @@ export class CommentCreateComponent implements OnInit {
   @Input() comment!: Comment;
   @Input() post!: Post;
   @Output() commentEmit: EventEmitter<any> = new EventEmitter();
+
+  replySubscription$?: Subscription;
+  nameTag?: string;
+  commentId?: string;
+
   constructor(
     private store: Store<AppState>,
     private postService: PostService
@@ -25,17 +31,32 @@ export class CommentCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.commentForm = new FormControl('');
+
+    this.replySubscription$ = this.postService
+      .getReplyDTO()
+      .subscribe((res: Comment) => {
+        console.log('### REPLY!!!', res);
+        this.nameTag = `@${res.username} `;
+        this.commentId = res._id;
+        this.commentForm.patchValue(this.nameTag);
+      });
   }
 
   onSubmit() {
     if (!this.commentForm.valid) {
       return;
     }
-    console.log('hello comment submit');
-
-    const comment: Comment = { content: this.commentForm.value };
+    console.log('### this. name tag', this.nameTag);
+    const regex = new RegExp(this.nameTag as string, "g");
+    const comment: Comment = {
+      content: this.commentForm.value.replace(regex, '').trim(),
+    };
     const postId = this.post._id as string;
-    this.postService.updateComment(postId, comment).subscribe({
+
+    if (this.commentId && this.nameTag) {
+      console.log(comment);
+    }
+    this.postService.updateComment(comment, postId).subscribe({
       next: () => {
         console.log('Comment upldated');
       },
@@ -43,5 +64,11 @@ export class CommentCreateComponent implements OnInit {
         console.log('Err', err);
       },
     });
+  }
+
+  ngOnDestroy() {
+    if (this.replySubscription$) {
+      this.replySubscription$.unsubscribe();
+    }
   }
 }

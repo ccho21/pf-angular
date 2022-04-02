@@ -38,6 +38,8 @@ export const postsReducer = createReducer(
     return adapter.updateOne(action.update, state);
   }),
   on(PostActions.commentUpdated, (state, action) => {
+      console.log('### state in REDUCER : ', state);
+    console.log('### ACTION in REDUCER ', action);
     return adapter.updateOne(action.update, state);
   }),
 

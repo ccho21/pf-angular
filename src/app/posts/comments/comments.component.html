@@ -1,76 +1,23 @@
 <div class="p-comments">
   <ul class="list-group list-unstyled">
+    <!-- CLICK LIKE REFRESHES ALL THE COMMENTS RIGHT NOW. -->
+    <!-- BECAUSE OF THAT, THE IMAGES THAT ARE FROM  -->
     <li *ngFor="let comment of comments; index as i">
-      <div class="p-1" *ngIf="comment">
-        <div class="media cd-comment">
-          <div class="mt-1 me-1" href="#">
-            <div class="">
-              <img
-                alt="Tim Picture"
-                class="media-object c-img-thumnail img-circle img-fluid"
-                [src]="comment.thumbnail || default"
-                width="40"
-              />
-            </div>
-          </div>
-          <div class="media-body">
-            <div class="cd-comment-content">
-              <div>
-                <h4 class="media-heading me-2 mb-0">
-                  <strong>
-                    {{ comment.username }}
-                  </strong>
-                </h4>
-              </div>
-              <p class="flex-grow-1 mb-0">
-                {{ comment.content }}
-              </p>
-              <!-- functions -->
-              <div class="cd-comment-actions" *ngIf="">
-                <a>
-                  <mat-icon> more_horiz </mat-icon>
-                </a>
-              </div>
-              <!-- Likes -->
-              <!-- <app-wgt-like [comment]="comment"></app-wgt-like> -->
-            </div>
-            <div class="cd-comment-function">
-              <div class="me-3">
-                <span
-                  class="text-muted"
-                  *ngIf="comment.updatedAt; else createAt"
-                >
-                  {{ comment.updatedAt | postTime }}
-                </span>
-                <ng-template #createAt>
-                  <span class="text-muted">
-                    {{ comment.createdAt | postTime }}
-                  </span>
-                </ng-template>
-              </div>
-              <div>
-                <a class="cd-comment-reply">reply</a>
-              </div>
-            </div>
-
-            <div>
-              <!-- <div *ngIf="comment.comments.length > 0"> -->
-              <a>
-                <!-- replies ({{ comment.comments.length }}) -->
-              </a>
-            </div>
-          </div>
-          <div>
-            <app-likes
-              [isLiked]="isCommentLiked(comment, userId)"
-              [userId]="userId"
+      <app-comment
+        [comment]="comment"
+        [postId]="postId"
+        [userId]="userId"
+      ></app-comment>
+      <div class="ps-5" *ngIf="comment.comments && comment.comments.length > 0">
+        <ul class="list-group list-unstyled">
+          <li *ngFor="let subComment of comment.comments; index as i">
+            <app-comment
+              [comment]="subComment"
               [postId]="postId"
-              [commentId]="comment._id"
-              [likeStyle]="{ size: '15px', color: '#c51104' }"
-            >
-            </app-likes>
-          </div>
-        </div>
+              [userId]="userId"
+            ></app-comment>
+          </li>
+        </ul>
       </div>
     </li>
   </ul>

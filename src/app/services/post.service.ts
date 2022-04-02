@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable, of, Subject } from 'rxjs';
 import { Post } from '@posts/model/post';
 import { Comment } from '@posts/model/comment';
 import { concatMap, map, tap } from 'rxjs/operators';
@@ -19,6 +19,9 @@ import { View } from '@app/posts/model/view';
   providedIn: 'root',
 })
 export class PostService {
+  private replySubject$ = new Subject<Comment>();
+  private replySubscription$ = this.replySubject$.asObservable();
+
   constructor(
     private store: Store,
     private http: HttpClient,
@@ -54,7 +57,7 @@ export class PostService {
       );
   }
 
-  updateComment(postId: string, comment: Comment): Observable<Post> {
+  updateComment(comment: Comment, postId: string): Observable<Post> {
     console.log('changes### : ', postId, comment);
     return this.http
       .put<Comment[]>(
@@ -104,8 +107,8 @@ export class PostService {
   ): Observable<Like[] | Comment[]> {
     commentId = commentId ? commentId : '';
     return this.http
-      .delete<Like[] | Comment[]>(
-        `http://localhost:5000/api/posts/likes/${postId}/${commentId}`,
+      .put<Like[] | Comment[]>(
+        `http://localhost:5000/api/posts/likes/u/${postId}/${commentId}`,
         {}
       )
       .pipe(
@@ -117,10 +120,6 @@ export class PostService {
           }
         })
       );
-  }
-
-  isLikedByUser(obj: Post | Comment, userId?: string) {
-    return obj.likes?.some((like) => like.user === userId);
   }
 
   private updateLikeToStore(postId: string, res: Like[]) {
@@ -145,6 +144,9 @@ export class PostService {
     this.store.dispatch(commentUpdated({ update }));
   }
 
+  isLikedByUser(obj: Post | Comment, userId?: string) {
+    return obj.likes?.some((like) => like.user === userId);
+  }
   //  Views service
   addView(postId: string): Observable<View[]> {
     console.log('add view working?', postId);
@@ -157,5 +159,14 @@ export class PostService {
           return res;
         })
       );
+  }
+
+  //Subject to populate the data on comment create comment
+  updateReplyDTO(comment: Comment) {
+    this.replySubject$.next(comment);
+  }
+
+  getReplyDTO() {
+    return this.replySubscription$;
   }
 }
