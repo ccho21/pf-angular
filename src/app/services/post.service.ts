@@ -57,11 +57,36 @@ export class PostService {
       );
   }
 
-  updateComment(comment: Comment, postId: string): Observable<Post> {
-    console.log('changes### : ', postId, comment);
+  addComment(comment: Comment, postId: string): Observable<Post> {
     return this.http
       .put<Comment[]>(
-        'http://localhost:5000/api/posts/comments/' + postId,
+        `http://localhost:5000/api/posts/comments/${postId}`,
+        comment
+      )
+      .pipe(
+        tap((res: any) => {
+          console.log('### COMMENT OUTCOME', res);
+          const post = {
+            comments: res,
+          };
+          const update: Update<Post> = {
+            id: postId,
+            changes: post,
+          };
+          this.store.dispatch(commentUpdated({ update }));
+        })
+      );
+  }
+
+  addSubComment(
+    comment: Comment,
+    postId: string,
+    commentId?: string
+  ): Observable<Post> {
+    commentId = commentId ? commentId : '';
+    return this.http
+      .put<Comment[]>(
+        `http://localhost:5000/api/posts/comments/${postId}/${commentId}`,
         comment
       )
       .pipe(
@@ -147,6 +172,7 @@ export class PostService {
   isLikedByUser(obj: Post | Comment, userId?: string) {
     return obj.likes?.some((like) => like.user === userId);
   }
+
   //  Views service
   addView(postId: string): Observable<View[]> {
     console.log('add view working?', postId);

@@ -16,14 +16,12 @@ import { Subscription } from 'rxjs';
 })
 export class CommentCreateComponent implements OnInit {
   commentForm!: FormControl;
-  @Input() comment!: Comment;
   @Input() post!: Post;
   @Output() commentEmit: EventEmitter<any> = new EventEmitter();
 
   replySubscription$?: Subscription;
   nameTag?: string;
-  commentId?: string;
-
+  pComment?: Comment; // comment object from parent array of comment
   constructor(
     private store: Store<AppState>,
     private postService: PostService
@@ -35,9 +33,9 @@ export class CommentCreateComponent implements OnInit {
     this.replySubscription$ = this.postService
       .getReplyDTO()
       .subscribe((res: Comment) => {
-        console.log('### REPLY!!!', res);
+        // get Parent comment in comment component through subject event
         this.nameTag = `@${res.username} `;
-        this.commentId = res._id;
+        this.pComment = res;
         this.commentForm.patchValue(this.nameTag);
       });
   }
@@ -46,22 +44,39 @@ export class CommentCreateComponent implements OnInit {
     if (!this.commentForm.valid) {
       return;
     }
-    console.log('### this. name tag', this.nameTag);
-    const regex = new RegExp(this.nameTag as string, "g");
+    const regex = new RegExp(this.nameTag as string, 'g');
     const comment: Comment = {
       content: this.commentForm.value.replace(regex, '').trim(),
     };
     const postId = this.post._id as string;
+    const pCommentId = this.pComment?._id as string;
 
-    if (this.commentId && this.nameTag) {
-      console.log(comment);
+    if (pCommentId && this.nameTag) {
+      comment.replyTo = this.nameTag.trim();
+      this.updateSubComment(comment, postId, pCommentId);
+    } else {
+      this.updateComment(comment, postId);
     }
-    this.postService.updateComment(comment, postId).subscribe({
+  }
+
+  updateComment(comment: Comment, postId: string) {
+    this.postService.addComment(comment, postId).subscribe({
       next: () => {
-        console.log('Comment upldated');
+        console.log('Comment updated');
       },
       error: (err) => {
-        console.log('Err', err);
+        console.log('Error occurred', err);
+      },
+    });
+  }
+
+  updateSubComment(comment: Comment, postId: string, commentId: string) {
+    this.postService.addSubComment(comment, postId, commentId).subscribe({
+      next: () => {
+        console.log('Sub Comment updated');
+      },
+      error: (err) => {
+        console.log('Error occurred', err);
       },
     });
   }

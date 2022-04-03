@@ -11,7 +11,7 @@ export interface Comment {
     author?: string;
     depth?: number;
     postId?: string;
-    commentTo?: Comment;
+    replyTo?: string;
     commentTag?: string;
     comments?: Array<Comment>;
     parentCommentId?: string;
