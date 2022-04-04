@@ -16,13 +16,13 @@
                 <div class="align-self-center">
                   <img
                     class="media-object c-img-thumnail img-circle img-no-padding img-responsive img-fluid"
-                    [src]="post.thumbnail || default"
+                    [src]="post.author?.thumbnail"
                     width="40"
                   />
                 </div>
                 <div class="font-weight-bold flex-grow-1">
                   <strong>
-                    {{ post?.username }}
+                    {{ post.author?.username }}
                   </strong>
                 </div>
                 <div class="pr-2">
@@ -75,10 +75,11 @@
                                 (click)="openLikes(likes)"
                               >
                                 <strong class="">
-                                  {{
+                                  <!-- {{
                                     post.likes &&
-                                      post.likes[post.likes.length - 1].username
-                                  }}
+                                      post.likes[post.likes.length - 1].author
+                                        .username
+                                  }} -->
                                 </strong>
                               </a>
                             </div>
@@ -150,11 +151,11 @@
                 alt="HHAHa"
                 width="40"
                 class="media-object c-img-thumnail img-circle img-fluid"
-                [src]="like.thumbnail"
+                [src]="like.author.thumbnail"
               />
             </div>
             <div>
-              {{ like.username }}
+              {{ like.author.username }}
             </div>
             <div class="flex-grow-1 text-end">
               <button mat-button>Follow</button>

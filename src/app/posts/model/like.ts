@@ -1,5 +1,6 @@
+import { User } from '@app/auth/model/user';
+
 export interface Like {
-  user: string;
-  username: string;
-  thumbnail: string;
+  author: User;
+  createdAt?: string;
 }

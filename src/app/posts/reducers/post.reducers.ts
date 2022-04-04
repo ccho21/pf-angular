@@ -1,4 +1,5 @@
 import { Post } from '../model/post';
+import { Comment } from '../model/comment';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { PostActions } from '../action-types';
@@ -38,12 +39,14 @@ export const postsReducer = createReducer(
     return adapter.updateOne(action.update, state);
   }),
   on(PostActions.commentUpdated, (state, action) => {
-      console.log('### state in REDUCER : ', state);
-    console.log('### ACTION in REDUCER ', action);
+    // console.log('### state in REDUCER : ', state);
+    // console.log('### ACTION in REDUCER ', action);
     return adapter.updateOne(action.update, state);
   }),
 
   on(PostActions.likeUpdated, (state, action) => {
+    console.log('### state in REDUCER : ', state);
+    console.log('### ACTION in REDUCER ', action);
     return adapter.updateOne(action.update, state);
   }),
 

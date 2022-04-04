@@ -148,9 +148,13 @@ export class PostService {
   }
 
   private updateLikeToStore(postId: string, res: Like[]) {
+    console.log('### RES', res);
     const post = {
       likes: res,
     };
+
+    console.log('### RES', post);
+
     const update: Update<Post> = {
       id: postId,
       changes: post,
@@ -158,6 +162,7 @@ export class PostService {
     console.log('update!', update);
     this.store.dispatch(likeUpdated({ update }));
   }
+
   private updateCommentToStore(postId: string, res: Comment[]) {
     const post = {
       comments: res,
@@ -170,7 +175,7 @@ export class PostService {
   }
 
   isLikedByUser(obj: Post | Comment, userId?: string) {
-    return obj.likes?.some((like) => like.user === userId);
+    return obj.likes?.some((like) => like.author?._id === userId);
   }
 
   //  Views service

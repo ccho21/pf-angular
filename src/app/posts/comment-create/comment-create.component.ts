@@ -34,7 +34,7 @@ export class CommentCreateComponent implements OnInit {
       .getReplyDTO()
       .subscribe((res: Comment) => {
         // get Parent comment in comment component through subject event
-        this.nameTag = `@${res.username} `;
+        this.nameTag = `@${res.author?.username} `;
         this.pComment = res;
         this.commentForm.patchValue(this.nameTag);
       });
