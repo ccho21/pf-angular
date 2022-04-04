@@ -1,6 +1,7 @@
 import { User } from '@app/auth/model/user';
 
 export interface Like {
-  author: User;
+  author?: User;
+  user: string,
   createdAt?: string;
 }

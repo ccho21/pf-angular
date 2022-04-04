@@ -83,10 +83,10 @@ export class PostService {
     postId: string,
     commentId?: string
   ): Observable<Post> {
-    commentId = commentId ? commentId : '';
+    const commentUrl = commentId ? commentId : '';
     return this.http
       .put<Comment[]>(
-        `http://localhost:5000/api/posts/comments/${postId}/${commentId}`,
+        `http://localhost:5000/api/posts/comments/${postId}/${commentUrl}`,
         comment
       )
       .pipe(
@@ -109,10 +109,10 @@ export class PostService {
     postId: string,
     commentId: string | undefined
   ): Observable<Like[] | Comment[]> {
-    commentId = commentId ? commentId : '';
+    const commentUrl = commentId ? `comments/${commentId}` : '';
     return this.http
       .put<Like[] | Comment[]>(
-        `http://localhost:5000/api/posts/likes/${postId}/${commentId}`,
+        `http://localhost:5000/api/posts/likes/${postId}/${commentUrl}`,
         {}
       )
       .pipe(
@@ -130,7 +130,7 @@ export class PostService {
     postId: string,
     commentId: string | undefined
   ): Observable<Like[] | Comment[]> {
-    commentId = commentId ? commentId : '';
+    commentId = commentId ? `comments/${commentId}` : '';
     return this.http
       .put<Like[] | Comment[]>(
         `http://localhost:5000/api/posts/likes/u/${postId}/${commentId}`,
@@ -175,7 +175,7 @@ export class PostService {
   }
 
   isLikedByUser(obj: Post | Comment, userId?: string) {
-    return obj.likes?.some((like) => like.author?._id === userId);
+    return obj.likes?.some((like) => like.user === userId);
   }
 
   //  Views service
