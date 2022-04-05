@@ -66,7 +66,7 @@
                   <div class="col-md-12">
                     <div class="d-flex align-items-center">
                       <div>
-                        <div *ngIf="post.likes?.length">
+                        <div *ngIf="post.likes?.length; else elseBlock">
                           <div class="d-flex">
                             <div class="d-flex">
                               <span> Liked by </span>
@@ -75,11 +75,11 @@
                                 (click)="openLikes(likes)"
                               >
                                 <strong class="">
-                                  <!-- {{
+                                  {{
                                     post.likes &&
                                       post.likes[post.likes.length - 1].author
-                                        .username
-                                  }} -->
+                                        ?.username
+                                  }}
                                 </strong>
                               </a>
                             </div>
@@ -97,7 +97,7 @@
                           </div>
                         </div>
                         <ng-template #elseBlock>
-                          Pleaes like this post.
+                          <span> Pleaes like this post. </span>
                         </ng-template>
                       </div>
                     </div>
@@ -106,7 +106,10 @@
               </div>
               <!-- comment -->
               <div class="d-post-comment-write">
-                <app-comment-create [post]="post"></app-comment-create>
+                <app-comment-create
+                  [post]="post"
+                  [user]="user"
+                ></app-comment-create>
               </div>
             </div>
           </div>
@@ -143,7 +146,7 @@
         <h2 class="my-4 text-center">LIKES</h2>
       </div>
       <hr />
-      <!-- <div class="user-action p-4">
+      <div class="user-action p-4">
         <div *ngFor="let like of post.likes">
           <div class="d-flex align-items-center">
             <div>
@@ -151,18 +154,18 @@
                 alt="HHAHa"
                 width="40"
                 class="media-object c-img-thumnail img-circle img-fluid"
-                [src]="like.author.thumbnail"
+                [src]="like.author?.thumbnail"
               />
             </div>
             <div>
-              {{ like.author.username }}
+              {{ like.author?.username }}
             </div>
             <div class="flex-grow-1 text-end">
               <button mat-button>Follow</button>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </ng-template>
   </div>
 </div>

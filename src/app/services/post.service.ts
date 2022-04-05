@@ -109,10 +109,10 @@ export class PostService {
     postId: string,
     commentId: string | undefined
   ): Observable<Like[] | Comment[]> {
-    commentId = commentId ? commentId : '';
+    commentId = commentId ? `c/${commentId}` : '';
     return this.http
-      .put<Like[] | Comment[]>(
-        `http://localhost:5000/api/likes/p/${postId}/c/${commentId}`,
+      .post<Like[] | Comment[]>(
+        `http://localhost:5000/api/likes/p/${postId}/${commentId}`,
         {}
       )
       .pipe(
@@ -130,10 +130,10 @@ export class PostService {
     postId: string,
     commentId: string | undefined
   ): Observable<Like[] | Comment[]> {
-    commentId = commentId ? commentId : '';
+    commentId = commentId ? `c/${commentId}` : '';
     return this.http
       .delete<Like[] | Comment[]>(
-        `http://localhost:5000/api/likes/p/${postId}/c/${commentId}`,
+        `http://localhost:5000/api/likes/p/${postId}/${commentId}`,
         {}
       )
       .pipe(

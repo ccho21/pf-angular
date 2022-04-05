@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { PostService } from '@app/services/post.service';
 import { Subscription } from 'rxjs';
 import { ThisReceiver } from '@angular/compiler';
+import { User } from '@app/auth/model/user';
 
 @Component({
   selector: 'app-comment-create',
@@ -18,6 +19,7 @@ import { ThisReceiver } from '@angular/compiler';
 export class CommentCreateComponent implements OnInit {
   commentForm!: FormControl;
   @Input() post!: Post;
+  @Input() user!: User;
   @Output() commentEmit: EventEmitter<any> = new EventEmitter();
 
   replySubscription$?: Subscription;
@@ -50,6 +52,7 @@ export class CommentCreateComponent implements OnInit {
     const regex = new RegExp(this.nameTag as string, 'g');
     const comment: Comment = {
       parentId: postId,
+      author: this.user,
       content: this.commentForm.value.replace(regex, '').trim(),
     };
     const pCommentId =
@@ -64,6 +67,8 @@ export class CommentCreateComponent implements OnInit {
     } else {
       this.updateComment(comment, postId);
     }
+
+    this.commentForm.reset();
   }
 
   updateComment(comment: Comment, postId: string) {

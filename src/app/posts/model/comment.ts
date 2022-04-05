@@ -5,7 +5,7 @@ export interface Comment {
   _id?: string;
   content: string;
   likes?: Array<Like>;
-  author?: User;
+  author: User;
   parentId: string;
   replyTo?: string;
   comments?: Array<Comment>;
