@@ -8,6 +8,7 @@ import { AppState } from '@app/reducers';
 import { Store } from '@ngrx/store';
 import { PostService } from '@app/services/post.service';
 import { Subscription } from 'rxjs';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-comment-create',
@@ -34,6 +35,7 @@ export class CommentCreateComponent implements OnInit {
       .getReplyDTO()
       .subscribe((res: Comment) => {
         // get Parent comment in comment component through subject event
+        console.log('COMMENT', res);
         this.nameTag = `@${res.author?.username} `;
         this.pComment = res;
         this.commentForm.patchValue(this.nameTag);
@@ -44,15 +46,20 @@ export class CommentCreateComponent implements OnInit {
     if (!this.commentForm.valid) {
       return;
     }
+    const postId = this.post._id as string;
     const regex = new RegExp(this.nameTag as string, 'g');
     const comment: Comment = {
+      parentId: postId,
       content: this.commentForm.value.replace(regex, '').trim(),
     };
-    const postId = this.post._id as string;
-    const pCommentId = this.pComment?._id as string;
+    const pCommentId =
+      this.pComment?.parentId !== postId
+        ? this.pComment?.parentId
+        : (this.pComment?._id as string);
 
     if (pCommentId && this.nameTag) {
       comment.replyTo = this.nameTag.trim();
+      comment.parentId = pCommentId;
       this.updateSubComment(comment, postId, pCommentId);
     } else {
       this.updateComment(comment, postId);

@@ -46,9 +46,9 @@ export class PostService {
 
   savePost(postId: string, changes: Partial<Post>): Observable<Post> {
     console.log('POST Id ', postId, '### CHANGES ', changes);
-    const id = postId ? postId : '';
+    postId = postId ? postId : '';
     return this.http
-      .put<Post>('http://localhost:5000/api/posts/' + id, changes)
+      .post<Post>('http://localhost:5000/api/posts/' + postId, changes)
       .pipe(
         tap((res: Post) => {
           console.log('### POST OUTCOME', res);
@@ -59,8 +59,8 @@ export class PostService {
 
   addComment(comment: Comment, postId: string): Observable<Post> {
     return this.http
-      .put<Comment[]>(
-        `http://localhost:5000/api/posts/comments/${postId}`,
+      .post<Comment[]>(
+        `http://localhost:5000/api/comments/p/${postId}`,
         comment
       )
       .pipe(
@@ -81,12 +81,12 @@ export class PostService {
   addSubComment(
     comment: Comment,
     postId: string,
-    commentId?: string
+    commentId: string
   ): Observable<Post> {
-    const commentUrl = commentId ? commentId : '';
+    commentId = commentId ? commentId : '';
     return this.http
-      .put<Comment[]>(
-        `http://localhost:5000/api/posts/comments/${postId}/${commentUrl}`,
+      .post<Comment[]>(
+        `http://localhost:5000/api/comments/p/${postId}/r/${commentId}`,
         comment
       )
       .pipe(
@@ -109,10 +109,10 @@ export class PostService {
     postId: string,
     commentId: string | undefined
   ): Observable<Like[] | Comment[]> {
-    const commentUrl = commentId ? `comments/${commentId}` : '';
+    commentId = commentId ? commentId : '';
     return this.http
       .put<Like[] | Comment[]>(
-        `http://localhost:5000/api/posts/likes/${postId}/${commentUrl}`,
+        `http://localhost:5000/api/likes/p/${postId}/c/${commentId}`,
         {}
       )
       .pipe(
@@ -130,10 +130,10 @@ export class PostService {
     postId: string,
     commentId: string | undefined
   ): Observable<Like[] | Comment[]> {
-    commentId = commentId ? `comments/${commentId}` : '';
+    commentId = commentId ? commentId : '';
     return this.http
-      .put<Like[] | Comment[]>(
-        `http://localhost:5000/api/posts/likes/u/${postId}/${commentId}`,
+      .delete<Like[] | Comment[]>(
+        `http://localhost:5000/api/likes/p/${postId}/c/${commentId}`,
         {}
       )
       .pipe(
@@ -148,13 +148,9 @@ export class PostService {
   }
 
   private updateLikeToStore(postId: string, res: Like[]) {
-    console.log('### RES', res);
     const post = {
       likes: res,
     };
-
-    console.log('### RES', post);
-
     const update: Update<Post> = {
       id: postId,
       changes: post,
@@ -162,7 +158,6 @@ export class PostService {
     console.log('update!', update);
     this.store.dispatch(likeUpdated({ update }));
   }
-
   private updateCommentToStore(postId: string, res: Comment[]) {
     const post = {
       comments: res,
