@@ -40,6 +40,7 @@ export class CommentCreateComponent implements OnInit {
         console.log('COMMENT', res);
         this.nameTag = `@${res.author?.username} `;
         this.pComment = res;
+        // store the nametag to the textarea
         this.commentForm.patchValue(this.nameTag);
       });
   }

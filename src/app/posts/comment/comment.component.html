@@ -13,12 +13,18 @@
     <div class="media-body">
       <div class="cd-comment-content">
         <div>
-          <h4 class="media-heading me-2 mb-0">
+          <h4 class="media-heading me-1 mb-0">
             <strong>
               {{ comment?.author?.username }}
             </strong>
           </h4>
         </div>
+        <a href="" class="d-block me-1">
+          <span class="pr-2">
+            {{ comment?.replyTo }}
+          </span>
+        </a>
+
         <p class="flex-grow-1 mb-0">
           {{ comment?.content }}
         </p>
@@ -32,7 +38,7 @@
         <!-- <app-wgt-like [comment]="comment"></app-wgt-like> -->
       </div>
       <div class="cd-comment-function">
-        <div class="me-3">
+        <div class="me-2">
           <span class="text-muted" *ngIf="comment?.updatedAt; else createAt">
             {{ comment?.updatedAt | postTime }}
           </span>

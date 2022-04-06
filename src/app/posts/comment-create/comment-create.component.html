@@ -2,6 +2,7 @@
   <div class="d-flex align-items-center p-2">
     <mat-icon>sentiment_satisfied_alt</mat-icon>
   </div>
+  <div *ngIf="nameTag">{{ nameTag }}</div>
   <textarea
     class="py-4 px-2"
     matInput
