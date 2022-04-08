@@ -13,4 +13,5 @@ export interface Post {
   comments?: Array<Comment>;
   createdAt?: string;
   updatedAt?: string;
+  
 }
