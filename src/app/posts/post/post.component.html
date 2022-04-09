@@ -21,9 +21,11 @@
                   />
                 </div>
                 <div class="font-weight-bold flex-grow-1">
-                  <strong>
-                    {{ post.author?.username }}
-                  </strong>
+                  <a href="" [routerLink]="['/user', post.author?._id]">
+                    <strong>
+                      {{ post.author?.username }}
+                    </strong>
+                  </a>
                 </div>
                 <div class="pr-2">
                   <a
