@@ -25,6 +25,12 @@ export const rootRouterConfig: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./user/user.module').then((m) => m.UserModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'posts',
     loadChildren: () =>
       import('./posts/posts.module').then((m) => m.PostsModule),
