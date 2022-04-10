@@ -44,31 +44,6 @@ export class PostComponent implements OnInit {
     if (this.postId) {
       this.post$ = this.store.pipe(select(selectPost(this.postId)));
       this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
-
-      // Check if this post has been viewed by user.
-      // combineLatest([this.post$, this.user$])
-      //   .pipe(
-      //     concatMap(([post, user]: [Post, User]) => {
-      //       console.log('Post', post);
-      //       console.log('User', user);
-      //       return this.postService.addView(post._id as string);
-      //     })
-      //   )
-      //   .subscribe((val) => {
-      //     console.log('### ???', val);
-      //   });
-      // .subscribe({
-      //   next: ([post, user]) => {
-      //     if (!post.views?.some((view) => view.user === user._id)) {
-      //       console.log('not viewed yet');
-
-      //       this.postService.addView(post._id as string);
-      //     } else {
-      //       console.log('already viewed');
-      //     }
-      //   },
-      //   error: (err) => console.log(err),
-      // });
     }
   }
 
