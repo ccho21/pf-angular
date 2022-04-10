@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  EntityDataService,
-  EntityDefinitionService,
-  EntityMetadataMap,
-} from '@ngrx/data';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -14,23 +9,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { PostsEffects } from './posts.effects';
 import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './reducers/post.reducers';
-import { HomeComponent } from './home/home.component';
-import { PostListComponent } from './post-list/post-list.component';
-import { PostComponent } from './post/post.component';
-import { CommentsComponent } from './comments/comments.component';
-import { PipesModule } from './pipes/pipes.module';
+import { PipesModule } from '../shared/pipes/pipes.module';
 import { PostNewComponent } from './post-new/post-new.component';
 import { ComponentsModule } from '@app/components/components.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { PostEditDialogComponent } from './post-edit-dialog/post-edit-dialog.component';
-import { CommentCreateComponent } from './comment-create/comment-create.component';
-import { LikesComponent } from './likes/likes.component';
-import { CommentComponent } from './comment/comment.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
+import { MainComponent } from './main/main.component';
 
 export const postsRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: MainComponent,
     resolve: {
       posts: PostsResolver,
     },
@@ -41,7 +31,7 @@ export const postsRoutes: Routes = [
   },
   {
     path: ':id',
-    component: PostComponent,
+    component: PostDetailComponent,
     resolve: {
       posts: PostsResolver,
     },
@@ -60,15 +50,11 @@ export const postsRoutes: Routes = [
     SharedModule,
   ],
   declarations: [
-    HomeComponent,
-    PostListComponent,
-    PostComponent,
-    CommentsComponent,
+    PostDetailComponent,
     PostNewComponent,
     PostEditDialogComponent,
-    CommentCreateComponent,
-    LikesComponent,
-    CommentComponent,
+    PostDetailComponent,
+    MainComponent,
   ],
   exports: [],
   entryComponents: [],

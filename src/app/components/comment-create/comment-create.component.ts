@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Update } from '@ngrx/entity';
-import { Post } from '../model/post';
-import { Comment } from '../model/comment';
-import { commentUpdated } from '../post.actions';
+import { Post } from '../../posts/model/post';
+import { Comment } from '../../posts/model/comment';
+import { commentUpdated } from '../../posts/post.actions';
 import { AppState } from '@app/reducers';
 import { Store } from '@ngrx/store';
 import { PostService } from '@app/services/post.service';

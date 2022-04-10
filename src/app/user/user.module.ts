@@ -1,31 +1,29 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
+
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { PostsModule } from '@app/posts/posts.module';
-
 import { UserDetailComponent } from './user-detail/user-detail.component';
-import { HomeComponent } from './home/home.component';
+import { MainComponent } from './main/main.component';
+import { UserResolver } from './user.resolver';
 
 export const usersRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: MainComponent,
   },
   {
     path: ':id',
     component: UserDetailComponent,
+    resolve: {
+      user: UserResolver,
+    },
   },
 ];
 
 @NgModule({
-  declarations: [HomeComponent, UserDetailComponent],
-  imports: [
-    CommonModule,
-    PostsModule,
-    SharedModule,
-    RouterModule.forChild(usersRoutes),
-  ],
+  declarations: [UserDetailComponent, MainComponent],
+  imports: [CommonModule, SharedModule, RouterModule.forChild(usersRoutes)],
 })
 export class UserModule {}

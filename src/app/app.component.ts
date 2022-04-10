@@ -43,18 +43,6 @@ export class AppComponent implements OnInit {
     }
     // if the token is valid, Request a authentication to get the user profile.
     // Store user profile in the state
-    // if (user) {
-    //   this.http
-    //     .get<User>('/api/auth')
-    //     .pipe(
-    //       tap((res: User) => {
-    //         this.store.dispatch(login({ user: res }));
-    //       })
-    //     )
-    //     .subscribe((val: User) => {
-    //       console.log('### LOGIN in NAV COMPONENT', val);
-    //     });
-    // }
     this.router.events.subscribe((event) => {
       // console.log('WHAT IS EVENT? IN ROUTE', event);
       switch (true) {

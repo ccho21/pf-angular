@@ -11,12 +11,13 @@ import { Observable } from 'rxjs';
 import { Post } from '../model/post';
 import { PostEditDialogComponent } from '../post-edit-dialog/post-edit-dialog.component';
 import { selectPost } from '../posts.selectors';
+
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss'],
+  selector: 'app-post-detail',
+  templateUrl: './post-detail.component.html',
+  styleUrls: ['./post-detail.component.scss'],
 })
-export class PostComponent implements OnInit {
+export class PostDetailComponent implements OnInit {
   @Output()
   default: string =
     'https://firebasestorage.googleapis.com/v0/b/bulletin-board-d1815.appspot.com/o/uploads%2F1582746081704_ayo-ogunseinde-2.jpg?alt=media&token=cbc87b46-e85a-4de3-93c3-416dd289b2f1';

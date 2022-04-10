@@ -1,26 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { EffectsModule } from '@ngrx/effects';
-
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { environment } from 'src/environments/environment';
 
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers, reducers } from './reducers';
 
+
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
+
+import { TokenInterceptor } from './auth/token.interceptor';
+
 import { AppComponent } from './app.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { HeaderComponent } from './layouts/header/header.component';
-import { TokenInterceptor } from './auth/token.interceptor';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [

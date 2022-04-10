@@ -3,7 +3,7 @@ import { AppState } from '@app/reducers';
 import { PostService } from '@app/services/post.service';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Post } from '../model/post';
+import { Post } from '../../posts/model/post';
 
 @Component({
   selector: 'app-likes',

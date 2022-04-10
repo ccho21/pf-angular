@@ -6,7 +6,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { loadAllPosts } from '@app/posts/post.actions';
-import { arePostsLoaded, selectPostsByUserId } from '@app/posts/posts.selectors';
+import { arePostsLoaded } from '@app/posts/posts.selectors';
 import { AppState } from '@app/reducers';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, of, tap } from 'rxjs';

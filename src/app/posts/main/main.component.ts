@@ -4,12 +4,13 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Post } from '../model/post';
 import { selectAllPosts } from '../posts.selectors';
+
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class MainComponent implements OnInit {
   posts$?: Observable<Post[]>;
 
   constructor(private store: Store<AppState>) {}
