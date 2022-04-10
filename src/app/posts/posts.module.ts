@@ -14,7 +14,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { PostsEffects } from './posts.effects';
 import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './reducers/post.reducers';
-import { HomeComponent } from './home/home.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostComponent } from './post/post.component';
 import { CommentsComponent } from './comments/comments.component';
@@ -26,6 +25,7 @@ import { PostEditDialogComponent } from './post-edit-dialog/post-edit-dialog.com
 import { CommentCreateComponent } from './comment-create/comment-create.component';
 import { LikesComponent } from './likes/likes.component';
 import { CommentComponent } from './comment/comment.component';
+import { HomeComponent } from '@app/posts/home/home.component';
 
 export const postsRoutes: Routes = [
   {

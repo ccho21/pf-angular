@@ -20,7 +20,7 @@ export class PostsResolver implements Resolve<any> {
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<any> {
+  ): Observable<boolean> {
     return this.store.pipe(
       select(arePostsLoaded),
       tap((postsLoaded) => {
