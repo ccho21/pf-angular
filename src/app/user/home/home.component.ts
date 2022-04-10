@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { getCurrentUser } from '@app/auth/auth.selectors';
+import { User } from '@app/auth/model/user';
+import { AppState } from '@app/reducers';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',

@@ -26,8 +26,7 @@ export const rootRouterConfig: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () =>
-      import('./user/user.module').then((m) => m.UserModule),
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
     canActivate: [AuthGuard],
   },
   {

@@ -1,1 +1,36 @@
-<p>user-detail works!</p>
+<div *ngIf="user$ | async as user">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div>
+          <img
+            height="40"
+            class="img-fluid rounded-circle"
+            [src]="user.thumbnail"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-12">
+            {{ user.username }}
+            {{ user.firstname }}
+            {{ user.lastname }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div>HOW many posts</div>
+          </div>
+          <div class="col-md-4">
+            <div>how many followers</div>
+          </div>
+          <div class="col-md-4">
+            <div>how many followers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

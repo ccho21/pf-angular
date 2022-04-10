@@ -7,7 +7,7 @@ import { AppState } from '@app/reducers';
 import { PostService } from '@app/services/post.service';
 import { defaultDialogConfig } from '@app/shared/default-dialog-config';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, concatMap, forkJoin, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Post } from '../model/post';
 import { PostEditDialogComponent } from '../post-edit-dialog/post-edit-dialog.component';
 import { selectPost } from '../posts.selectors';
