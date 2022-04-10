@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { PostsEffects } from './posts.effects';
 import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './reducers/post.reducers';
+import { HomeComponent } from './home/home.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostComponent } from './post/post.component';
 import { CommentsComponent } from './comments/comments.component';
@@ -29,21 +30,21 @@ import { CommentComponent } from './comment/comment.component';
 export const postsRoutes: Routes = [
   {
     path: '',
-    component: PostListComponent,
+    component: HomeComponent,
     resolve: {
       posts: PostsResolver,
     },
-  // },
-  // {
-  //   path: 'create',
-  //   component: PostNewComponent,
-  // },
-  // {
-  //   path: ':id',
-  //   component: PostComponent,
-  //   resolve: {
-  //     posts: PostsResolver,
-  //   },
+  },
+  {
+    path: 'create',
+    component: PostNewComponent,
+  },
+  {
+    path: ':id',
+    component: PostComponent,
+    resolve: {
+      posts: PostsResolver,
+    },
   },
 ];
 
@@ -59,6 +60,7 @@ export const postsRoutes: Routes = [
     SharedModule,
   ],
   declarations: [
+    HomeComponent,
     PostListComponent,
     PostComponent,
     CommentsComponent,
@@ -68,7 +70,7 @@ export const postsRoutes: Routes = [
     LikesComponent,
     CommentComponent,
   ],
-  exports: [PostListComponent],
+  exports: [],
   entryComponents: [],
   providers: [PostsResolver],
 })

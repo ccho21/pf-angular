@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '@app/posts/model/post';
-import { selectAllPosts } from '@app/posts/posts.selectors';
 import { AppState } from '@app/reducers';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Post } from '../model/post';
+import { selectAllPosts } from '../posts.selectors';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

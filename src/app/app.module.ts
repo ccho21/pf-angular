@@ -21,11 +21,9 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { PostsModule } from './posts/posts.module';
-import { HomeComponent } from './home/home.component';
+
 @NgModule({
   declarations: [
-    HomeComponent,
     AppComponent,
     FooterComponent,
     HeaderComponent,
@@ -35,7 +33,6 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    PostsModule,
     AuthModule.forRoot(),
     HttpClientModule,
     SharedModule,
