@@ -44,7 +44,6 @@ export class AppComponent implements OnInit {
     // if the token is valid, Request a authentication to get the user profile.
     // Store user profile in the state
     this.router.events.subscribe((event) => {
-      // console.log('WHAT IS EVENT? IN ROUTE', event);
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;

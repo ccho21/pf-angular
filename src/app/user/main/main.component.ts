@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { Post } from '@app/posts/model/post';
+import { select } from '@ngrx/store';
+import { selectAllPosts } from '@app/posts/posts.selectors';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -7,6 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
   userId?: string;
+  posts$?: Observable<Post[]>;
+  store: any;
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
@@ -15,5 +23,11 @@ export class MainComponent implements OnInit {
     if (!this.userId) {
       this.router.navigateByUrl('/posts');
     }
+    // this.reload();
   }
+
+  // reload() {
+  //   console.log('RELOAD APP');
+  //   this.posts$ = this.store.pipe(select(selectAllPosts));
+  // }
 }

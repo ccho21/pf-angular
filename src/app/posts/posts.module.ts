@@ -16,26 +16,31 @@ import { SharedModule } from '@app/shared/shared.module';
 import { PostEditDialogComponent } from './post-edit-dialog/post-edit-dialog.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { MainComponent } from './main/main.component';
+import { CommentComponent } from './comment/comment.component';
+import { CommentsComponent } from './comments/comments.component';
+import { CommentCreateComponent } from './comment-create/comment-create.component';
+import { LikesComponent } from './likes/likes.component';
+import { PostListComponent } from './post-list/post-list.component';
 
 export const postsRoutes: Routes = [
-  {
-    path: '',
-    component: MainComponent,
-    resolve: {
-      posts: PostsResolver,
-    },
-  },
-  {
-    path: 'create',
-    component: PostNewComponent,
-  },
-  {
-    path: ':id',
-    component: PostDetailComponent,
-    resolve: {
-      posts: PostsResolver,
-    },
-  },
+  // {
+  //   path: '',
+  //   component: MainComponent,
+  //   resolve: {
+  //     posts: PostsResolver,
+  //   },
+  // },
+  // {
+  //   path: 'create',
+  //   component: PostNewComponent,
+  // },
+  // {
+  //   path: ':id',
+  //   component: PostDetailComponent,
+  //   resolve: {
+  //     posts: PostsResolver,
+  //   },
+  // },
 ];
 
 @NgModule({
@@ -55,6 +60,11 @@ export const postsRoutes: Routes = [
     PostEditDialogComponent,
     PostDetailComponent,
     MainComponent,
+    CommentComponent,
+    CommentsComponent,
+    CommentCreateComponent,
+    LikesComponent,
+    PostListComponent
   ],
   exports: [],
   entryComponents: [],

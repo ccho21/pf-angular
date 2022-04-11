@@ -11,6 +11,13 @@ export const selectAllPosts = createSelector(
   fromPosts.selectAllPosts
 );
 
+export const selectPostsByUserId = (id: string) => {
+  console.log(id);
+  console.log('### select post state', selectPostsState);
+  console.log('### From posts select ALL posts', fromPosts.selectAllPosts);
+  return createSelector(selectPostsState, fromPosts.selectAllPosts);
+};
+
 export const arePostsLoaded = createSelector(
   selectPostsState,
   (state) => state.allPostsLoaded

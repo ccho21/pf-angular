@@ -1,5 +1,4 @@
 import { Post } from '../model/post';
-import { Comment } from '../model/comment';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { PostActions } from '../action-types';

@@ -24,7 +24,7 @@
           </a>
         </li>
         <li class="nav-item" *ngIf="user$ | async as user">
-          <a href="#" class="nav-link" [routerLink]="['/posts']">
+          <a href="#" class="nav-link" [routerLink]="['/user', user._id]">
             <img [src]="user?.thumbnail" alt="" width="50" />
             <span class="px-2">Hi, {{ user?.firstname }}</span>
             <!-- <mat-icon>account_circle</mat-icon> -->

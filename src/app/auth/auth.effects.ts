@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Action, Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { from, Observable } from 'rxjs';
-import { concatMap, switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { AuthActions } from './action-types';
-import { AuthService } from './auth.service';
-import { User } from './model/user';
-import { login } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -21,7 +16,6 @@ export class AuthEffects {
         tap((action) => {
           console.log('[Auth Effect]', action);
           console.log('this router', this.router);
-          // this.router.navigateByUrl('/posts');
         })
       ),
     { dispatch: false }
