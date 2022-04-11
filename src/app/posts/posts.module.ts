@@ -10,44 +10,48 @@ import { PostsEffects } from './posts.effects';
 import { StoreModule } from '@ngrx/store';
 import { postsReducer } from './reducers/post.reducers';
 import { PipesModule } from '../shared/pipes/pipes.module';
-import { PostNewComponent } from './post-new/post-new.component';
 import { ComponentsModule } from '@app/components/components.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { PostEditDialogComponent } from './post-edit-dialog/post-edit-dialog.component';
-import { PostDetailComponent } from './post-detail/post-detail.component';
+
 import { MainComponent } from './main/main.component';
+
+import { PostDetailComponent } from './post-detail/post-detail.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { PostEditDialogComponent } from './post-edit-dialog/post-edit-dialog.component';
+import { PostNewComponent } from './post-new/post-new.component';
+
 import { CommentComponent } from './comment/comment.component';
 import { CommentsComponent } from './comments/comments.component';
 import { CommentCreateComponent } from './comment-create/comment-create.component';
 import { LikesComponent } from './likes/likes.component';
-import { PostListComponent } from './post-list/post-list.component';
 
-export const postsRoutes: Routes = [
-  // {
-  //   path: '',
-  //   component: MainComponent,
-  //   resolve: {
-  //     posts: PostsResolver,
-  //   },
-  // },
-  // {
-  //   path: 'create',
-  //   component: PostNewComponent,
-  // },
-  // {
-  //   path: ':id',
-  //   component: PostDetailComponent,
-  //   resolve: {
-  //     posts: PostsResolver,
-  //   },
-  // },
-];
+// export const postsRoutes: Routes = [
+//   {
+//     path: '',
+//     component: MainComponent,
+//     resolve: {
+//       posts: PostsResolver,
+//     },
+//   },
+//   {
+//     path: ':id',
+//     component: PostDetailComponent,
+//     resolve: {
+//       posts: PostsResolver,
+//     },
+//   },
+//   {
+//     path: 'create',
+//     component: PostNewComponent,
+//   },
+// ];
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(postsRoutes),
+    RouterModule,
+    // RouterModule.forChild(postsRoutes),
     EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
     PipesModule,
@@ -64,9 +68,9 @@ export const postsRoutes: Routes = [
     CommentsComponent,
     CommentCreateComponent,
     LikesComponent,
-    PostListComponent
+    PostListComponent,
   ],
-  exports: [],
+  exports: [PostListComponent, PostDetailComponent, RouterModule],
   entryComponents: [],
   providers: [PostsResolver],
 })

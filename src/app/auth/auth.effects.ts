@@ -16,6 +16,9 @@ export class AuthEffects {
         tap((action) => {
           console.log('[Auth Effect]', action);
           console.log('this router', this.router);
+          if (action.user) {
+            // this.router.navigateByUrl('/posts');
+          }
         })
       ),
     { dispatch: false }

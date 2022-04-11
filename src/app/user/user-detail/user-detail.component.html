@@ -1,7 +1,12 @@
 <div *ngIf="user$ | async as user">
-  <div class="container">
+  <div class="container py-5">
     <div class="row">
       <div class="col-md-3">
+        <div class="font-weight-bold flex-grow-1">
+          <a href="" routerLink="/posts/create">
+            <strong> Create a post </strong>
+          </a>
+        </div>
         <div>
           <img
             height="40"
@@ -33,11 +38,11 @@
       </div>
     </div>
   </div>
-
-  <div class="container">
+  <hr />
+  <div class="container py-5">
     <div class="row">
       <div class="col-md-12">
-        <!-- <app-post-list [posts]="posts$ | async"></app-post-list> -->
+        <app-post-list [posts]="userPosts$ | async"></app-post-list>
       </div>
     </div>
   </div>

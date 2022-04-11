@@ -13,7 +13,6 @@ import { selectAllPosts } from '@app/posts/posts.selectors';
 })
 export class MainComponent implements OnInit {
   userId?: string;
-  posts$?: Observable<Post[]>;
   store: any;
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -23,11 +22,5 @@ export class MainComponent implements OnInit {
     if (!this.userId) {
       this.router.navigateByUrl('/posts');
     }
-    // this.reload();
   }
-
-  // reload() {
-  //   console.log('RELOAD APP');
-  //   this.posts$ = this.store.pipe(select(selectAllPosts));
-  // }
 }

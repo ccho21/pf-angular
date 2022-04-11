@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { LoginComponent } from './auth/login/login.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { HomeComponent } from './home/home.component';
 // import { AuthGuard } from "../../shared/guard/auth.guard";
 
 // import { MainComponent } from './containers/main/main.component';
@@ -20,9 +22,9 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 
 export const rootRouterConfig: Routes = [
   {
-    path: '',
-    redirectTo: '/posts',
-    pathMatch: 'full',
+    path: 'posts',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'user',
@@ -30,10 +32,8 @@ export const rootRouterConfig: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'posts',
-    loadChildren: () =>
-      import('./posts/posts.module').then((m) => m.PostsModule),
-    canActivate: [AuthGuard],
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'sign-up',
@@ -41,30 +41,6 @@ export const rootRouterConfig: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/',
-  },
-  // {
-  //   path: 'about',
-  //   component: AboutComponent
-  // },
-  // {
-  //   path: 'user/:id', component: UserComponent,
-  //   canActivate: [AuthGuard]
-  // },
-  // {
-  //   path: 'forgot-password',
-  //   component: ForgotPasswordComponent,
-  //   canActivate: [SecureInnerPagesGuard]
-  // },
-  // {
-  //   path: 'login',
-  //   component: SignInComponent
-  // },
-
-  // {
-  //   path: 'verify-email-address',
-  //   component: VerifyEmailComponent,
-  //   canActivate: [SecureInnerPagesGuard]
-  // },
-  // { path: '**', component: MainComponent } // temporary
+    redirectTo: '/posts',
+  }
 ];

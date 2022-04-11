@@ -50,9 +50,14 @@ export class PostService {
     return this.http
       .post<Post>('http://localhost:5000/api/posts/' + postId, changes)
       .pipe(
-        tap((res: Post) => {
-          console.log('### POST OUTCOME', res);
-          this.router.navigateByUrl('/posts');
+        tap((post: Post) => {
+          console.log('### POST OUTCOME', post);
+          const update: Update<Post> = {
+            id: post._id as string,
+            changes: post,
+          };
+          this.store.dispatch(postUpdated({ update }));
+
         })
       );
   }

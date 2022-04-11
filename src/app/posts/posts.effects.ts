@@ -16,7 +16,7 @@ export class PostsEffects {
     );
   });
 
-  savePost$ = createEffect(
+savePost$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(PostActions.postUpdated),

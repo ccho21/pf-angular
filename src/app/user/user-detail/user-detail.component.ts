@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class UserDetailComponent implements OnInit {
   user$?: Observable<User>;
-  posts$?: Observable<Post[]>;
+  userPosts$?: Observable<Post[]>;
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
@@ -28,7 +28,6 @@ export class UserDetailComponent implements OnInit {
       console.log(val);
     });
 
-    this.posts$ = this.store.pipe(select(selectAllPosts));
-    this.posts$.subscribe((val) => console.log('### POSTS VAL', val));
+    this.userPosts$ = this.store.pipe(select(selectAllPosts));
   }
 }

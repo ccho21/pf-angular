@@ -27,7 +27,12 @@ export class PostNewComponent implements OnInit {
 
   loading$!: Observable<boolean>;
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private postService: PostService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
       content: ['', [Validators.required]],
       images: ['', [Validators.required]],
@@ -36,25 +41,28 @@ export class PostNewComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  addImages(urls: Array<string>) {
+    console.log('### urls :', urls);
+    this.form.get('images')?.setValue(urls);
+    console.log('first', this.form.get('images'));
+  }
+
   onSubmit(): void {
     console.log('Post add function', this.form);
     if (!this.form.valid) {
       return;
     }
     const post = { ...this.form.value };
+    const changes = post;
 
-    const update: Update<Post> = {
-      id: post._id,
-      changes: post,
-    };
-    console.log('### update', update);
-    this.store.dispatch(postUpdated({ update }));
-    // this.postService.addPost();
-  }
-
-  addImages(urls: Array<string>) {
-    console.log('### urls :', urls);
-    this.form.get('images')?.setValue(urls);
-    console.log('first', this.form.get('images'));
+    this.postService.savePost(post._id, changes).subscribe({
+      next: () => {
+        console.log('Post updated');
+        this.router.navigateByUrl('/posts');
+      },
+      error: (err) => {
+        console.log('Error occurred', err);
+      },
+    });
   }
 }
