@@ -12,7 +12,5 @@ export const isLoggedIn = createSelector(
 export const isLoggedOut = createSelector(isLoggedIn, (loggedIn) => !loggedIn);
 
 export const getCurrentUser = createSelector(selectAuthState, (auth) => {
-  console.log("### auth", auth.user)
-  
   return auth.user;
 });

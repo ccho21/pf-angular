@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppState } from '@app/reducers';
-import { PostService } from '@app/services/post.service';
+import { PostService } from '@app/posts/post.service';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Post } from '../../posts/model/post';

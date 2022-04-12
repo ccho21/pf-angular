@@ -6,7 +6,7 @@ import { Comment } from '../../posts/model/comment';
 import { commentUpdated } from '../../posts/post.actions';
 import { AppState } from '@app/reducers';
 import { Store } from '@ngrx/store';
-import { PostService } from '@app/services/post.service';
+import { PostService } from '@app/posts/post.service';
 import { Subscription } from 'rxjs';
 import { ThisReceiver } from '@angular/compiler';
 import { User } from '@app/auth/model/user';

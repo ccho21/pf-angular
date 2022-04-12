@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { getCurrentUser } from '@app/auth/auth.selectors';
 import { User } from '@app/auth/model/user';
 import { AppState } from '@app/reducers';
-import { PostService } from '@app/services/post.service';
+import { PostService } from '@app/posts/post.service';
 import { defaultDialogConfig } from '@app/shared/default-dialog-config';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

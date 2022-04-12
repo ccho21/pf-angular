@@ -8,6 +8,10 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { MainComponent } from './main/main.component';
 import { UserResolver } from './user.resolver';
 import { PostsModule } from '@app/posts/posts.module';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './user.effects';
 
 export const usersRoutes: Routes = [
   {
@@ -27,9 +31,11 @@ export const usersRoutes: Routes = [
   declarations: [UserDetailComponent, MainComponent],
   imports: [
     CommonModule,
+    StoreModule.forFeature('user', userReducer),
     SharedModule,
     RouterModule.forChild(usersRoutes),
-    PostsModule
+    PostsModule,
+    EffectsModule.forFeature([UserEffects]),
   ],
 })
 export class UserModule {}

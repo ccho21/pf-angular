@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppState } from '@app/reducers';
-import { PostService } from '@app/services/post.service';
+import { PostService } from '@app/posts/post.service';
 import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
