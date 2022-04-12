@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
 import { getCurrentUser } from '@app/auth/auth.selectors';
 import { User } from '@app/auth/model/user';
 import { Post } from '@app/posts/model/post';
-import { selectAllPosts } from '@app/posts/posts.selectors';
+import { selectAllPosts, selectPostsByUserId } from '@app/posts/posts.selectors';
 import { AppState } from '@app/reducers';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -14,20 +15,18 @@ import { Observable } from 'rxjs';
 })
 export class UserDetailComponent implements OnInit {
   user$?: Observable<User>;
-  userPosts$?: Observable<Post[]>;
-  constructor(private store: Store<AppState>) {}
+  userPosts$?: Observable<any>;
+  userId?: string;
+  constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log('hello ');
     this.reload();
   }
   reload() {
     console.log('RELOAD APP');
-    this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
-    this.user$.subscribe((val) => {
-      console.log(val);
-    });
+    this.userId = this.route.snapshot.paramMap.get('id') as string;
 
-    this.userPosts$ = this.store.pipe(select(selectAllPosts));
+    this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
+    this.userPosts$ = this.store.pipe(select(selectPostsByUserId(this.userId)));
   }
 }

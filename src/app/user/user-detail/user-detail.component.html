@@ -1,39 +1,52 @@
 <div *ngIf="user$ | async as user">
   <div class="container py-5">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="font-weight-bold flex-grow-1">
-          <a href="" routerLink="/posts/create">
-            <strong> Create a post </strong>
-          </a>
-        </div>
+    <div class="row align-items-center">
+      <div class="col-md-3 text-center">
         <div>
           <img
-            height="40"
             class="img-fluid rounded-circle"
             [src]="user.thumbnail"
             alt=""
+            style="width: 100px; height: 100px"
           />
         </div>
       </div>
       <div class="col-md-9">
-        <div class="row">
-          <div class="col-md-12">
-            {{ user.username }}
-            {{ user.firstname }}
-            {{ user.lastname }}
+        <div class="row pb-3">
+          <div class="col-md-12 pb-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <h2>
+                  {{ user.username }}
+                </h2>
+              </div>
+              <div>
+                <div class="font-weight-bold flex-grow-1">
+                  <a href="" routerLink="/posts/create">
+                    <strong> Create a post </strong>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div>
+              {{ user.firstname }}
+              {{ user.lastname }}
+            </div>
+          </div>
+        </div>
+        <div class="row pb-3">
+          <div class="col-md-4">
+            <div><strong>392</strong> posts</div>
+          </div>
+          <div class="col-md-4">
+            <div><strong>102</strong> followers</div>
+          </div>
+          <div class="col-md-4">
+            <div><strong>192</strong> following</div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <div>HOW many posts</div>
-          </div>
-          <div class="col-md-4">
-            <div>how many followers</div>
-          </div>
-          <div class="col-md-4">
-            <div>how many followers</div>
-          </div>
+          <div class="col-md-12"></div>
         </div>
       </div>
     </div>
@@ -42,7 +55,19 @@
   <div class="container py-5">
     <div class="row">
       <div class="col-md-12">
-        <app-post-list [posts]="userPosts$ | async"></app-post-list>
+        <mat-tab-group animationDuration="0ms" mat-align-tabs="center">
+          <mat-tab label="Posts">
+            <div class="p-5">
+              <app-post-list [posts]="userPosts$ | async"></app-post-list>
+            </div>
+          </mat-tab>
+          <mat-tab label="Second">
+            <div class="p-5">
+              <app-post-list [posts]="userPosts$ | async"></app-post-list>
+            </div>
+          </mat-tab>
+          <mat-tab label="Third">Content 3</mat-tab>
+        </mat-tab-group>
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppState } from '@app/reducers';
+import { PostService } from '@app/services/post.service';
 import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -25,7 +26,8 @@ export class PostEditDialogComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PostEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data: any,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private postService: PostService
   ) {
     this.dialogTitle = data.dialogTitle;
     this.mode = data.mode;
@@ -58,7 +60,14 @@ export class PostEditDialogComponent {
       id: this.post._id as string,
       changes: post,
     };
-    console.log('### update', update);
     this.store.dispatch(postUpdated({ update }));
+    // this.postService.updatePost(update.id, update.changes).subscribe({
+    //   next: () => {
+    //     console.log('Post updated');
+    //   },
+    //   error: (err) => {
+    //     console.log('Error occurred', err);
+    //   },
+    // });
   }
 }

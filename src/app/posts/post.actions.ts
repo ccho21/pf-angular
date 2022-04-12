@@ -14,6 +14,11 @@ export const postUpdated = createAction(
   props<{ update: Update<Post> }>()
 );
 
+export const postCreated = createAction(
+  '[Create Post] Post Created',
+  props<{ post: Post }>()
+);
+
 export const commentUpdated = createAction(
   '[Update Post Comment] Comment Updated',
   props<{ update: Update<Post> }>()

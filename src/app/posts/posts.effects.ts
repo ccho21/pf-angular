@@ -16,16 +16,27 @@ export class PostsEffects {
     );
   });
 
-savePost$ = createEffect(
+  // savePost$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(PostActions.postCreated),
+  //       concatMap((action) =>
+  //         this.postService.savePost(action.post._id as string, action.post)
+  //       )
+  //     ),
+  //   { dispatch: false }
+  // );
+
+  updatePost$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(PostActions.postUpdated),
-        concatMap((action) => {
-          return this.postService.savePost(
+        concatMap((action) =>
+          this.postService.updatePost(
             action.update.id as string,
             action.update.changes
-          );
-        })
+          )
+        )
       ),
     { dispatch: false }
   );

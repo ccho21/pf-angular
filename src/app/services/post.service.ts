@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import {
   commentUpdated,
   likeUpdated,
+  postCreated,
   postUpdated,
 } from '@app/posts/post.actions';
 import { Update } from '@ngrx/entity';
@@ -44,20 +45,26 @@ export class PostService {
     );
   }
 
-  savePost(postId: string, changes: Partial<Post>): Observable<Post> {
+  savePost(postId: string, post: Partial<Post>): Observable<Post> {
+    postId = postId ? postId : '';
+    return this.http
+      .post<Post>(`http://localhost:5000/api/posts/${postId}`, post)
+      .pipe(
+        tap((post: Post) => {
+          this.store.dispatch(postCreated({ post }));
+          this.router.navigateByUrl('/posts');
+        })
+      );
+  }
+
+  updatePost(postId: string, changes: Partial<Post>): Observable<Post> {
     console.log('POST Id ', postId, '### CHANGES ', changes);
     postId = postId ? postId : '';
     return this.http
-      .post<Post>('http://localhost:5000/api/posts/' + postId, changes)
+      .put<Post>(`http://localhost:5000/api/posts/${postId}`, changes)
       .pipe(
         tap((post: Post) => {
-          console.log('### POST OUTCOME', post);
-          const update: Update<Post> = {
-            id: post._id as string,
-            changes: post,
-          };
-          this.store.dispatch(postUpdated({ update }));
-
+          console.log('[UPDATE POST EFFECT] has been done successfuly', post);
         })
       );
   }

@@ -30,8 +30,7 @@ export class PostNewComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
-    private postService: PostService,
-    private router: Router
+    private postService: PostService
   ) {
     this.form = this.fb.group({
       content: ['', [Validators.required]],
@@ -53,12 +52,11 @@ export class PostNewComponent implements OnInit {
       return;
     }
     const post = { ...this.form.value };
-    const changes = post;
 
-    this.postService.savePost(post._id, changes).subscribe({
+    this.postService.savePost(post._id, post).subscribe({
       next: () => {
         console.log('Post updated');
-        this.router.navigateByUrl('/posts');
+        
       },
       error: (err) => {
         console.log('Error occurred', err);

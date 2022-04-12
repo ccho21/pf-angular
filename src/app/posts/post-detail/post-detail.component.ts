@@ -35,7 +35,6 @@ export class PostDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('updated?');
     this.reload();
   }
   // INIT FUNCTION

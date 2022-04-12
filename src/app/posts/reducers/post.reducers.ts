@@ -32,6 +32,9 @@ export const postsReducer = createReducer(
     return adapter.setAll(action.posts, { ...state, allPostsLoaded: true });
   }),
 
+  // add a post
+  on(PostActions.postCreated, (state, { post }) => adapter.addOne(post, state)),
+
   on(PostActions.postUpdated, (state, action) => {
     console.log('### state in REDUCER : ', state);
     console.log('### ACTION in REDUCER ', action);
@@ -44,8 +47,8 @@ export const postsReducer = createReducer(
   }),
 
   on(PostActions.likeUpdated, (state, action) => {
-    console.log('### state in REDUCER : ', state);
-    console.log('### ACTION in REDUCER ', action);
+    // console.log('### state in REDUCER : ', state);
+    // console.log('### ACTION in REDUCER ', action);
     return adapter.updateOne(action.update, state);
   }),
 
