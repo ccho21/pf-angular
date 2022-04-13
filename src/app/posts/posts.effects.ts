@@ -16,17 +16,6 @@ export class PostsEffects {
     );
   });
 
-  // savePost$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(PostActions.postCreated),
-  //       concatMap((action) =>
-  //         this.postService.savePost(action.post._id as string, action.post)
-  //       )
-  //     ),
-  //   { dispatch: false }
-  // );
-
   updatePost$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -41,6 +30,17 @@ export class PostsEffects {
     { dispatch: false }
   );
 
+  // savePost$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(PostActions.postCreated),
+  //       concatMap((action) =>
+  //         this.postService.savePost(action.post._id as string, action.post)
+  //       )
+  //     ),
+  //   { dispatch: false }
+  // );
+  
   // updateComment$ = createEffect(
   //   () =>
   //     this.actions$.pipe(

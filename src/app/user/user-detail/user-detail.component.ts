@@ -28,6 +28,7 @@ export class UserDetailComponent implements OnInit {
     this.userId = this.route.snapshot.paramMap.get('id') as string;
 
     this.user$ = this.store.pipe(select(selectUser)) as Observable<User>;
+    this.user$.subscribe((val: any) => console.log(val));
     this.userPosts$ = this.store.pipe(select(selectPostsByUserId(this.userId)));
   }
 }

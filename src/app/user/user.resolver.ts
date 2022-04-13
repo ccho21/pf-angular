@@ -9,7 +9,7 @@ import { loadAllPosts } from '@app/posts/post.actions';
 import { arePostsLoaded } from '@app/posts/posts.selectors';
 import { AppState } from '@app/reducers';
 import { select, Store } from '@ngrx/store';
-import { filter, finalize, first, Observable, of, tap } from 'rxjs';
+import { concatMap, filter, finalize, first, Observable, of, tap } from 'rxjs';
 import { loadUser } from './user.actions';
 import { isUserLoaded } from './user.selectors';
 
@@ -32,18 +32,17 @@ export class UserResolver implements Resolve<boolean> {
     }
     return this.store.pipe(
       select(isUserLoaded),
-      tap((userLoaded: any) => {
-        console.log('### userLoaded', userLoaded);
-        if (!this.loading && !userLoaded) {
-          console.log('*****[ USER Resolver ]: LOAD USER');
+      concatMap((isUserLoaded: any) => {
+        console.log('*****[ USER Resolver ]: LOAD USER');
+        if (!this.loading && !isUserLoaded) {
           this.loading = true;
-          this.store.dispatch(loadUser());
+          this.store.dispatch(loadUser({ id: userId }));
         }
+        return this.store.pipe(select(arePostsLoaded));
       }),
-      select(arePostsLoaded),
       tap((postsLoaded) => {
-        if (!this.loading && !postsLoaded) {
-          console.log('*****[ USER Resolver ]: LOAD ALL POSTS CALLED');
+        console.log('*****[ USER Resolver ]: LOAD ALL POSTS CALLED');
+        if (!postsLoaded) {
           this.loading = true;
           this.store.dispatch(loadAllPosts());
         }
