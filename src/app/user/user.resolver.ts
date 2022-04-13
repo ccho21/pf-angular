@@ -10,6 +10,8 @@ import { arePostsLoaded } from '@app/posts/posts.selectors';
 import { AppState } from '@app/reducers';
 import { select, Store } from '@ngrx/store';
 import { filter, finalize, first, Observable, of, tap } from 'rxjs';
+import { loadUser } from './user.actions';
+import { isUserLoaded } from './user.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +31,15 @@ export class UserResolver implements Resolve<boolean> {
       this.loading = false;
     }
     return this.store.pipe(
+      select(isUserLoaded),
+      tap((userLoaded: any) => {
+        console.log('### userLoaded', userLoaded);
+        if (!this.loading && !userLoaded) {
+          console.log('*****[ USER Resolver ]: LOAD USER');
+          this.loading = true;
+          this.store.dispatch(loadUser());
+        }
+      }),
       select(arePostsLoaded),
       tap((postsLoaded) => {
         if (!this.loading && !postsLoaded) {

@@ -3,23 +3,32 @@ import { Router } from '@angular/router';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { tap } from 'rxjs/operators';
+import { concatMap, map, tap } from 'rxjs/operators';
 
 import { UserActions } from './action-types';
+import { UserService } from './user.service';
 
 @Injectable()
 export class UserEffects {
-  getUser$ = createEffect(
+  loadUser$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(UserActions.getUser),
-        tap((action) => {
+        ofType(UserActions.userLoaded),
+        concatMap((action) => {
           console.log('[User Effect]', action);
-          console.log('this router', this.router);
+          // console.log('this router', this.router);
+          return this.userService.getUserById('string');
+        }),
+        map((user) => {
+          return user;
         })
       ),
     { dispatch: false }
   );
 
-  constructor(private actions$: Actions, private router: Router) {}
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private userService: UserService
+  ) {}
 }
