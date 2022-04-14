@@ -40,7 +40,7 @@ export class UserResolver implements Resolve<boolean> {
     // if (userId) {
     //   this.loading = false;
     // }
-    console.log("USEr ID!########### ", userId);
+    console.log('USEr ID!########### ', userId);
     return this.store.pipe(
       select(isSameUser(userId)),
       concatMap((isSame: any) => {
@@ -52,16 +52,16 @@ export class UserResolver implements Resolve<boolean> {
         return this.store.pipe(select(arePostsLoaded));
       }),
       tap((postsLoaded) => {
-        console.log('*****[ USER Resolver ]: LOAD ALL POSTS CALLED');
         if (!postsLoaded) {
+          console.log('*****[ USER Resolver ]: LOAD ALL POSTS CALLED');
           this.loading = true;
           this.store.dispatch(loadAllPosts());
+          console.log(
+            '*****[ USER Resolver ]: called',
+            this.loading,
+            postsLoaded
+          );
         }
-        console.log(
-          '*****[ USER Resolver ]: called',
-          this.loading,
-          postsLoaded
-        );
       }),
       filter((postsLoaded) => postsLoaded),
       first(),

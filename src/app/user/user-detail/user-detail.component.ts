@@ -20,14 +20,21 @@ export class UserDetailComponent implements OnInit {
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log('[USER DETAIL COMPONENT]');
-
-    this.reload();
+    // Reload the selectors when the route is changed.
+    this.route.paramMap.subscribe((params) => {
+      console.log('[USER DETAIL COMPONENT]');
+      this.userId = params.get('id') as string;
+      this.reload();
+    });
   }
   reload() {
     this.userId = this.route.snapshot.paramMap.get('id') as string;
-    
+    console.log(this.userId, '######## USER ID');
+
     this.user$ = this.store.pipe(select(selectUser)) as Observable<User>;
     this.userPosts$ = this.store.pipe(select(selectPostsByUserId(this.userId)));
+    this.userPosts$.subscribe((val) =>
+      console.log('user post in user detail', val)
+    );
   }
 }
