@@ -24,17 +24,12 @@ export class UserDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       console.log('[USER DETAIL COMPONENT]');
       this.userId = params.get('id') as string;
-      this.reload();
+      this.reload(this.userId);
     });
   }
-  reload() {
-    this.userId = this.route.snapshot.paramMap.get('id') as string;
-    console.log(this.userId, '######## USER ID');
-
+  reload(id: string) {
+    // Use Select to get users and posts by user ID
     this.user$ = this.store.pipe(select(selectUser)) as Observable<User>;
-    this.userPosts$ = this.store.pipe(select(selectPostsByUserId(this.userId)));
-    this.userPosts$.subscribe((val) =>
-      console.log('user post in user detail', val)
-    );
+    this.userPosts$ = this.store.pipe(select(selectPostsByUserId(id)));
   }
 }
