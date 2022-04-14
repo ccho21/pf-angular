@@ -12,7 +12,6 @@ export const selectAllPosts = createSelector(
 );
 
 export const selectPostsByUserId = (id: string) => {
-  console.log(id);
   return createSelector(selectAllPosts, (posts) =>
     posts.filter((post) => post.author?._id === id)
   );

@@ -9,9 +9,19 @@ import { loadAllPosts } from '@app/posts/post.actions';
 import { arePostsLoaded } from '@app/posts/posts.selectors';
 import { AppState } from '@app/reducers';
 import { select, Store } from '@ngrx/store';
-import { concatMap, filter, finalize, first, Observable, of, tap } from 'rxjs';
+import {
+  concatMap,
+  filter,
+  finalize,
+  first,
+  forkJoin,
+  map,
+  Observable,
+  of,
+  tap,
+} from 'rxjs';
 import { loadUser } from './user.actions';
-import { isUserLoaded } from './user.selectors';
+import { isSameUser, isUserLoaded } from './user.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -27,14 +37,15 @@ export class UserResolver implements Resolve<boolean> {
     const userId = route.paramMap.get('id') as string;
 
     // TODO: add validation logic when userId is not valid
-    if (userId) {
-      this.loading = false;
-    }
+    // if (userId) {
+    //   this.loading = false;
+    // }
+    console.log("USEr ID!########### ", userId);
     return this.store.pipe(
-      select(isUserLoaded),
-      concatMap((isUserLoaded: any) => {
-        console.log('*****[ USER Resolver ]: LOAD USER');
-        if (!this.loading && !isUserLoaded) {
+      select(isSameUser(userId)),
+      concatMap((isSame: any) => {
+        console.log('*****[ USER Resolver ]: LOAD USER', isSame);
+        if (!this.loading && !isSame) {
           this.loading = true;
           this.store.dispatch(loadUser({ id: userId }));
         }
