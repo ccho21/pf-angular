@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit, Output } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { getCurrentUser } from '@app/auth/auth.selectors';
@@ -12,16 +12,26 @@ import {
   combineLatest,
   concatMap,
   EMPTY,
-  map,
   Observable,
   of,
-  tap,
-  throwError,
 } from 'rxjs';
 import { Post } from '../model/post';
 import { PostEditDialogComponent } from '../post-edit-dialog/post-edit-dialog.component';
 import { selectPost } from '../posts.selectors';
 
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  SwiperOptions,
+  Scrollbar
+} from 'swiper';
+
+// install Swiper components
+SwiperCore.use([
+  Navigation,
+  Pagination,
+  Scrollbar
+]);
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
@@ -40,6 +50,14 @@ export class PostDetailComponent implements OnInit {
   proportion: number = 25;
   slides: number = 5;
   postData?: Post;
+
+  config: SwiperOptions = {
+    slidesPerView: 1,
+    spaceBetween: 50,
+    navigation: true,
+    pagination: { clickable: true },
+    scrollbar: { draggable: true },
+  };
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
@@ -53,6 +71,13 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {
     console.log('### POST DETAIL COMPONENT ###');
     this.reload();
+  }
+
+  onSwiper([swiper]: any) {
+    console.log('### swiper ', swiper);
+  }
+  onSlideChange() {
+    console.log('slide change');
   }
   // INIT FUNCTION
   reload() {

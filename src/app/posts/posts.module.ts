@@ -14,7 +14,6 @@ import { PipesModule } from '../shared/pipes/pipes.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { ComponentsModule } from '@app/components/components.module';
 
-import { MainComponent } from './main/main.component';
 
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostListComponent } from './post-list/post-list.component';
@@ -25,6 +24,7 @@ import { CommentComponent } from './comment/comment.component';
 import { CommentsComponent } from './comments/comments.component';
 import { CommentCreateComponent } from './comment-create/comment-create.component';
 import { LikesComponent } from './likes/likes.component';
+import { PostListFullComponent } from './post-list-full/post-list-full.component';
 
 @NgModule({
   imports: [
@@ -42,14 +42,19 @@ import { LikesComponent } from './likes/likes.component';
     PostNewComponent,
     PostEditDialogComponent,
     PostDetailComponent,
-    MainComponent,
     CommentComponent,
     CommentsComponent,
     CommentCreateComponent,
     LikesComponent,
     PostListComponent,
+    PostListFullComponent,
   ],
-  exports: [PostListComponent, PostDetailComponent, RouterModule],
+  exports: [
+    PostListComponent,
+    PostDetailComponent,
+    PostListFullComponent,
+    RouterModule,
+  ],
   entryComponents: [],
   providers: [PostsResolver],
 })
