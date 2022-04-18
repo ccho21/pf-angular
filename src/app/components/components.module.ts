@@ -7,6 +7,7 @@ import { PipesModule } from '@app/shared/pipes/pipes.module';
 
 import { UploadFilesComponent } from '@app/components/upload-files/upload-files.component';
 import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [UploadFilesComponent],
   imports: [

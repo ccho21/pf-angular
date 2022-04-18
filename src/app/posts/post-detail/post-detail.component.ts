@@ -27,6 +27,8 @@ export class PostDetailComponent implements OnInit {
   user$?: Observable<User>;
   isLiked?: boolean;
 
+  proportion: number = 25;
+  slides: number = 5;
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,

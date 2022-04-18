@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { PostsResolver } from './posts.resolver';
 import { EffectsModule } from '@ngrx/effects';
-import { PostsEffects } from './posts.effects';
 import { StoreModule } from '@ngrx/store';
+
+
+
 import { postsReducer } from './reducers/post.reducers';
+import { PostsResolver } from './posts.resolver';
+import { PostsEffects } from './posts.effects';
+
+
+
+
 import { PipesModule } from '../shared/pipes/pipes.module';
-import { ComponentsModule } from '@app/components/components.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { ComponentsModule } from '@app/components/components.module';
 
 import { MainComponent } from './main/main.component';
 
