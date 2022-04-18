@@ -7,7 +7,17 @@ import { AppState } from '@app/reducers';
 import { PostService } from '@app/posts/post.service';
 import { defaultDialogConfig } from '@app/shared/default-dialog-config';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import {
+  catchError,
+  combineLatest,
+  concatMap,
+  EMPTY,
+  map,
+  Observable,
+  of,
+  tap,
+  throwError,
+} from 'rxjs';
 import { Post } from '../model/post';
 import { PostEditDialogComponent } from '../post-edit-dialog/post-edit-dialog.component';
 import { selectPost } from '../posts.selectors';
@@ -44,33 +54,29 @@ export class PostDetailComponent implements OnInit {
     this.postId = this.route.snapshot.paramMap.get('id') as string;
 
     if (this.postId) {
+      // Call Selector to get user and post even in refreshed page.
       this.post$ = this.store.pipe(select(selectPost(this.postId)));
       this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
 
       // Check if this post has been viewed by user.
-      // combineLatest([this.post$, this.user$])
-      //   .pipe(
-      //     concatMap(([post, user]: [Post, User]) => {
-      //       console.log('Post', post);
-      //       console.log('User', user);
-      //       return this.postService.addView(post._id as string);
-      //     })
-      //   )
-      //   .subscribe((val) => {
-      //     console.log('### ???', val);
-      //   });
-      // .subscribe({
-      //   next: ([post, user]) => {
-      //     if (!post.views?.some((view) => view.user === user._id)) {
-      //       console.log('not viewed yet');
-
-      //       this.postService.addView(post._id as string);
-      //     } else {
-      //       console.log('already viewed');
-      //     }
-      //   },
-      //   error: (err) => console.log(err),
-      // });
+      combineLatest([this.post$, this.user$])
+        .pipe(
+          concatMap(([post, user]: [Post, User]) => {
+            if (!post.views?.some((view) => view.user === user._id)) {
+              console.log('not viewed yet');
+              return this.postService
+                .addView(post._id as string)
+                .pipe(catchError((err) => EMPTY));
+            }
+            return of(false);
+          })
+        )
+        .subscribe({
+          next: (val) => {
+            console.log(val);
+          },
+          error: (err) => console.log(err),
+        });
     }
   }
 

@@ -189,11 +189,10 @@ export class PostService {
   addView(postId: string): Observable<View[]> {
     console.log('add view working?', postId);
     return this.http
-      .put<View[]>(`http://localhost:5000/api/posts/views/${postId}`, {})
+      .put<View[]>(`http://localhost:5000/api/views/${postId}`, {})
       .pipe(
         map((res: View[]) => {
           console.log('RES!!! in VIEW', res);
-          // this.updateLikeToStore(postId, res as Like[]);
           return res;
         })
       );
