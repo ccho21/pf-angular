@@ -1,12 +1,21 @@
 import { MatDialogConfig } from '@angular/material/dialog';
 
-
 export function defaultDialogConfig() {
   const dialogConfig = new MatDialogConfig();
 
-  dialogConfig.disableClose = true;
+  dialogConfig.disableClose = false;
   dialogConfig.autoFocus = true;
   dialogConfig.width = '400px';
+
+  return dialogConfig;
+}
+
+export function largeDialogConfig() {
+  const dialogConfig = new MatDialogConfig();
+
+  dialogConfig.disableClose = false;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '100%';
 
   return dialogConfig;
 }

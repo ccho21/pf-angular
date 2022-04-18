@@ -1,138 +1,133 @@
-<div class="container" *ngIf="user$ | async as user">
+<div *ngIf="user$ | async as user">
   <div class="d-post-wrapper" *ngIf="post$ | async as post">
     <div class="d-post">
-      <div class="d-flex justify-content-center">
-        <div class="d-post-box-left">
-          <div class="">
-            <div class="d-post-img">
-              <div class="w-100">
-                <mat-carousel
-                  timings="250ms ease-in"
-                  [autoplay]="false"
-                  [hideArrows]="false"
-                  [proportion]="proportion"
-                  [hideIndicators]="false"
-                  [slides]="slides"
-                  color="accent"
-                  maxWidth="auto"
-                  orientation="ltr"
-                >
-                  <mat-carousel-slide
-                    #matCarouselSlide
-                    *ngFor="let image of post.images; let i = index"
-                    [image]="image"
-                    overlayColor="#00000040"
-                    [hideOverlay]="false"
-                  ></mat-carousel-slide>
-                </mat-carousel>
-              </div>
+      <div class="d-post-box-left">
+        <div class="">
+          <div class="d-post-img">
+            <div class="w-100">
+              <mat-carousel
+                timings="250ms ease-in"
+                [autoplay]="false"
+                [hideArrows]="false"
+                [proportion]="proportion"
+                [hideIndicators]="false"
+                [slides]="slides"
+                color="accent"
+                maxWidth="auto"
+                orientation="ltr"
+              >
+                <mat-carousel-slide
+                  #matCarouselSlide
+                  *ngFor="let image of post.images; let i = index"
+                  [image]="image"
+                  overlayColor="#00000040"
+                  [hideOverlay]="false"
+                ></mat-carousel-slide>
+              </mat-carousel>
             </div>
           </div>
         </div>
-        <div class="w-75">
-          <div class="d-post-box-right">
-            <div class="d-post-contents">
-              <div class="d-post-heading d-flex align-items-center">
-                <div class="align-self-center">
-                  <img
-                    class="media-object c-img-thumnail img-circle img-no-padding img-responsive img-fluid"
-                    [src]="post.author?.thumbnail"
-                    width="40"
-                  />
-                </div>
-                <div class="font-weight-bold flex-grow-1">
-                  <a href="" [routerLink]="['/user', post.author?._id]">
-                    <strong>
-                      {{ post.author?.username }}
-                    </strong>
-                  </a>
-                </div>
-                <div class="pr-2">
-                  <a
-                    class="d-flex align-items-center"
-                    (click)="openActionModal(userActions)"
-                  >
-                    <mat-icon> more_horiz </mat-icon>
-                  </a>
-                </div>
+      </div>
+      <div class="d-post-box-right">
+        <div class="d-post-box-right-container">
+          <div class="d-post-contents">
+            <div class="d-post-heading d-flex align-items-center">
+              <div class="align-self-center">
+                <img
+                  class="media-object c-img-thumnail img-circle img-no-padding img-responsive img-fluid"
+                  [src]="post.author?.thumbnail"
+                  width="40"
+                />
               </div>
+              <div class="font-weight-bold flex-grow-1">
+                <a href="" [routerLink]="['/user', post.author?._id]">
+                  <strong>
+                    {{ post.author?.username }}
+                  </strong>
+                </a>
+              </div>
+              <div class="pr-2">
+                <a
+                  class="d-flex align-items-center"
+                  (click)="openActionModal(userActions)"
+                >
+                  <mat-icon> more_horiz </mat-icon>
+                </a>
+              </div>
+            </div>
 
-              <div class="d-post-comments">
-                <app-comments
-                  [comments]="post.comments"
-                  [postId]="postId"
-                  [userId]="user._id"
-                ></app-comments>
-              </div>
-              <!-- Post Detail -->
-              <div class="d-post-detail">
-                <div class="row d-post-detail-functions">
-                  <div class="col-md-12">
-                    <div class="d-flex">
-                      <div>
-                        <app-likes
-                          [isLiked]="isPostLiked(post, user._id)"
-                          [postId]="postId"
-                          [userId]="user._id"
-                          [likeStyle]="{ color: '#c51104' }"
-                        >
-                        </app-likes>
-                      </div>
-                      <div class="ms-2 flex-grow-1">
-                        <mat-icon>bookmark_border</mat-icon>
-                      </div>
+            <div class="d-post-comments">
+              <app-comments
+                [comments]="post.comments"
+                [postId]="postId"
+                [userId]="user._id"
+              ></app-comments>
+            </div>
+            <!-- Post Detail -->
+            <div class="d-post-detail">
+              <div class="row d-post-detail-functions">
+                <div class="col-md-12">
+                  <div class="d-flex">
+                    <div>
+                      <app-likes
+                        [isLiked]="isPostLiked(post, user._id)"
+                        [postId]="postId"
+                        [userId]="user._id"
+                        [likeStyle]="{ color: '#c51104' }"
+                      >
+                      </app-likes>
+                    </div>
+                    <div class="ms-2 flex-grow-1">
+                      <mat-icon>bookmark_border</mat-icon>
                     </div>
                   </div>
                 </div>
-                <div class="row d-post-detail-likes">
-                  <div class="col-md-12">
-                    <div class="d-flex align-items-center">
-                      <div>
-                        <div *ngIf="post.likes?.length; else elseBlock">
+              </div>
+              <div class="row d-post-detail-likes">
+                <div class="col-md-12">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <div *ngIf="post.likes?.length; else elseBlock">
+                        <div class="d-flex">
                           <div class="d-flex">
+                            <span> Liked by </span>
+                            <a class="d-block px-1" (click)="openLikes(likes)">
+                              <strong class="">
+                                {{
+                                  post.likes &&
+                                    post.likes[post.likes.length - 1].author
+                                      ?.username
+                                }}
+                              </strong>
+                            </a>
+                          </div>
+
+                          <div *ngIf="post.likes && post.likes.length > 1">
                             <div class="d-flex">
-                              <span> Liked by </span>
-                              <a
-                                class="d-block px-1"
-                                (click)="openLikes(likes)"
-                              >
-                                <strong class="">
-                                  {{
-                                    post.likes &&
-                                      post.likes[post.likes.length - 1].author
-                                        ?.username
-                                  }}
+                              <span> and </span>
+                              <a class="d-block px-1">
+                                <strong class="" (click)="openLikes(likes)">
+                                  others
                                 </strong>
                               </a>
                             </div>
-
-                            <div *ngIf="post.likes && post.likes.length > 1">
-                              <div class="d-flex">
-                                <span> and </span>
-                                <a class="d-block px-1">
-                                  <strong class="" (click)="openLikes(likes)">
-                                    others
-                                  </strong>
-                                </a>
-                              </div>
-                            </div>
                           </div>
                         </div>
-                        <ng-template #elseBlock>
-                          <span> Pleaes like this post. </span>
-                        </ng-template>
                       </div>
+                      <ng-template #elseBlock>
+                        <span> Pleaes like this post. </span>
+                      </ng-template>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- comment -->
-              <div class="d-post-comment-write">
-                <app-comment-create
-                  [post]="post"
-                  [user]="user"
-                ></app-comment-create>
-              </div>
+            </div>
+            <!-- comment -->
+            <div class="d-post-comment-write">
+              <app-comment-create
+                [post]="post"
+                [user]="user"
+              ></app-comment-create>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { getCurrentUser } from '@app/auth/auth.selectors';
 import { User } from '@app/auth/model/user';
@@ -39,19 +39,26 @@ export class PostDetailComponent implements OnInit {
 
   proportion: number = 25;
   slides: number = 5;
+  postData?: Post;
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) data: any,
     private dialog: MatDialog,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.postId = data.postId;
+  }
 
   ngOnInit(): void {
+    console.log('### POST DETAIL COMPONENT ###');
     this.reload();
   }
   // INIT FUNCTION
   reload() {
-    this.postId = this.route.snapshot.paramMap.get('id') as string;
+    if (!this.postId) {
+      this.postId = this.route.snapshot.paramMap.get('id') as string;
+    }
 
     if (this.postId) {
       // Call Selector to get user and post even in refreshed page.
@@ -111,13 +118,11 @@ export class PostDetailComponent implements OnInit {
       dialogTitle: 'Edit Post',
       mode: 'update',
     };
-    this.dialog
-      .open(component, {
-        panelClass: 'custom-no-padding-container',
-        data: dialogConfig,
-      })
-      .afterClosed()
-      .subscribe(() => {});
+    (dialogConfig.panelClass = 'custom-no-padding-container'),
+      this.dialog
+        .open(component, dialogConfig)
+        .afterClosed()
+        .subscribe(() => {});
   }
 
   openLikes(component: any) {

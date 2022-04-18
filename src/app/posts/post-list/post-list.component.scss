@@ -62,3 +62,15 @@
     }
   }
 }
+
+// ::ng-deep .mat-dialog-container {
+//   padding: 0 !important;
+// }
+
+::ng-deep .no-padding-post {
+  .mat-dialog-container {
+    // mat dialog container
+    /* add your styles */
+    padding: 0 !important;
+  }
+}

@@ -15,16 +15,15 @@ import { postUpdated } from '../post.actions';
   styleUrls: ['./post-edit-dialog.component.scss'],
 })
 export class PostEditDialogComponent {
-  form!: FormGroup;
-  loading$!: Observable<boolean>;
+  form?: FormGroup;
+  loading$?: Observable<boolean>;
 
-  post!: Post;
+  post?: Post;
   dialogTitle: string;
-  mode!: 'create' | 'update';
+  mode?: 'create' | 'update';
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<PostEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data: any,
     private store: Store<AppState>,
     private postService: PostService
@@ -45,19 +44,19 @@ export class PostEditDialogComponent {
 
   addImages(urls: Array<string>) {
     console.log('### urls :', urls);
-    this.form.get('images')?.setValue(urls);
-    console.log('first', this.form.get('images'));
+    this.form?.get('images')?.setValue(urls);
+    console.log('first', this.form?.get('images'));
   }
 
   onSubmit() {
-    if (!this.form.valid) {
+    if (!this.form?.valid) {
       return;
     }
     console.log(this.form.value);
     const post = { ...this.form.value };
 
     const update: Update<Post> = {
-      id: this.post._id as string,
+      id: this.post?._id as string,
       changes: post,
     };
     this.store.dispatch(postUpdated({ update }));

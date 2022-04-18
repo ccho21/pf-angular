@@ -6,14 +6,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-
-
 import { postsReducer } from './reducers/post.reducers';
 import { PostsResolver } from './posts.resolver';
 import { PostsEffects } from './posts.effects';
-
-
-
 
 import { PipesModule } from '../shared/pipes/pipes.module';
 import { SharedModule } from '@app/shared/shared.module';
@@ -31,33 +26,11 @@ import { CommentsComponent } from './comments/comments.component';
 import { CommentCreateComponent } from './comment-create/comment-create.component';
 import { LikesComponent } from './likes/likes.component';
 
-// export const postsRoutes: Routes = [
-//   {
-//     path: '',
-//     component: MainComponent,
-//     resolve: {
-//       posts: PostsResolver,
-//     },
-//   },
-//   {
-//     path: ':id',
-//     component: PostDetailComponent,
-//     resolve: {
-//       posts: PostsResolver,
-//     },
-//   },
-//   {
-//     path: 'create',
-//     component: PostNewComponent,
-//   },
-// ];
-
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    // RouterModule.forChild(postsRoutes),
     EffectsModule.forFeature([PostsEffects]),
     StoreModule.forFeature('posts', postsReducer),
     PipesModule,

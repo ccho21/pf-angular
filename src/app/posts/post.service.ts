@@ -10,11 +10,12 @@ import {
   commentUpdated,
   likeUpdated,
   postCreated,
-  postUpdated,
 } from '@app/posts/post.actions';
 import { Update } from '@ngrx/entity';
 import { Like } from '@app/posts/model/like';
 import { View } from '@app/posts/model/view';
+import { largeDialogConfig } from '@app/shared/default-dialog-config';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,8 @@ export class PostService {
   constructor(
     private store: Store,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
   loadPosts(): Observable<Post[]> {
     return this.http.get('http://localhost:5000/api/posts').pipe(
@@ -205,5 +207,17 @@ export class PostService {
 
   getReplyDTO() {
     return this.replySubscription$;
+  }
+
+  // OPEN DIALOG FOR POST DETAIL
+  openDialog(component: any, postId: string) {
+    const dialogConfig = largeDialogConfig();
+
+    dialogConfig.data = {
+      dialogTitle: 'POST DETAIL',
+      postId,
+    };
+    dialogConfig.panelClass = 'no-padding-post';
+    return this.dialog.open(component, dialogConfig);
   }
 }
