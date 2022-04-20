@@ -53,6 +53,36 @@
                 </a>
               </div>
             </div>
+            
+            <div class="d-post-content">
+              <div class="mt-1 me-1" href="#">
+                <div class="">
+                  <img
+                    alt="Tim Picture"
+                    class="media-object c-img-thumnail img-circle img-fluid"
+                    [src]="post.author?.thumbnail"
+                    width="40"
+                  />
+                </div>
+              </div>
+              <div>
+                <h4 class="media-heading me-1 mb-0">
+                  <strong>
+                    {{ post.author?.username }}
+                  </strong>
+                </h4>
+              </div>
+
+              <p class="flex-grow-1 mb-0">
+                {{ post?.content }}
+              </p>
+              <!-- functions -->
+              <div class="cd-comment-actions" *ngIf="">
+                <a>
+                  <mat-icon> more_horiz </mat-icon>
+                </a>
+              </div>
+            </div>
 
             <div class="d-post-comments">
               <app-comments

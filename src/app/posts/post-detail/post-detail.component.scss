@@ -7,6 +7,13 @@
   @media screen and(max-width: 1200px) {
     flex-wrap: wrap;
   }
+
+  .d-post-content {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+  }
+
   &-wrapper {
     position: relative;
     display: flex;
@@ -91,6 +98,9 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    @media screen and(max-width: 1200px) {
+      position: static;
+    }
 
     .d-post-heading {
       border-bottom: 0.8px solid lightgray;
@@ -100,6 +110,7 @@
       overflow-y: scroll;
       flex-grow: 1;
       padding: 0.5rem;
+      max-height: 500px;
     }
     .d-post-detail {
       border-top: 0.8px solid lightgray;
@@ -139,22 +150,4 @@
   .modal-body {
     height: 20rem;
   }
-}
-
-::ng-deep .custom-no-padding-container {
-  width: 300px;
-  .mat-dialog-container {
-    // mat dialog container
-    /* add your styles */
-    padding: 0 !important;
-  }
-}
-
-::ng-deep .carousel-slide {
-  padding-bottom: 100% !important;
-}
-
-::ng-deep .carousel-indicators {
-  transform: none !important;
-  left: 0 !important;
 }

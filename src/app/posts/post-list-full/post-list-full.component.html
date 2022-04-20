@@ -78,59 +78,34 @@
               <div class="row d-post-detail-likes">
                 <div class="col-md-12">
                   <div class="d-flex align-items-center">
-                    <div>
-                      <div *ngIf="post.likes?.length; else elseBlock">
-                        <div class="d-flex">
-                          <div class="d-flex">
-                            <span> Liked by </span>
-                            <a class="d-block px-1" (click)="openLikes(likes)">
-                              <strong class="">
-                                {{
-                                  post.likes &&
-                                    post.likes[post.likes.length - 1].author
-                                      ?.username
-                                }}
-                              </strong>
-                            </a>
-                          </div>
-
-                          <div *ngIf="post.likes && post.likes.length > 1">
-                            <div class="d-flex">
-                              <span> and </span>
-                              <a class="d-block px-1">
-                                <strong class="" (click)="openLikes(likes)">
-                                  others
-                                </strong>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <ng-template #elseBlock>
-                        <span> Pleaes like this post. </span>
-                      </ng-template>
-                    </div>
+                    <app-like-user-dialog [post]="post"></app-like-user-dialog>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div
-              class="d-post-comments"
-              *ngIf="post.comments && post.comments.length > 0"
-            >
+            <div class="d-post-comments">
               <div class="d-flex align-items-center mb-2">
                 <div class="pe-3">
                   <strong>
-                    {{ post.comments[0].author.username }}
+                    {{ post.author?.username }}
                   </strong>
                 </div>
-                <div>{{ post.comments[0].content }}</div>
+                <div>{{ post.content }}</div>
               </div>
               <div class="mb-3">
                 <a href="#" (click)="openDialog(post, $event)"
                   >View all Comments</a
                 >
+              </div>
+              <div class="mb-3">
+                <a
+                  href="#"
+                  class="text-decoration-none text-black-50"
+                  (click)="openDialog(post, $event)"
+                >
+                  {{ post.createdAt | postTime }}
+                </a>
               </div>
             </div>
 
@@ -166,33 +141,6 @@
               (click)="editPost(post)"
               >Delete</a
             >
-          </div>
-        </div>
-      </div>
-    </ng-template>
-
-    <ng-template #likes let-modal>
-      <div>
-        <h2 class="my-4 text-center">LIKES</h2>
-      </div>
-      <hr />
-      <div class="user-action p-4">
-        <div *ngFor="let like of post.likes">
-          <div class="d-flex align-items-center">
-            <div>
-              <img
-                alt="HHAHa"
-                width="40"
-                class="media-object c-img-thumnail img-circle img-fluid"
-                [src]="like.author?.thumbnail"
-              />
-            </div>
-            <div>
-              {{ like.author?.username }}
-            </div>
-            <div class="flex-grow-1 text-end">
-              <button mat-button>Follow</button>
-            </div>
           </div>
         </div>
       </div>
