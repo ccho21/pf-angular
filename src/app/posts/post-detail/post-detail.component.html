@@ -45,15 +45,10 @@
                 </a>
               </div>
               <div class="pr-2">
-                <a
-                  class="d-flex align-items-center"
-                  (click)="openActionModal(userActions)"
-                >
-                  <mat-icon> more_horiz </mat-icon>
-                </a>
+                <app-user-action-dialog [post]="post" [userId]="user._id"></app-user-action-dialog>
               </div>
             </div>
-            
+
             <div class="d-post-content">
               <div class="mt-1 me-1" href="#">
                 <div class="">
@@ -115,36 +110,8 @@
                 <div class="col-md-12">
                   <div class="d-flex align-items-center">
                     <div>
-                      <div *ngIf="post.likes?.length; else elseBlock">
-                        <div class="d-flex">
-                          <div class="d-flex">
-                            <span> Liked by </span>
-                            <a class="d-block px-1" (click)="openLikes(likes)">
-                              <strong class="">
-                                {{
-                                  post.likes &&
-                                    post.likes[post.likes.length - 1].author
-                                      ?.username
-                                }}
-                              </strong>
-                            </a>
-                          </div>
-
-                          <div *ngIf="post.likes && post.likes.length > 1">
-                            <div class="d-flex">
-                              <span> and </span>
-                              <a class="d-block px-1">
-                                <strong class="" (click)="openLikes(likes)">
-                                  others
-                                </strong>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <ng-template #elseBlock>
-                        <span> Pleaes like this post. </span>
-                      </ng-template>
+                      <app-like-user-dialog [post]="post">
+                      </app-like-user-dialog>
                     </div>
                   </div>
                 </div>
@@ -161,56 +128,5 @@
         </div>
       </div>
     </div>
-
-    <ng-template #userActions let-modal>
-      <div class="user-action">
-        <div>
-          <div class="px-3 pt-3 text-center">
-            <a
-              class="d-block"
-              [mat-dialog-close]="true"
-              (click)="editPost(post)"
-              >Edit</a
-            >
-          </div>
-          <hr />
-          <div class="px-3 pb-3 text-center text-danger">
-            <a
-              class="d-block"
-              [mat-dialog-close]="true"
-              (click)="editPost(post)"
-              >Delete</a
-            >
-          </div>
-        </div>
-      </div>
-    </ng-template>
-
-    <ng-template #likes let-modal>
-      <div>
-        <h2 class="my-4 text-center">LIKES</h2>
-      </div>
-      <hr />
-      <div class="user-action p-4">
-        <div *ngFor="let like of post.likes">
-          <div class="d-flex align-items-center">
-            <div>
-              <img
-                alt="HHAHa"
-                width="40"
-                class="media-object c-img-thumnail img-circle img-fluid"
-                [src]="like.author?.thumbnail"
-              />
-            </div>
-            <div>
-              {{ like.author?.username }}
-            </div>
-            <div class="flex-grow-1 text-end">
-              <button mat-button>Follow</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-template>
   </div>
 </div>

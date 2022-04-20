@@ -112,43 +112,14 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
-  // POST FUNCTIONS
-  editPost(post: Post) {
-    const dialogConfig = defaultDialogConfig();
-
-    dialogConfig.data = {
-      dialogTitle: 'Edit Post',
-      post,
-      mode: 'update',
-    };
-
-    this.dialog
-      .open(PostEditDialogComponent, dialogConfig)
-      .afterClosed()
-      .subscribe(() => {
-        console.log('dialog is done');
-      });
-  }
+ 
 
   // LIKE FUNCTIONS
   isPostLiked(post: Post, userId?: string) {
     return this.postService.isLikedByUser(post, userId);
   }
 
-  // UI FUNCTIONS
-  openActionModal(component: any) {
-    const dialogConfig = defaultDialogConfig();
-
-    dialogConfig.data = {
-      dialogTitle: 'Edit Post',
-      mode: 'update',
-    };
-    (dialogConfig.panelClass = 'custom-no-padding-container'),
-      this.dialog
-        .open(component, dialogConfig)
-        .afterClosed()
-        .subscribe(() => {});
-  }
+ 
 
   openLikes(component: any) {
     const dialogConfig = defaultDialogConfig();

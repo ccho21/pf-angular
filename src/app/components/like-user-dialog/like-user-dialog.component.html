@@ -4,11 +4,9 @@
       <div class="d-flex">
         <span> Liked by </span>
         <a class="d-block px-1" (click)="openLikes(likes)">
-          <!-- <strong class="">
-            {{
-              post?.likes && post?.likes[post.likes.length - 1].author?.username
-            }}
-          </strong> -->
+          <strong class="">
+            {{ post && post.likes[0].author.username }}
+          </strong>
         </a>
       </div>
 

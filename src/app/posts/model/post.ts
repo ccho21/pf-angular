@@ -8,7 +8,7 @@ export interface Post {
   content: string;
   author?: User;
   images: Array<string>;
-  likes?: Array<Like>;
+  likes: Array<Like>;
   views?: Array<View>;
   comments?: Array<Comment>;
   createdAt?: string;

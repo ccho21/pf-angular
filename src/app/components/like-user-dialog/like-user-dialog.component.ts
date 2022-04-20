@@ -9,7 +9,7 @@ import { defaultDialogConfig } from '@app/shared/default-dialog-config';
   styleUrls: ['./like-user-dialog.component.scss'],
 })
 export class LikeUserDialogComponent implements OnInit {
-  @Input() post: Post | undefined;
+  @Input() post?: Post;
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
