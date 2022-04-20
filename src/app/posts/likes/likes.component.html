@@ -1,6 +1,6 @@
 <div>
   <div *ngIf="!isLiked; else elseBlock">
-    <a class="d-block" (click)="clickLike()">
+    <a class="d-block cursor-pointer" (click)="clickLike($event)">
       <mat-icon
         [style.color]="likeStyle?.color"
         [style.fontSize]="likeStyle?.size"
@@ -10,7 +10,7 @@
     </a>
   </div>
   <ng-template #elseBlock>
-    <a class="d-block" (click)="removeLike()">
+    <a class="d-block cursor-pointer" (click)="removeLike($event)">
       <mat-icon
         [style.color]="likeStyle?.color"
         [style.fontSize]="likeStyle?.size"

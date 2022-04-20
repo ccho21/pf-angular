@@ -39,6 +39,7 @@ export class PostListFullComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('### POST FULL COMPONENTS ###');
     this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
   }
 
@@ -60,56 +61,6 @@ export class PostListFullComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
-  }
-
-  // TODO: REFACTORING REQUIRED
-
-  // POST FUNCTIONS
-  editPost(post: Post) {
-    const dialogConfig = defaultDialogConfig();
-
-    dialogConfig.data = {
-      dialogTitle: 'Edit Post',
-      post,
-      mode: 'update',
-    };
-
-    this.dialog
-      .open(PostEditDialogComponent, dialogConfig)
-      .afterClosed()
-      .subscribe(() => {
-        console.log('dialog is done');
-      });
-  }
-
-  // UI FUNCTIONS
-  openActionModal(component: any) {
-    const dialogConfig = defaultDialogConfig();
-
-    dialogConfig.data = {
-      dialogTitle: 'Edit Post',
-      mode: 'update',
-    };
-    (dialogConfig.panelClass = 'custom-no-padding-container'),
-      this.dialog
-        .open(component, dialogConfig)
-        .afterClosed()
-        .subscribe(() => {});
-  }
-
-  openLikes(component: any) {
-    const dialogConfig = defaultDialogConfig();
-
-    dialogConfig.data = {
-      dialogTitle: 'Likes',
-    };
-    this.dialog
-      .open(component, {
-        panelClass: 'custom-no-padding-container',
-        data: dialogConfig,
-      })
-      .afterClosed()
-      .subscribe(() => {});
   }
 
   // LIKE FUNCTIONS

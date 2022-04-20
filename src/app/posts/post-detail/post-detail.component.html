@@ -8,7 +8,6 @@
               <swiper
                 [slidesPerView]="1"
                 [spaceBetween]="50"
-                (swiper)="onSwiper($event)"
                 (slideChange)="onSlideChange()"
                 [navigation]="true"
                 [pagination]="{ clickable: true }"
@@ -45,7 +44,10 @@
                 </a>
               </div>
               <div class="pr-2">
-                <app-user-action-dialog [post]="post" [userId]="user._id"></app-user-action-dialog>
+                <app-user-action-dialog
+                  [post]="post"
+                  [userId]="user._id"
+                ></app-user-action-dialog>
               </div>
             </div>
 

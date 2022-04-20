@@ -12,6 +12,7 @@ import {
   combineLatest,
   concatMap,
   EMPTY,
+  forkJoin,
   Observable,
   of,
 } from 'rxjs';
@@ -23,15 +24,11 @@ import SwiperCore, {
   Navigation,
   Pagination,
   SwiperOptions,
-  Scrollbar
+  Scrollbar,
 } from 'swiper';
 
 // install Swiper components
-SwiperCore.use([
-  Navigation,
-  Pagination,
-  Scrollbar
-]);
+SwiperCore.use([Navigation, Pagination, Scrollbar]);
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
@@ -73,9 +70,6 @@ export class PostDetailComponent implements OnInit {
     this.reload();
   }
 
-  onSwiper([swiper]: any) {
-    console.log('### swiper ', swiper);
-  }
   onSlideChange() {
     console.log('slide change');
   }
@@ -91,9 +85,10 @@ export class PostDetailComponent implements OnInit {
       this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
 
       // Check if this post has been viewed by user.
-      combineLatest([this.post$, this.user$])
+      forkJoin([this.post$, this.user$])
         .pipe(
           concatMap(([post, user]: [Post, User]) => {
+            console.log('@!#%!@#%!@#%',post, user);
             if (!post.views?.some((view) => view.user === user._id)) {
               console.log('not viewed yet');
               return this.postService
@@ -112,27 +107,8 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
- 
-
   // LIKE FUNCTIONS
   isPostLiked(post: Post, userId?: string) {
     return this.postService.isLikedByUser(post, userId);
-  }
-
- 
-
-  openLikes(component: any) {
-    const dialogConfig = defaultDialogConfig();
-
-    dialogConfig.data = {
-      dialogTitle: 'Likes',
-    };
-    this.dialog
-      .open(component, {
-        panelClass: 'custom-no-padding-container',
-        data: dialogConfig,
-      })
-      .afterClosed()
-      .subscribe(() => {});
   }
 }

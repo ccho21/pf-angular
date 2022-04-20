@@ -1,4 +1,3 @@
-
 ::ng-deep .no-padding-post {
   overflow-y: scroll;
 
@@ -9,8 +8,10 @@
   }
 }
 
-::ng-deep .mat-dialog-container {
-  // mat dialog container
-  /* add your styles */
-  padding: 0 !important;
+::ng-deep .custom-no-padding {
+  .mat-dialog-container {
+    // mat dialog container
+    /* add your styles */
+    padding: 0 !important;
+  }
 }

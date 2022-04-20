@@ -24,10 +24,10 @@ export class LikesComponent implements OnInit {
     private postService: PostService
   ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  clickLike() {
+  clickLike(e: Event) {
+    e.preventDefault();
     console.log('Post Id', this.postId);
     console.log('COMMENT?', this.commentId);
     this.postService
@@ -41,7 +41,8 @@ export class LikesComponent implements OnInit {
         },
       });
   }
-  removeLike() {
+  removeLike(e: Event) {
+    e.preventDefault();
     this.postService
       .removeLike(this.postId as string, this.commentId)
       .subscribe({

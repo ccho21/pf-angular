@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Post } from '@app/posts/model/post';
 import { PostEditDialogComponent } from '@app/posts/post-edit-dialog/post-edit-dialog.component';
@@ -38,17 +38,26 @@ export class UserActionDialogComponent implements OnInit {
         console.log('dialog is done');
       });
   }
-  deletePost(post?: Post) {}
+  deletePost(post?: Post, component?: any) {
+    const dialogConfig = defaultDialogConfig();
+
+    this.dialog
+      .open(component, dialogConfig)
+      .afterClosed()
+      .subscribe(() => {
+        console.log('dialog is done');
+      });
+  }
 
   // UI FUNCTIONS
-  openActionModal(component: any) {
+  openActionModal(component: TemplateRef<any>) {
     const dialogConfig = defaultDialogConfig();
 
     dialogConfig.data = {
       dialogTitle: 'Edit Post',
       mode: 'update',
     };
-    dialogConfig.panelClass = 'custom-no-padding-container';
+    dialogConfig.panelClass = 'custom-no-padding';
 
     this.dialog
       .open(component, dialogConfig)

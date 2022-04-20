@@ -19,11 +19,9 @@ export class LikeUserDialogComponent implements OnInit {
     dialogConfig.data = {
       dialogTitle: 'Likes',
     };
+    dialogConfig.panelClass = 'custom-no-padding';
     this.dialog
-      .open(component, {
-        panelClass: 'custom-no-padding-container',
-        data: dialogConfig,
-      })
+      .open(component, dialogConfig)
       .afterClosed()
       .subscribe(() => {});
   }
