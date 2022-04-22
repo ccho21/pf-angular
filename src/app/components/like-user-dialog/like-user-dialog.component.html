@@ -10,7 +10,7 @@
         </a>
       </div>
 
-      <div *ngIf="post?.likes">
+      <div *ngIf="post && post.likes.length > 1">
         <div class="d-flex">
           <span> and </span>
           <a class="d-block px-1">

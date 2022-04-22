@@ -2,7 +2,10 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Post } from '@app/posts/model/post';
 import { PostEditDialogComponent } from '@app/posts/post-edit-dialog/post-edit-dialog.component';
+import { PostService } from '@app/posts/post.service';
 import { defaultDialogConfig } from '@app/shared/default-dialog-config';
+import { of } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-action-dialog',
@@ -15,7 +18,7 @@ export class UserActionDialogComponent implements OnInit {
 
   isSameAuthor: boolean = false;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private postService: PostService) {}
 
   ngOnInit(): void {
     this.isSameAuthor = this.post?.author?._id === this.userId ? true : false;
@@ -39,13 +42,22 @@ export class UserActionDialogComponent implements OnInit {
       });
   }
   deletePost(post?: Post, component?: any) {
+    console.log('DELETE POST', post);
     const dialogConfig = defaultDialogConfig();
 
     this.dialog
       .open(component, dialogConfig)
       .afterClosed()
-      .subscribe(() => {
-        console.log('dialog is done');
+      .pipe(
+        concatMap((answer: boolean) => {
+          if (answer === true) {
+            return this.postService.deletePost(post?._id as string);
+          }
+          return of(false);
+        })
+      )
+      .subscribe((answer) => {
+        console.log('### dialog is done Thank you');
       });
   }
 

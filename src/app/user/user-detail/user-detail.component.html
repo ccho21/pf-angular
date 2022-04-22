@@ -1,5 +1,5 @@
 <div *ngIf="user$ | async as user">
-  <div class="container py-5">
+  <div class="container py-5" *ngIf="userPosts$ | async as posts">
     <div class="row align-items-center">
       <div class="col-md-3 text-center">
         <div>
@@ -36,7 +36,9 @@
         </div>
         <div class="row pb-3">
           <div class="col-md-4">
-            <div><strong>392</strong> posts</div>
+            <div>
+              <strong>{{ posts && posts.length }}</strong> posts
+            </div>
           </div>
           <div class="col-md-4">
             <div><strong>102</strong> followers</div>
@@ -63,12 +65,13 @@
           </mat-tab>
           <mat-tab label="Liked">
             <div class="p-5">
-              <app-post-list [posts]="userPosts$ | async"></app-post-list>
+              <app-post-list [posts]="userPostsLiked$ | async"></app-post-list>
             </div>
           </mat-tab>
           <mat-tab label="Bookmarked">
             <div class="p-5">
-              <app-post-list [posts]="userPosts$ | async"></app-post-list>
+              WORKING
+              <!-- <app-post-list [posts]="userPosts$ | async"></app-post-list> -->
             </div>
           </mat-tab>
         </mat-tab-group>

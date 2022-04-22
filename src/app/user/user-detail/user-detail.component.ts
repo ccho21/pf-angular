@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
 import { User } from '@app/auth/model/user';
 import { Post } from '@app/posts/model/post';
-import { selectPostsByUserId } from '@app/posts/posts.selectors';
+import {
+  selectLikedPost,
+  selectPostsByUserId,
+} from '@app/posts/posts.selectors';
 import { AppState } from '@app/reducers';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -16,6 +19,7 @@ import { selectUser } from '../user.selectors';
 export class UserDetailComponent implements OnInit {
   user$?: Observable<User>;
   userPosts$?: Observable<Post[]>;
+  userPostsLiked$?: Observable<Post[]>;
   userId?: string;
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
@@ -31,5 +35,6 @@ export class UserDetailComponent implements OnInit {
     // Use Select to get users and posts by user ID
     this.user$ = this.store.pipe(select(selectUser)) as Observable<User>;
     this.userPosts$ = this.store.pipe(select(selectPostsByUserId(id)));
+    this.userPostsLiked$ = this.store.pipe(select(selectLikedPost(id)));
   }
 }

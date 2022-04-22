@@ -40,18 +40,15 @@ export const postsReducer = createReducer(
     console.log('### ACTION in REDUCER ', action);
     return adapter.updateOne(action.update, state);
   }),
+  on(PostActions.postDeleted, (state, { id }) => {
+    return adapter.removeOne(id, state);
+  }),
   on(PostActions.commentUpdated, (state, action) => {
-    // console.log('### state in REDUCER : ', state);
-    // console.log('### ACTION in REDUCER ', action);
     return adapter.updateOne(action.update, state);
   }),
-
   on(PostActions.likeUpdated, (state, action) => {
-    // console.log('### state in REDUCER : ', state);
-    // console.log('### ACTION in REDUCER ', action);
     return adapter.updateOne(action.update, state);
   }),
-
   on(PostActions.viewUpdated, (state, action) => {
     return adapter.updateOne(action.update, state);
   })

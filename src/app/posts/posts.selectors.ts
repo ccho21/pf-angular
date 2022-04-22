@@ -17,6 +17,12 @@ export const selectPostsByUserId = (id: string) => {
   );
 };
 
+export const selectLikedPost = (id: string) => {
+  return createSelector(selectAllPosts, (posts) =>
+    posts.filter((post) => post.likes.some((like) => like.user === id))
+  );
+};
+
 export const arePostsLoaded = createSelector(
   selectPostsState,
   (state) => state.allPostsLoaded

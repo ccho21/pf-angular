@@ -19,6 +19,11 @@ export const postCreated = createAction(
   props<{ post: Post }>()
 );
 
+export const postDeleted = createAction(
+  '[Delete Post] Post deleted',
+  props<{ id: string }>()
+);
+
 export const commentUpdated = createAction(
   '[Update Post Comment] Comment Updated',
   props<{ update: Update<Post> }>()

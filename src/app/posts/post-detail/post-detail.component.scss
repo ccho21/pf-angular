@@ -110,9 +110,7 @@
       overflow-y: scroll;
       flex-grow: 1;
       padding: 0.5rem;
-      @media screen and(max-width: 1200px) {
-        max-height: 500px;
-      }
+     
     }
     .d-post-detail {
       border-top: 0.8px solid lightgray;

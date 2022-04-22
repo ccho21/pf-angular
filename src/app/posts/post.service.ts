@@ -10,6 +10,7 @@ import {
   commentUpdated,
   likeUpdated,
   postCreated,
+  postDeleted,
 } from '@app/posts/post.actions';
 import { Update } from '@ngrx/entity';
 import { Like } from '@app/posts/model/like';
@@ -67,6 +68,17 @@ export class PostService {
       .pipe(
         tap((post: Post) => {
           console.log('[UPDATE POST EFFECT] has been done successfuly', post);
+        })
+      );
+  }
+
+  deletePost(postId: string) {
+    return this.http
+      .delete<Post>(`http://localhost:5000/api/posts/${postId}`)
+      .pipe(
+        tap((post: Post) => {
+          console.log('[DELETE POST] has been done successfuly', post);
+          this.store.dispatch(postDeleted({ id: postId }));
         })
       );
   }
@@ -172,6 +184,7 @@ export class PostService {
     console.log('update!', update);
     this.store.dispatch(likeUpdated({ update }));
   }
+
   private updateCommentToStore(postId: string, res: Comment[]) {
     const post = {
       comments: res,
