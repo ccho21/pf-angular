@@ -83,27 +83,6 @@ export class PostDetailComponent implements OnInit {
       // Call Selector to get user and post even in refreshed page.
       this.post$ = this.store.pipe(select(selectPost(this.postId)));
       this.user$ = this.store.pipe(select(getCurrentUser)) as Observable<User>;
-
-      // Check if this post has been viewed by user.
-      forkJoin([this.post$, this.user$])
-        .pipe(
-          concatMap(([post, user]: [Post, User]) => {
-            console.log('@!#%!@#%!@#%',post, user);
-            if (!post.views?.some((view) => view.user === user._id)) {
-              console.log('not viewed yet');
-              return this.postService
-                .addView(post._id as string)
-                .pipe(catchError((err) => EMPTY));
-            }
-            return of(false);
-          })
-        )
-        .subscribe({
-          next: (val) => {
-            console.log(val);
-          },
-          error: (err) => console.log(err),
-        });
     }
   }
 
@@ -111,4 +90,32 @@ export class PostDetailComponent implements OnInit {
   isPostLiked(post: Post, userId?: string) {
     return this.postService.isLikedByUser(post, userId);
   }
+
+  getBackgroundImageUrl(image: string) {
+    return `url(${image})`;
+  }
+
+  // ADD VIEW
+  // addView() {
+  //   // Check if this post has been viewed by user.
+  //   return forkJoin
+  //     .pipe(
+  //       concatMap(([post, user]: [Post, User]) => {
+  //         console.log('@!#%!@#%!@#%', post, user);
+  //         if (!post.views?.some((view) => view.user === user._id)) {
+  //           console.log('not viewed yet');
+  //           return this.postService
+  //             .addView(post._id as string)
+  //             .pipe(catchError((err) => EMPTY));
+  //         }
+  //         return of(false);
+  //       })
+  //     )
+  //     .subscribe({
+  //       next: (val) => {
+  //         console.log(val);
+  //       },
+  //       error: (err) => console.log(err),
+  //     });
+  // }
 }

@@ -71,7 +71,7 @@
     }
   }
 
-  &-img {
+  &-gallery {
     display: flex;
     align-items: center;
     background-color: black;
@@ -81,14 +81,13 @@
     left: 0;
     bottom: 0;
     right: 0;
-    & img {
-      width: 100%;
-    }
-    .carousel-inner {
-      // height:100%;
-    }
   }
-
+  &-img {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
   &-contents {
     position: absolute;
     top: 0;
@@ -110,7 +109,6 @@
       overflow-y: scroll;
       flex-grow: 1;
       padding: 1rem;
-     
     }
     .d-post-detail {
       border-top: 0.8px solid lightgray;

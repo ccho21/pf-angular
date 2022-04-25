@@ -3,8 +3,8 @@
     <div class="d-post">
       <div class="d-post-box-left">
         <div class="">
-          <div class="d-post-img">
-            <div class="w-100">
+          <div class="d-post-gallery">
+            <div class="w-100 h-100">
               <swiper
                 [slidesPerView]="1"
                 [spaceBetween]="50"
@@ -12,13 +12,15 @@
                 [navigation]="true"
                 [pagination]="{ clickable: true }"
                 [scrollbar]="{ draggable: true }"
+                class="h-100"
               >
                 <ng-template
                   *ngFor="let image of post.images; let i = index"
                   swiperSlide
                   class="text-white text-center"
                 >
-                  <img [src]="image" alt="" class="w-100" />
+                  <div class="d-post-img" [ngStyle]="{ backgroundImage: getBackgroundImageUrl(image) }">
+                  </div>
                 </ng-template>
               </swiper>
             </div>
