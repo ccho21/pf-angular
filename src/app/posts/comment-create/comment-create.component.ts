@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Update } from '@ngrx/entity';
 import { Post } from '../../posts/model/post';
 import { Comment } from '../../posts/model/comment';
@@ -17,7 +22,7 @@ import { User } from '@app/auth/model/user';
   styleUrls: ['./comment-create.component.scss'],
 })
 export class CommentCreateComponent implements OnInit {
-  commentForm!: FormControl;
+  form!: FormGroup;
   @Input() post!: Post;
   @Input() user!: User;
   @Output() commentEmit: EventEmitter<any> = new EventEmitter();
@@ -27,11 +32,15 @@ export class CommentCreateComponent implements OnInit {
   pComment?: Comment; // comment object from parent array of comment
   constructor(
     private store: Store<AppState>,
-    private postService: PostService
+    private postService: PostService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.commentForm = new FormControl('');
+    this.form = this.fb.group({
+      content: ['', [Validators.required]],
+      replyTo: [''],
+    });
 
     this.replySubscription$ = this.postService
       .getReplyDTO()
@@ -41,12 +50,12 @@ export class CommentCreateComponent implements OnInit {
         this.nameTag = `@${res.author?.username} `;
         this.pComment = res;
         // store the nametag to the textarea
-        this.commentForm.patchValue(this.nameTag);
+        this.form.patchValue({ replyTo: this.nameTag });
       });
   }
 
   onSubmit() {
-    if (!this.commentForm.valid) {
+    if (!this.form.valid) {
       return;
     }
     const postId = this.post._id as string;
@@ -54,7 +63,7 @@ export class CommentCreateComponent implements OnInit {
     const comment: Comment = {
       parentId: postId,
       author: this.user,
-      content: this.commentForm.value.replace(regex, '').trim(),
+      content: this.form.get('content')?.value.replace(regex, '').trim(),
     };
     const pCommentId =
       this.pComment?.parentId !== postId
@@ -68,8 +77,6 @@ export class CommentCreateComponent implements OnInit {
     } else {
       this.updateComment(comment, postId);
     }
-
-    this.commentForm.reset();
   }
 
   updateComment(comment: Comment, postId: string) {
@@ -87,6 +94,8 @@ export class CommentCreateComponent implements OnInit {
     this.postService.addSubComment(comment, postId, commentId).subscribe({
       next: () => {
         console.log('Sub Comment updated');
+        this.form.reset();
+        this.nameTag = '';
       },
       error: (err) => {
         console.log('Error occurred', err);

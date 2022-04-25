@@ -41,7 +41,6 @@ export class PostNewComponent implements OnInit {
   ngOnInit(): void {}
 
   addImages(urls: Array<string>) {
-    console.log('### urls :', urls);
     this.form.get('images')?.setValue(urls);
     console.log('first', this.form.get('images'));
   }

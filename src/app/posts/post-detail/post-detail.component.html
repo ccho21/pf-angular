@@ -31,16 +31,18 @@
             <div class="d-post-heading d-flex align-items-center">
               <div class="align-self-center">
                 <img
-                  class="media-object c-img-thumnail img-circle img-no-padding img-responsive img-fluid"
+                  class="img-thumbnail img-circle img-no-padding img-responsive img-fluid"
                   [src]="post.author?.thumbnail"
                   width="40"
                 />
               </div>
               <div class="font-weight-bold flex-grow-1">
-                <a href="" [routerLink]="['/user', post.author?._id]">
-                  <strong>
-                    {{ post.author?.username }}
-                  </strong>
+                <a
+                  class="section-link text-md text-black"
+                  href=""
+                  [routerLink]="['/user', post.author?._id]"
+                >
+                  {{ post.author?.username }}
                 </a>
               </div>
               <div class="pr-2">
@@ -51,36 +53,6 @@
               </div>
             </div>
 
-            <div class="d-post-content">
-              <div class="mt-1 me-1" href="#">
-                <div class="">
-                  <img
-                    alt="Tim Picture"
-                    class="media-object c-img-thumnail img-circle img-fluid"
-                    [src]="post.author?.thumbnail"
-                    width="40"
-                  />
-                </div>
-              </div>
-              <div>
-                <h4 class="media-heading me-1 mb-0">
-                  <strong>
-                    {{ post.author?.username }}
-                  </strong>
-                </h4>
-              </div>
-
-              <p class="flex-grow-1 mb-0">
-                {{ post?.content }}
-              </p>
-              <!-- functions -->
-              <div class="cd-comment-actions" *ngIf="">
-                <a>
-                  <mat-icon> more_horiz </mat-icon>
-                </a>
-              </div>
-            </div>
-
             <div class="d-post-comments">
               <app-comments
                 [comments]="post.comments"
@@ -88,6 +60,7 @@
                 [userId]="user._id"
               ></app-comments>
             </div>
+
             <!-- Post Detail -->
             <div class="d-post-detail">
               <div class="row d-post-detail-functions">
@@ -119,6 +92,35 @@
                 </div>
               </div>
             </div>
+
+            <div class="d-post-content">
+              <div class="mt-1 me-1" href="#">
+                <!-- <div class="">
+                  <img
+                    alt=""
+                    class="img-thumbnail img-circle img-fluid"
+                    [src]="post.author?.thumbnail"
+                    width="40"
+                  />
+                </div> -->
+              </div>
+              <div>
+                <a class="section-link text-black me-1 mb-0">
+                  {{ post.author?.username }}
+                </a>
+              </div>
+
+              <div class="section-content flex-grow-1 mb-0">
+                {{ post?.content }}
+              </div>
+              <!-- functions -->
+              <div class="cd-comment-actions" *ngIf="">
+                <a>
+                  <mat-icon> more_horiz </mat-icon>
+                </a>
+              </div>
+            </div>
+
             <!-- comment -->
             <div class="d-post-comment-write">
               <app-comment-create

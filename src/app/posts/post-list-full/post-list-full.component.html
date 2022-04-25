@@ -7,16 +7,18 @@
       <div class="d-post-heading d-flex align-items-center text-start">
         <div class="align-self-center">
           <img
-            class="media-object c-img-thumnail img-circle img-no-padding img-responsive img-fluid"
+            class="img-thumbnail img-circle img-no-padding img-responsive img-fluid"
             [src]="post.author?.thumbnail"
             width="40"
           />
         </div>
         <div class="font-weight-bold flex-grow-1">
-          <a href="" [routerLink]="['/user', post.author?._id]">
-            <strong>
-              {{ post.author?.username }}
-            </strong>
+          <a
+            href="#"
+            class="section-link text-md text-black"
+            [routerLink]="['/user', post.author?._id]"
+          >
+            {{ post.author?.username }}
           </a>
         </div>
         <div class="pr-2">
@@ -85,21 +87,35 @@
             <div class="d-post-comments">
               <div class="d-flex align-items-center mb-2">
                 <div class="pe-3">
-                  <strong>
+                  <a
+                    class="section-link text-black"
+                    href="#"
+                    [routerLink]="['/user', post.author?._id]"
+                  >
                     {{ post.author?.username }}
-                  </strong>
+                  </a>
+                  <strong> </strong>
                 </div>
-                <div>{{ post.content }}</div>
+                <div class="section-content">
+                  {{
+                    post.content.length > 200
+                      ? post.content.substring(0, 100) + "..."
+                      : post.content
+                  }}
+                </div>
               </div>
               <div class="mb-3">
-                <a href="#" (click)="openDialog(post, $event)"
+                <a
+                  class="section-link fw-normal text-sm text-black-50"
+                  href="#"
+                  (click)="openDialog(post, $event)"
                   >View all Comments</a
                 >
               </div>
               <div class="mb-3">
                 <a
                   href="#"
-                  class="text-decoration-none text-black-50"
+                  class="section-link fw-normal text-xs text-black-50"
                   (click)="openDialog(post, $event)"
                 >
                   {{ post.createdAt | postTime }}

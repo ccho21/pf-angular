@@ -1,4 +1,4 @@
-<a class="d-flex align-items-center" (click)="openActionModal(userActions)">
+<a class="section-link text-black" (click)="openActionModal(userActions)">
   <mat-icon> more_horiz </mat-icon>
 </a>
 
@@ -7,13 +7,13 @@
     <div>
       <div>
         <div class="px-3 py-3 text-center">
-          <a class="d-block" [mat-dialog-close]="true">Follow</a>
+          <a class="section-link text-black" [mat-dialog-close]="true">Follow</a>
         </div>
       </div>
       <div *ngIf="isSameAuthor">
         <hr class="m-0" />
         <div class="py-3 text-center">
-          <a class="d-block" [mat-dialog-close]="true" (click)="editPost(post)"
+          <a class="section-link text-black" [mat-dialog-close]="true" (click)="editPost(post)"
             >Edit</a
           >
         </div>
@@ -22,7 +22,7 @@
         <hr class="m-0" />
         <div class="px-3 py-3 text-center text-danger">
           <a
-            class="d-block"
+            class="section-link text-black"
             [mat-dialog-close]="true"
             (click)="deletePost(post, confirmActions)"
             >Delete

@@ -6,16 +6,13 @@
 
       <button
         mat-icon-button
-        class="example-icon favorite-icon"
-        aria-label="Example icon-button with heart icon"
+        class="favorite-icon"
+        aria-label=""
+        routerLink="/posts/create"
       >
-        <mat-icon>favorite</mat-icon>
+        <mat-icon>add_circle_outline</mat-icon>
       </button>
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with share icon"
-      >
+      <button mat-icon-button class="" aria-label="">
         <mat-icon>share</mat-icon>
       </button>
       <div>
@@ -30,11 +27,15 @@
       </div>
       <div *ngIf="user$ | async as user">
         <button mat-button [matMenuTriggerFor]="menu">
-          <img [src]="user?.thumbnail" alt="" width="28" />
+          <img
+            class="img-thumbnail img-circle"
+            [src]="user?.thumbnail"
+            alt=""
+          />
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item [routerLink]="['/user', user._id]">
-            User Page
+            Profile
           </button>
           <button mat-menu-item *ngIf="isLoggedIn$ | async" (click)="logout()">
             Sign out

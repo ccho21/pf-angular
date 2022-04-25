@@ -1,20 +1,18 @@
 <div>
   <div *ngIf="post?.likes?.length; else elseBlock">
-    <div class="d-flex">
-      <div class="d-flex">
-        <span> Liked by </span>
-        <a class="d-block px-1" (click)="openLikes(likes)">
-          <strong class="">
-            {{ post && post.likes[0].author.username }}
-          </strong>
+    <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center">
+        <span class="section-content"> Liked by </span>
+        <a class="section-link text-sm text-black ps-2" (click)="openLikes(likes)">
+          {{ post && post.likes[0].author.username }}
         </a>
       </div>
 
       <div *ngIf="post && post.likes.length > 1">
         <div class="d-flex">
-          <span> and </span>
-          <a class="d-block px-1">
-            <strong class="" (click)="openLikes(likes)"> others </strong>
+          <span class="text-sm"> and </span>
+          <a class="section-link text-sm text-black px-1" (click)="openLikes(likes)">
+            others
           </a>
         </div>
       </div>
@@ -37,7 +35,7 @@
           <img
             alt="HHAHa"
             width="40"
-            class="media-object c-img-thumnail img-circle img-fluid"
+            class="img-thumbnail img-circle img-fluid"
             [src]="like.author?.thumbnail"
           />
         </div>

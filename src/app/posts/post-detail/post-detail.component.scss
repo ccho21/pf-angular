@@ -10,8 +10,8 @@
 
   .d-post-content {
     display: flex;
-    align-items: center;
-    padding: 0.5rem;
+    align-items: start;
+    padding: 1rem;
   }
 
   &-wrapper {
@@ -104,18 +104,18 @@
 
     .d-post-heading {
       border-bottom: 0.8px solid lightgray;
-      padding: 0.5rem;
+      padding: 1rem;
     }
     .d-post-comments {
       overflow-y: scroll;
       flex-grow: 1;
-      padding: 0.5rem;
+      padding: 1rem;
      
     }
     .d-post-detail {
       border-top: 0.8px solid lightgray;
       font-size: 0.8rem;
-      padding: 0.5rem;
+      padding: 1rem;
       &-functions {
         display: flex;
         font-size: 1.3rem;
@@ -144,7 +144,7 @@
   button {
     font-size: inherit;
   }
-  .c-img-thumnail {
+  .img-thumbnail {
     height: 1.8rem;
   }
   .modal-body {

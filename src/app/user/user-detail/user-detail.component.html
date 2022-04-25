@@ -32,6 +32,9 @@
               {{ user.firstname }}
               {{ user.lastname }}
             </div>
+            <div>
+              {{ user.email }}
+            </div>
           </div>
         </div>
         <div class="row pb-3">
@@ -41,10 +44,10 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div><strong>102</strong> followers</div>
+            <div><strong>0</strong> followers</div>
           </div>
           <div class="col-md-4">
-            <div><strong>192</strong> following</div>
+            <div><strong>0</strong> following</div>
           </div>
         </div>
         <div class="row">
@@ -66,12 +69,6 @@
           <mat-tab label="Liked">
             <div class="p-5">
               <app-post-list [posts]="userPostsLiked$ | async"></app-post-list>
-            </div>
-          </mat-tab>
-          <mat-tab label="Bookmarked">
-            <div class="p-5">
-              WORKING
-              <!-- <app-post-list [posts]="userPosts$ | async"></app-post-list> -->
             </div>
           </mat-tab>
         </mat-tab-group>

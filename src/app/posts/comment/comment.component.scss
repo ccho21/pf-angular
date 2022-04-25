@@ -42,7 +42,7 @@
     }
   }
   .media-body {
-    width: 100%;
+    flex-grow: 1;
   }
   &-actions {
     visibility: hidden;
@@ -59,8 +59,5 @@
     display: flex;
     align-items: center;
     font-size: 0.8rem;
-  }
-  .cd-comment-reply {
-    font-weight: 500;
   }
 }
