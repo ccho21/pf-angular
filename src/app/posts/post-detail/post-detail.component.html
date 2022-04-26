@@ -19,8 +19,12 @@
                   swiperSlide
                   class="text-white text-center"
                 >
-                  <div class="d-post-img" [ngStyle]="{ backgroundImage: getBackgroundImageUrl(image) }">
-                  </div>
+                  <div
+                    class="d-post-img"
+                    [ngStyle]="{
+                      backgroundImage: getBackgroundImageUrl(image)
+                    }"
+                  ></div>
                 </ng-template>
               </swiper>
             </div>

@@ -12,11 +12,11 @@ import { Observable } from 'rxjs';
 import { selectUser } from '../user.selectors';
 
 @Component({
-  selector: 'app-user-detail',
-  templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss'],
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.scss'],
 })
-export class UserDetailComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
   user$?: Observable<User>;
   userPosts$?: Observable<Post[]>;
   userPostsLiked$?: Observable<Post[]>;

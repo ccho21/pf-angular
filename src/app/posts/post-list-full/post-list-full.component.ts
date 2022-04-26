@@ -47,8 +47,8 @@ export class PostListFullComponent implements OnInit {
     console.log('slide change');
   }
 
-  getBackgroundImageUrl(post: Post) {
-    return `url(${post.images.length ? post.images[0] : this.default})`;
+  getBackgroundImageUrl(image: string) {
+    return `url(${image})`;
   }
 
   openDialog(post: Post, e: Event) {
